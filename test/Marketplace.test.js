@@ -10,6 +10,7 @@ contract('Marketplace', ([deployer, seller, buyer]) => {
   before(async () => {
     marketplace = await Marketplace.deployed()
   })
+  
 
   describe('deployment', async () => {
     it('deploys successfully', async () => {

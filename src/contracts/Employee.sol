@@ -4,7 +4,8 @@ contract Employee {
   string name; 
   address owner;
   uint public employeeCount; 
-  uint memberCount;
+  uint familyCounter;
+  uint memberCounter;
   
   struct Emp {
     uint id;
@@ -14,8 +15,11 @@ contract Employee {
   } 
   
   struct Family {
-      address empAddress;
+      uint id;
+      uint empId;
       uint count;
+      uint activeMembers;
+      bool flag;
   }
   
   struct Member {
@@ -38,6 +42,14 @@ contract Employee {
     address owner,
     bool active
   );
+  
+  event empFamilyRegistered(
+      uint familyCounter,
+      uint _empId,
+      uint flag,
+      string msg
+  );
+  
 
   event employeeActivated(
     uint id,
@@ -52,13 +64,14 @@ contract Employee {
   );
 
   mapping(uint => Emp) public employees;
-  mapping(uint => Member) public members;
-  mapping(uint => Family) public families;
+  mapping(uint => mapping(uint => Member)) public EmployeeToFamilyMembers;
+  mapping(uint => Family[]) public EmployeeFamily;
 
   constructor() public {
     name = "Employee contract initialised";
     employeeCount = 0;
-    memberCount = 0;
+    memberCounter = 0;
+    familyCounter = 0;
     owner = msg.sender;
   }
 
@@ -71,22 +84,42 @@ contract Employee {
   }
 
   function registerEmployee(uint _empId) public {
-    if (canRegister(_empId)) {
     employeeCount ++;
-    employees[employeeCount] = Emp(employeeCount, _empId, msg.sender, false);
+    employees[_empId] = Emp(employeeCount, _empId, msg.sender, false);
 
     emit employeeRegistered(employeeCount,_empId, msg.sender, false);
-    }
-    else {
-      emit employeeNotRegistered(employeeCount,_empId, msg.sender, false);
-    }
+  }
+  
+  function registerFamily(uint _empId, uint _count) public {
+      
+      if(!familyExists(_empId)) {
+      familyCounter ++;
+      Family memory _family = Family(familyCounter, _empId, _count, 0, true);
+      EmployeeFamily[_empId].push(_family);
+      
+      emit empFamilyRegistered(familyCounter, _empId, 1, "success");
+      } else {
+                emit empFamilyRegistered(familyCounter, _empId, 0, "failure");
+      }
+
   }
   
   function registerMember(uint _empId, address _address) public {
-      if (isRegistered(_empId)) {
-          memberCount ++;
-          members[memberCount] = Member(memberCount, _empId, _address, true);
+          memberCounter ++;
+          EmployeeToFamilyMembers[_empId][memberCounter] = Member(memberCounter, _empId, _address, true);
+          Family memory _family = EmployeeFamily[_empId][0];
+          _family.activeMembers ++;
+          EmployeeFamily[_empId][0] = _family;
+  }
+  
+  function familyExists(uint _empId) private view returns(bool){
+      if (EmployeeFamily[_empId].length > 0) {
+          return true;
       }
+      else {
+          return false;
+      }
+      
   }
 
   function activateEmployee(uint _id) public {

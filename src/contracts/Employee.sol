@@ -12,6 +12,7 @@ contract Employee {
     uint empId;
     address owner;
     bool active;
+    bool flag;
   } 
   
   struct Family {
@@ -29,11 +30,11 @@ contract Employee {
       bool active;
   }
   
-  event employeeRegistered(
+  event employeeRegistration(
     uint id,
     uint empId,
-    address owner,
-    bool active
+    bool active,
+    string msg
   );
 
   event employeeNotRegistered(
@@ -43,12 +44,16 @@ contract Employee {
     bool active
   );
   
-  event empFamilyRegistered(
+  event empFamilyRegistration(
       uint familyCounter,
       uint _empId,
       uint flag,
       string msg
   );
+  
+  event memberRegistration(
+      uint memberCounter, 
+      string msg );
   
 
   event employeeActivated(
@@ -84,22 +89,27 @@ contract Employee {
   }
 
   function registerEmployee(uint _empId) public {
-    employeeCount ++;
-    employees[_empId] = Emp(employeeCount, _empId, msg.sender, false);
-
-    emit employeeRegistered(employeeCount,_empId, msg.sender, false);
+     if(canRegister(_empId)) {
+        employeeCount ++;
+        employees[_empId] = Emp(employeeCount, _empId, msg.sender, false, true);
+    
+        emit employeeRegistration(employeeCount,_empId, false, "success"); 
+     }
+     else {
+         emit employeeRegistration(employeeCount,_empId, false, "failure"); 
+     }
   }
   
   function registerFamily(uint _empId, uint _count) public {
       
-      if(!familyExists(_empId)) {
+      if(!familyExists(_empId) && (isRegistered(_empId))) {
       familyCounter ++;
       Family memory _family = Family(familyCounter, _empId, _count, 0, true);
       EmployeeFamily[_empId].push(_family);
       
-      emit empFamilyRegistered(familyCounter, _empId, 1, "success");
+      emit empFamilyRegistration(familyCounter, _empId, 1, "success");
       } else {
-                emit empFamilyRegistered(familyCounter, _empId, 0, "failure");
+                emit empFamilyRegistration(familyCounter, _empId, 0, "failure");
       }
 
   }
@@ -110,6 +120,8 @@ contract Employee {
           Family memory _family = EmployeeFamily[_empId][0];
           _family.activeMembers ++;
           EmployeeFamily[_empId][0] = _family;
+          
+          emit memberRegistration(memberCounter, "success");
   }
   
   function familyExists(uint _empId) private view returns(bool){
@@ -143,12 +155,23 @@ contract Employee {
     emit employeeDisabled(_id, "employee disabled");
   }
 
-  function canRegister(uint _id) private returns (bool) {
-    return true;
+  function canRegister(uint _id) private view returns (bool) {
+      if(employees[_id].flag) {
+          return false;
+      }
+      else {
+          return true;          
+      }
+
   }
   
-  function isRegistered(uint _id) private returns (bool) {
-      return true;
+  function isRegistered(uint _id) private view returns (bool) {
+      if(employees[_id].flag && employees[_id].active) {
+          return true;          
+      } else {
+          return false;
+      }
+
   }
 
 }

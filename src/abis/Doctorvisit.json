@@ -34,6 +34,42 @@
     },
     {
       "constant": true,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "empDoctorVisists",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "empId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "couponId",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
       "inputs": [],
       "name": "visitCount",
       "outputs": [
@@ -129,25 +165,25 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"Id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"empId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"couponId\",\"type\":\"uint256\"}],\"name\":\"VisitCreated\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_empId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_couponId\",\"type\":\"uint256\"}],\"name\":\"createVisit\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getName\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"}],\"name\":\"setName\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"visitCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"visits\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"empId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"couponId\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/wissamdagher/Documents/dev/blockchain/marketplace/src/contracts/Doctorvisit.sol\":\"Doctorvisit\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/wissamdagher/Documents/dev/blockchain/marketplace/src/contracts/Doctorvisit.sol\":{\"keccak256\":\"0x7068ca17602cc458571e81fef6c0eb5a73a1bd0e37403fac541aec5c7f271ca1\",\"urls\":[\"bzz-raw://e5de4835ed6db39b71ac41f4d2fd795e1fcf58a2cbc1d6f4f653e5128cbc9118\",\"dweb:/ipfs/QmbqC7PBX79WMFQuq6ZbsPSCSLGtntwdMhw9fTdU5yt1h3\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b506040518060400160405280602081526020017f446f63746f72766973697420636f6e747261637420696e697469616c697365648152506000908051906020019061005c92919061006a565b50600060018190555061010f565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106100ab57805160ff19168380011785556100d9565b828001600101855582156100d9579182015b828111156100d85782518255916020019190600101906100bd565b5b5090506100e691906100ea565b5090565b61010c91905b808211156101085760008160009055506001016100f0565b5090565b90565b6104838061011e6000396000f3fe608060405234801561001057600080fd5b50600436106100575760003560e01c806309c55a131461005c57806317d7de7c146100ac5780631e2908461461012f578063c47f002714610167578063e0e4367e14610222575b600080fd5b6100886004803603602081101561007257600080fd5b8101908080359060200190929190505050610240565b60405180848152602001838152602001828152602001935050505060405180910390f35b6100b461026a565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100f45780820151818401526020810190506100d9565b50505050905090810190601f1680156101215780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6101656004803603604081101561014557600080fd5b81019080803590602001909291908035906020019092919050505061030c565b005b6102206004803603602081101561017d57600080fd5b810190808035906020019064010000000081111561019a57600080fd5b8201836020820111156101ac57600080fd5b803590602001918460018302840111640100000000831117156101ce57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610389565b005b61022a6103a3565b6040518082815260200191505060405180910390f35b60026020528060005260406000206000915090508060000154908060010154908060020154905083565b606060008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156103025780601f106102d757610100808354040283529160200191610302565b820191906000526020600020905b8154815290600101906020018083116102e557829003601f168201915b5050505050905090565b6001600081548092919060010191905055506040518060600160405280600154815260200183815260200182815250507f963e6f8951cabc47c15da959f7150eb71d92b2be3d5c9e17084ae1c461570eee600154838360405180848152602001838152602001828152602001935050505060405180910390a15050565b806000908051906020019061039f9291906103a9565b5050565b60015481565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106103ea57805160ff1916838001178555610418565b82800160010185558215610418579182015b828111156104175782518255916020019190600101906103fc565b5b5090506104259190610429565b5090565b61044b91905b8082111561044757600081600090555060010161042f565b5090565b9056fea265627a7a7231582093fd0603df333905bfb284267129913726b87ec642d4a8d10a572afc697557a964736f6c63430005100032",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100575760003560e01c806309c55a131461005c57806317d7de7c146100ac5780631e2908461461012f578063c47f002714610167578063e0e4367e14610222575b600080fd5b6100886004803603602081101561007257600080fd5b8101908080359060200190929190505050610240565b60405180848152602001838152602001828152602001935050505060405180910390f35b6100b461026a565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100f45780820151818401526020810190506100d9565b50505050905090810190601f1680156101215780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6101656004803603604081101561014557600080fd5b81019080803590602001909291908035906020019092919050505061030c565b005b6102206004803603602081101561017d57600080fd5b810190808035906020019064010000000081111561019a57600080fd5b8201836020820111156101ac57600080fd5b803590602001918460018302840111640100000000831117156101ce57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610389565b005b61022a6103a3565b6040518082815260200191505060405180910390f35b60026020528060005260406000206000915090508060000154908060010154908060020154905083565b606060008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156103025780601f106102d757610100808354040283529160200191610302565b820191906000526020600020905b8154815290600101906020018083116102e557829003601f168201915b5050505050905090565b6001600081548092919060010191905055506040518060600160405280600154815260200183815260200182815250507f963e6f8951cabc47c15da959f7150eb71d92b2be3d5c9e17084ae1c461570eee600154838360405180848152602001838152602001828152602001935050505060405180910390a15050565b806000908051906020019061039f9291906103a9565b5050565b60015481565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106103ea57805160ff1916838001178555610418565b82800160010185558215610418579182015b828111156104175782518255916020019190600101906103fc565b5b5090506104259190610429565b5090565b61044b91905b8082111561044757600081600090555060010161042f565b5090565b9056fea265627a7a7231582093fd0603df333905bfb284267129913726b87ec642d4a8d10a572afc697557a964736f6c63430005100032",
-  "sourceMap": "25:687:0:-;;;280:93;8:9:-1;5:2;;;30:1;27;20:12;5:2;280:93:0;307:41;;;;;;;;;;;;;;;;;:4;:41;;;;;;;;;;;;:::i;:::-;;367:1;354:10;:14;;;;25:687;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;",
-  "deployedSourceMap": "25:687:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;25:687:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;239:36;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;239:36:0;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;450:77;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;450:77:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;531:178;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;531:178:0;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;377:69;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;377:69:0;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;377:69:0;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;377:69:0;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;377:69:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;377:69:0;;;;;;;;;;;;;;;:::i;:::-;;65:22;;;:::i;:::-;;;;;;;;;;;;;;;;;;;239:36;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;450:77::-;490:13;518:4;511:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;450:77;:::o;531:178::-;594:10;;:13;;;;;;;;;;;;;613:36;;;;;;;;619:10;;613:36;;;;631:6;613:36;;;;639:9;613:36;;;;661:43;674:10;;686:6;694:9;661:43;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;531:178;;:::o;377:69::-;436:5;429:4;:12;;;;;;;;;;;;:::i;:::-;;377:69;:::o;65:22::-;;;;:::o;25:687::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
-  "source": "pragma solidity ^0.5.0;\n\ncontract Doctorvisit {\n  string name;\n  uint public visitCount; \n  struct Visit {\n    uint id;\n    uint empId;\n    uint couponId;\n  }\n\n  event VisitCreated (\n    uint Id,\n    uint empId,\n    uint couponId\n  );\n\n\n  mapping(uint => Visit) public visits;\n\n  constructor() public {\n    name = \"Doctorvisit contract initialised\";\n    visitCount = 0;\n  }\n\n  function setName(string memory _name) public { \n    name = _name;\n  }\n\n  function getName() public view returns (string memory) {\n    return name;\n  }\n\n  function createVisit(uint _empId, uint _couponId) public {\n    visitCount ++;\n    Visit(visitCount, _empId, _couponId);\n\n    emit VisitCreated(visitCount, _empId, _couponId);\n  }\n\n}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"Id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"empId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"couponId\",\"type\":\"uint256\"}],\"name\":\"VisitCreated\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_empId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_couponId\",\"type\":\"uint256\"}],\"name\":\"createVisit\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"empDoctorVisists\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"empId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"couponId\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getName\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"}],\"name\":\"setName\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"visitCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"visits\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"empId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"couponId\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/wissamdagher/Documents/dev/blockchain/marketplace/src/contracts/Doctorvisit.sol\":\"Doctorvisit\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/wissamdagher/Documents/dev/blockchain/marketplace/src/contracts/Doctorvisit.sol\":{\"keccak256\":\"0x4bb440de2386a605bb6666faaddc6b785741ecaaf8855680945350bf48a20912\",\"urls\":[\"bzz-raw://2ed5e4486660d5520b4c472be7d503482f931eac44c4c99e438329bc645a25bf\",\"dweb:/ipfs/QmPFA9z9PgF8PGe5osw7NXwqg8F2G7RKrppYaBr9MAfLof\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040518060400160405280602081526020017f446f63746f72766973697420636f6e747261637420696e697469616c697365648152506000908051906020019061005c9291906100ab565b50600060028190555033600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550610150565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106100ec57805160ff191683800117855561011a565b8280016001018555821561011a579182015b828111156101195782518255916020019190600101906100fe565b5b509050610127919061012b565b5090565b61014d91905b80821115610149576000816000905550600101610131565b5090565b90565b6106308061015f6000396000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c806309c55a131461006757806317d7de7c146100b75780631e2908461461013a578063a61b8fc514610172578063c47f0027146101e2578063e0e4367e1461029d575b600080fd5b6100936004803603602081101561007d57600080fd5b81019080803590602001909291905050506102bb565b60405180848152602001838152602001828152602001935050505060405180910390f35b6100bf6102e5565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100ff5780820151818401526020810190506100e4565b50505050905090810190601f16801561012c5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6101706004803603604081101561015057600080fd5b810190808035906020019092919080359060200190929190505050610387565b005b6101be6004803603604081101561018857600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506104d1565b60405180848152602001838152602001828152602001935050505060405180910390f35b61029b600480360360208110156101f857600080fd5b810190808035906020019064010000000081111561021557600080fd5b82018360208201111561022757600080fd5b8035906020019184600183028401116401000000008311171561024957600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610515565b005b6102a561052f565b6040518082815260200191505060405180910390f35b60036020528060005260406000206000915090508060000154908060010154908060020154905083565b606060008054600181600116156101000203166002900480601f01602080910402602001604051908101604052809291908181526020018280546001816001161561010002031660029004801561037d5780601f106103525761010080835404028352916020019161037d565b820191906000526020600020905b81548152906001019060200180831161036057829003601f168201915b5050505050905090565b6002600081548092919060010191905055506103a1610535565b6040518060600160405280600254815260200184815260200183815250905080600360006002548152602001908152602001600020600082015181600001556020820151816001015560408201518160020155905050600460003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081908060018154018082558091505090600182039060005260206000209060030201600090919290919091506000820151816000015560208201518160010155604082015181600201555050507f963e6f8951cabc47c15da959f7150eb71d92b2be3d5c9e17084ae1c461570eee600254848460405180848152602001838152602001828152602001935050505060405180910390a1505050565b600460205281600052604060002081815481106104ea57fe5b9060005260206000209060030201600091509150508060000154908060010154908060020154905083565b806000908051906020019061052b929190610556565b5050565b60025481565b60405180606001604052806000815260200160008152602001600081525090565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061059757805160ff19168380011785556105c5565b828001600101855582156105c5579182015b828111156105c45782518255916020019190600101906105a9565b5b5090506105d291906105d6565b5090565b6105f891905b808211156105f45760008160009055506001016105dc565b5090565b9056fea265627a7a72315820409f00696ef6567278caf2fa23493fa901344f8d2d42c282a0e58230ed46a92e64736f6c63430005100032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100625760003560e01c806309c55a131461006757806317d7de7c146100b75780631e2908461461013a578063a61b8fc514610172578063c47f0027146101e2578063e0e4367e1461029d575b600080fd5b6100936004803603602081101561007d57600080fd5b81019080803590602001909291905050506102bb565b60405180848152602001838152602001828152602001935050505060405180910390f35b6100bf6102e5565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100ff5780820151818401526020810190506100e4565b50505050905090810190601f16801561012c5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6101706004803603604081101561015057600080fd5b810190808035906020019092919080359060200190929190505050610387565b005b6101be6004803603604081101561018857600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506104d1565b60405180848152602001838152602001828152602001935050505060405180910390f35b61029b600480360360208110156101f857600080fd5b810190808035906020019064010000000081111561021557600080fd5b82018360208201111561022757600080fd5b8035906020019184600183028401116401000000008311171561024957600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610515565b005b6102a561052f565b6040518082815260200191505060405180910390f35b60036020528060005260406000206000915090508060000154908060010154908060020154905083565b606060008054600181600116156101000203166002900480601f01602080910402602001604051908101604052809291908181526020018280546001816001161561010002031660029004801561037d5780601f106103525761010080835404028352916020019161037d565b820191906000526020600020905b81548152906001019060200180831161036057829003601f168201915b5050505050905090565b6002600081548092919060010191905055506103a1610535565b6040518060600160405280600254815260200184815260200183815250905080600360006002548152602001908152602001600020600082015181600001556020820151816001015560408201518160020155905050600460003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081908060018154018082558091505090600182039060005260206000209060030201600090919290919091506000820151816000015560208201518160010155604082015181600201555050507f963e6f8951cabc47c15da959f7150eb71d92b2be3d5c9e17084ae1c461570eee600254848460405180848152602001838152602001828152602001935050505060405180910390a1505050565b600460205281600052604060002081815481106104ea57fe5b9060005260206000209060030201600091509150508060000154908060010154908060020154905083565b806000908051906020019061052b929190610556565b5050565b60025481565b60405180606001604052806000815260200160008152602001600081525090565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061059757805160ff19168380011785556105c5565b828001600101855582156105c5579182015b828111156105c45782518255916020019190600101906105a9565b5b5090506105d291906105d6565b5090565b6105f891905b808211156105f45760008160009055506001016105dc565b5090565b9056fea265627a7a72315820409f00696ef6567278caf2fa23493fa901344f8d2d42c282a0e58230ed46a92e64736f6c63430005100032",
+  "sourceMap": "25:962:1:-;;;417:117;8:9:-1;5:2;;;30:1;27;20:12;5:2;417:117:1;444:41;;;;;;;;;;;;;;;;;:4;:41;;;;;;;;;;;;:::i;:::-;;504:1;491:10;:14;;;;519:10;511:5;;:18;;;;;;;;;;;;;;;;;;25:962;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;",
+  "deployedSourceMap": "25:962:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;25:962:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;288:36;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;288:36:1;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;611:77;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;611:77:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;692:292;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;692:292:1;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;361:51;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;361:51:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;538:69;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;538:69:1;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;538:69:1;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;538:69:1;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;538:69:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;538:69:1;;;;;;;;;;;;;;;:::i;:::-;;82:22;;;:::i;:::-;;;;;;;;;;;;;;;;;;;288:36;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;611:77::-;651:13;679:4;672:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;611:77;:::o;692:292::-;755:10;;:13;;;;;;;;;;;;;774:19;;:::i;:::-;808:36;;;;;;;;814:10;;808:36;;;;826:6;808:36;;;;834:9;808:36;;;799:45;;871:6;850;:18;857:10;;850:18;;;;;;;;;;;:27;;;;;;;;;;;;;;;;;;;;;;;;;;;883:16;:28;900:10;883:28;;;;;;;;;;;;;;;917:6;883:41;;39:1:-1;33:3;27:10;23:18;57:10;52:3;45:23;79:10;72:17;;0:93;883:41:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;936:43;949:10;;961:6;969:9;936:43;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;692:292;;;:::o;361:51::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;538:69::-;597:5;590:4;:12;;;;;;;;;;;;:::i;:::-;;538:69;:::o;82:22::-;;;;:::o;25:962::-;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.5.0;\n\ncontract Doctorvisit {\n  string name;\n  address owner;\n  uint public visitCount; \n\n  struct Visit {\n    uint id;\n    uint empId;\n    uint couponId;\n  }\n\n  event VisitCreated (\n    uint Id,\n    uint empId,\n    uint couponId\n  );\n\n  //visits  mapping incremental\n  mapping(uint => Visit) public visits;\n  //employee doctor visits array\n  mapping(address => Visit[]) public empDoctorVisists;\n\n  constructor() public {\n    name = \"Doctorvisit contract initialised\";\n    visitCount = 0;\n    owner = msg.sender;\n  }\n\n  function setName(string memory _name) public { \n    name = _name;\n  }\n\n  function getName() public view returns (string memory) {\n    return name;\n  }\n\n  function createVisit(uint _empId, uint _couponId) public {\n    visitCount ++;\n    Visit memory _visit;\n    _visit = Visit(visitCount, _empId, _couponId);\n    visits[visitCount] = _visit;\n    empDoctorVisists[msg.sender].push(_visit);\n\n    emit VisitCreated(visitCount, _empId, _couponId);\n  }\n\n}",
   "sourcePath": "/Users/wissamdagher/Documents/dev/blockchain/marketplace/src/contracts/Doctorvisit.sol",
   "ast": {
     "absolutePath": "/Users/wissamdagher/Documents/dev/blockchain/marketplace/src/contracts/Doctorvisit.sol",
     "exportedSymbols": {
       "Doctorvisit": [
-        78
+        391
       ]
     },
-    "id": 79,
+    "id": 392,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1,
+        "id": 283,
         "literals": [
           "solidity",
           "^",
@@ -155,7 +191,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:0"
+        "src": "0:23:1"
       },
       {
         "baseContracts": [],
@@ -163,20 +199,20 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 78,
+        "id": 391,
         "linearizedBaseContracts": [
-          78
+          391
         ],
         "name": "Doctorvisit",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 3,
+            "id": 285,
             "name": "name",
             "nodeType": "VariableDeclaration",
-            "scope": 78,
-            "src": "50:11:0",
+            "scope": 391,
+            "src": "50:11:1",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -184,10 +220,10 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 2,
+              "id": 284,
               "name": "string",
               "nodeType": "ElementaryTypeName",
-              "src": "50:6:0",
+              "src": "50:6:1",
               "typeDescriptions": {
                 "typeIdentifier": "t_string_storage_ptr",
                 "typeString": "string"
@@ -198,11 +234,38 @@
           },
           {
             "constant": false,
-            "id": 5,
+            "id": 287,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "scope": 391,
+            "src": "65:13:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 286,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "65:7:1",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 289,
             "name": "visitCount",
             "nodeType": "VariableDeclaration",
-            "scope": 78,
-            "src": "65:22:0",
+            "scope": 391,
+            "src": "82:22:1",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -210,10 +273,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 4,
+              "id": 288,
               "name": "uint",
               "nodeType": "ElementaryTypeName",
-              "src": "65:4:0",
+              "src": "82:4:1",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -224,15 +287,15 @@
           },
           {
             "canonicalName": "Doctorvisit.Visit",
-            "id": 12,
+            "id": 296,
             "members": [
               {
                 "constant": false,
-                "id": 7,
+                "id": 291,
                 "name": "id",
                 "nodeType": "VariableDeclaration",
-                "scope": 12,
-                "src": "111:7:0",
+                "scope": 296,
+                "src": "129:7:1",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -240,10 +303,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 6,
+                  "id": 290,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "111:4:0",
+                  "src": "129:4:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -254,11 +317,11 @@
               },
               {
                 "constant": false,
-                "id": 9,
+                "id": 293,
                 "name": "empId",
                 "nodeType": "VariableDeclaration",
-                "scope": 12,
-                "src": "124:10:0",
+                "scope": 296,
+                "src": "142:10:1",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -266,10 +329,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 8,
+                  "id": 292,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "124:4:0",
+                  "src": "142:4:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -280,11 +343,11 @@
               },
               {
                 "constant": false,
-                "id": 11,
+                "id": 295,
                 "name": "couponId",
                 "nodeType": "VariableDeclaration",
-                "scope": 12,
-                "src": "140:13:0",
+                "scope": 296,
+                "src": "158:13:1",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -292,10 +355,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 10,
+                  "id": 294,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "140:4:0",
+                  "src": "158:4:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -307,28 +370,28 @@
             ],
             "name": "Visit",
             "nodeType": "StructDefinition",
-            "scope": 78,
-            "src": "92:66:0",
+            "scope": 391,
+            "src": "110:66:1",
             "visibility": "public"
           },
           {
             "anonymous": false,
             "documentation": null,
-            "id": 20,
+            "id": 304,
             "name": "VisitCreated",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 19,
+              "id": 303,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 14,
+                  "id": 298,
                   "indexed": false,
                   "name": "Id",
                   "nodeType": "VariableDeclaration",
-                  "scope": 20,
-                  "src": "187:7:0",
+                  "scope": 304,
+                  "src": "205:7:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -336,10 +399,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 13,
+                    "id": 297,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "187:4:0",
+                    "src": "205:4:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -350,12 +413,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 16,
+                  "id": 300,
                   "indexed": false,
                   "name": "empId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 20,
-                  "src": "200:10:0",
+                  "scope": 304,
+                  "src": "218:10:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -363,10 +426,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 15,
+                    "id": 299,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "200:4:0",
+                    "src": "218:4:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -377,12 +440,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 18,
+                  "id": 302,
                   "indexed": false,
                   "name": "couponId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 20,
-                  "src": "216:13:0",
+                  "scope": 304,
+                  "src": "234:13:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -390,10 +453,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 17,
+                    "id": 301,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "216:4:0",
+                    "src": "234:4:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -403,50 +466,50 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "181:52:0"
+              "src": "199:52:1"
             },
-            "src": "162:72:0"
+            "src": "180:72:1"
           },
           {
             "constant": false,
-            "id": 24,
+            "id": 308,
             "name": "visits",
             "nodeType": "VariableDeclaration",
-            "scope": 78,
-            "src": "239:36:0",
+            "scope": 391,
+            "src": "288:36:1",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Visit_$12_storage_$",
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Visit_$296_storage_$",
               "typeString": "mapping(uint256 => struct Doctorvisit.Visit)"
             },
             "typeName": {
-              "id": 23,
+              "id": 307,
               "keyType": {
-                "id": 21,
+                "id": 305,
                 "name": "uint",
                 "nodeType": "ElementaryTypeName",
-                "src": "247:4:0",
+                "src": "296:4:1",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
                 }
               },
               "nodeType": "Mapping",
-              "src": "239:22:0",
+              "src": "288:22:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Visit_$12_storage_$",
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Visit_$296_storage_$",
                 "typeString": "mapping(uint256 => struct Doctorvisit.Visit)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 22,
+                "id": 306,
                 "name": "Visit",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 12,
-                "src": "255:5:0",
+                "referencedDeclaration": 296,
+                "src": "304:5:1",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Visit_$12_storage_ptr",
+                  "typeIdentifier": "t_struct$_Visit_$296_storage_ptr",
                   "typeString": "struct Doctorvisit.Visit"
                 }
               }
@@ -455,27 +518,84 @@
             "visibility": "public"
           },
           {
+            "constant": false,
+            "id": 313,
+            "name": "empDoctorVisists",
+            "nodeType": "VariableDeclaration",
+            "scope": 391,
+            "src": "361:51:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_Visit_$296_storage_$dyn_storage_$",
+              "typeString": "mapping(address => struct Doctorvisit.Visit[])"
+            },
+            "typeName": {
+              "id": 312,
+              "keyType": {
+                "id": 309,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "369:7:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "361:27:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_Visit_$296_storage_$dyn_storage_$",
+                "typeString": "mapping(address => struct Doctorvisit.Visit[])"
+              },
+              "valueType": {
+                "baseType": {
+                  "contractScope": null,
+                  "id": 310,
+                  "name": "Visit",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 296,
+                  "src": "380:5:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Visit_$296_storage_ptr",
+                    "typeString": "struct Doctorvisit.Visit"
+                  }
+                },
+                "id": 311,
+                "length": null,
+                "nodeType": "ArrayTypeName",
+                "src": "380:7:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_Visit_$296_storage_$dyn_storage_ptr",
+                  "typeString": "struct Doctorvisit.Visit[]"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
             "body": {
-              "id": 35,
+              "id": 329,
               "nodeType": "Block",
-              "src": "301:72:0",
+              "src": "438:96:1",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 29,
+                    "id": 318,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 27,
+                      "id": 316,
                       "name": "name",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3,
-                      "src": "307:4:0",
+                      "referencedDeclaration": 285,
+                      "src": "444:4:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
                         "typeString": "string storage ref"
@@ -486,14 +606,14 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "446f63746f72766973697420636f6e747261637420696e697469616c69736564",
-                      "id": 28,
+                      "id": 317,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "kind": "string",
                       "lValueRequested": false,
                       "nodeType": "Literal",
-                      "src": "314:34:0",
+                      "src": "451:34:1",
                       "subdenomination": null,
                       "typeDescriptions": {
                         "typeIdentifier": "t_stringliteral_aed005805dec7a4d70523f78d796d98eac51c089aebfd65bc7730aa944e89c97",
@@ -501,32 +621,32 @@
                       },
                       "value": "Doctorvisit contract initialised"
                     },
-                    "src": "307:41:0",
+                    "src": "444:41:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage",
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 30,
+                  "id": 319,
                   "nodeType": "ExpressionStatement",
-                  "src": "307:41:0"
+                  "src": "444:41:1"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 33,
+                    "id": 322,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 31,
+                      "id": 320,
                       "name": "visitCount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 5,
-                      "src": "354:10:0",
+                      "referencedDeclaration": 289,
+                      "src": "491:10:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -537,14 +657,14 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "30",
-                      "id": 32,
+                      "id": 321,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "kind": "number",
                       "lValueRequested": false,
                       "nodeType": "Literal",
-                      "src": "367:1:0",
+                      "src": "504:1:1",
                       "subdenomination": null,
                       "typeDescriptions": {
                         "typeIdentifier": "t_rational_0_by_1",
@@ -552,65 +672,127 @@
                       },
                       "value": "0"
                     },
-                    "src": "354:14:0",
+                    "src": "491:14:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 34,
+                  "id": 323,
                   "nodeType": "ExpressionStatement",
-                  "src": "354:14:0"
-                }
-              ]
-            },
-            "documentation": null,
-            "id": 36,
-            "implemented": true,
-            "kind": "constructor",
-            "modifiers": [],
-            "name": "",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 25,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "291:2:0"
-            },
-            "returnParameters": {
-              "id": 26,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "301:0:0"
-            },
-            "scope": 78,
-            "src": "280:93:0",
-            "stateMutability": "nonpayable",
-            "superFunction": null,
-            "visibility": "public"
-          },
-          {
-            "body": {
-              "id": 45,
-              "nodeType": "Block",
-              "src": "422:24:0",
-              "statements": [
+                  "src": "491:14:1"
+                },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 43,
+                    "id": 327,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 41,
+                      "id": 324,
+                      "name": "owner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 287,
+                      "src": "511:5:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 325,
+                        "name": "msg",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 903,
+                        "src": "519:3:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_message",
+                          "typeString": "msg"
+                        }
+                      },
+                      "id": 326,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sender",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "519:10:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address_payable",
+                        "typeString": "address payable"
+                      }
+                    },
+                    "src": "511:18:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 328,
+                  "nodeType": "ExpressionStatement",
+                  "src": "511:18:1"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 330,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 314,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "428:2:1"
+            },
+            "returnParameters": {
+              "id": 315,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "438:0:1"
+            },
+            "scope": 391,
+            "src": "417:117:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 339,
+              "nodeType": "Block",
+              "src": "583:24:1",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 337,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 335,
                       "name": "name",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3,
-                      "src": "429:4:0",
+                      "referencedDeclaration": 285,
+                      "src": "590:4:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
                         "typeString": "string storage ref"
@@ -620,47 +802,47 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 42,
+                      "id": 336,
                       "name": "_name",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 38,
-                      "src": "436:5:0",
+                      "referencedDeclaration": 332,
+                      "src": "597:5:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_memory_ptr",
                         "typeString": "string memory"
                       }
                     },
-                    "src": "429:12:0",
+                    "src": "590:12:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage",
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 44,
+                  "id": 338,
                   "nodeType": "ExpressionStatement",
-                  "src": "429:12:0"
+                  "src": "590:12:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 46,
+            "id": 340,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "setName",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 39,
+              "id": 333,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 38,
+                  "id": 332,
                   "name": "_name",
                   "nodeType": "VariableDeclaration",
-                  "scope": 46,
-                  "src": "394:19:0",
+                  "scope": 340,
+                  "src": "555:19:1",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -668,10 +850,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 37,
+                    "id": 331,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "394:6:0",
+                    "src": "555:6:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -681,71 +863,71 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "393:21:0"
+              "src": "554:21:1"
             },
             "returnParameters": {
-              "id": 40,
+              "id": 334,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "422:0:0"
+              "src": "583:0:1"
             },
-            "scope": 78,
-            "src": "377:69:0",
+            "scope": 391,
+            "src": "538:69:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 53,
+              "id": 347,
               "nodeType": "Block",
-              "src": "505:22:0",
+              "src": "666:22:1",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 51,
+                    "id": 345,
                     "name": "name",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 3,
-                    "src": "518:4:0",
+                    "referencedDeclaration": 285,
+                    "src": "679:4:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage",
                       "typeString": "string storage ref"
                     }
                   },
-                  "functionReturnParameters": 50,
-                  "id": 52,
+                  "functionReturnParameters": 344,
+                  "id": 346,
                   "nodeType": "Return",
-                  "src": "511:11:0"
+                  "src": "672:11:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 54,
+            "id": 348,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getName",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 47,
+              "id": 341,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "466:2:0"
+              "src": "627:2:1"
             },
             "returnParameters": {
-              "id": 50,
+              "id": 344,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 49,
+                  "id": 343,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 54,
-                  "src": "490:13:0",
+                  "scope": 348,
+                  "src": "651:13:1",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -753,10 +935,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 48,
+                    "id": 342,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "490:6:0",
+                    "src": "651:6:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -766,24 +948,24 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "489:15:0"
+              "src": "650:15:1"
             },
-            "scope": 78,
-            "src": "450:77:0",
+            "scope": 391,
+            "src": "611:77:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 76,
+              "id": 389,
               "nodeType": "Block",
-              "src": "588:121:0",
+              "src": "749:235:1",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 62,
+                    "id": 356,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -791,15 +973,15 @@
                     "nodeType": "UnaryOperation",
                     "operator": "++",
                     "prefix": false,
-                    "src": "594:13:0",
+                    "src": "755:13:1",
                     "subExpression": {
                       "argumentTypes": null,
-                      "id": 61,
+                      "id": 355,
                       "name": "visitCount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 5,
-                      "src": "594:10:0",
+                      "referencedDeclaration": 289,
+                      "src": "755:10:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -810,9 +992,237 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 63,
+                  "id": 357,
                   "nodeType": "ExpressionStatement",
-                  "src": "594:13:0"
+                  "src": "755:13:1"
+                },
+                {
+                  "assignments": [
+                    359
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 359,
+                      "name": "_visit",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 389,
+                      "src": "774:19:1",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Visit_$296_memory_ptr",
+                        "typeString": "struct Doctorvisit.Visit"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 358,
+                        "name": "Visit",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 296,
+                        "src": "774:5:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Visit_$296_storage_ptr",
+                          "typeString": "struct Doctorvisit.Visit"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 360,
+                  "initialValue": null,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "774:19:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 367,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 361,
+                      "name": "_visit",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 359,
+                      "src": "799:6:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Visit_$296_memory_ptr",
+                        "typeString": "struct Doctorvisit.Visit memory"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 363,
+                          "name": "visitCount",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 289,
+                          "src": "814:10:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "id": 364,
+                          "name": "_empId",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 350,
+                          "src": "826:6:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "id": 365,
+                          "name": "_couponId",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 352,
+                          "src": "834:9:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        ],
+                        "id": 362,
+                        "name": "Visit",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 296,
+                        "src": "808:5:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_struct$_Visit_$296_storage_ptr_$",
+                          "typeString": "type(struct Doctorvisit.Visit storage pointer)"
+                        }
+                      },
+                      "id": 366,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "structConstructorCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "808:36:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Visit_$296_memory",
+                        "typeString": "struct Doctorvisit.Visit memory"
+                      }
+                    },
+                    "src": "799:45:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Visit_$296_memory_ptr",
+                      "typeString": "struct Doctorvisit.Visit memory"
+                    }
+                  },
+                  "id": 368,
+                  "nodeType": "ExpressionStatement",
+                  "src": "799:45:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 373,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 369,
+                        "name": "visits",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 308,
+                        "src": "850:6:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Visit_$296_storage_$",
+                          "typeString": "mapping(uint256 => struct Doctorvisit.Visit storage ref)"
+                        }
+                      },
+                      "id": 371,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "id": 370,
+                        "name": "visitCount",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 289,
+                        "src": "857:10:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "850:18:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Visit_$296_storage",
+                        "typeString": "struct Doctorvisit.Visit storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 372,
+                      "name": "_visit",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 359,
+                      "src": "871:6:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Visit_$296_memory_ptr",
+                        "typeString": "struct Doctorvisit.Visit memory"
+                      }
+                    },
+                    "src": "850:27:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Visit_$296_storage",
+                      "typeString": "struct Doctorvisit.Visit storage ref"
+                    }
+                  },
+                  "id": 374,
+                  "nodeType": "ExpressionStatement",
+                  "src": "850:27:1"
                 },
                 {
                   "expression": {
@@ -820,159 +1230,96 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 65,
-                        "name": "visitCount",
+                        "id": 380,
+                        "name": "_visit",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 5,
-                        "src": "619:10:0",
+                        "referencedDeclaration": 359,
+                        "src": "917:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
-                      },
-                      {
-                        "argumentTypes": null,
-                        "id": 66,
-                        "name": "_empId",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 56,
-                        "src": "631:6:0",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
-                      },
-                      {
-                        "argumentTypes": null,
-                        "id": 67,
-                        "name": "_couponId",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 58,
-                        "src": "639:9:0",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
+                          "typeIdentifier": "t_struct$_Visit_$296_memory_ptr",
+                          "typeString": "struct Doctorvisit.Visit memory"
                         }
                       }
                     ],
                     "expression": {
                       "argumentTypes": [
                         {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        },
-                        {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        },
-                        {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
+                          "typeIdentifier": "t_struct$_Visit_$296_memory_ptr",
+                          "typeString": "struct Doctorvisit.Visit memory"
                         }
                       ],
-                      "id": 64,
-                      "name": "Visit",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 12,
-                      "src": "613:5:0",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_struct$_Visit_$12_storage_ptr_$",
-                        "typeString": "type(struct Doctorvisit.Visit storage pointer)"
-                      }
-                    },
-                    "id": 68,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "kind": "structConstructorCall",
-                    "lValueRequested": false,
-                    "names": [],
-                    "nodeType": "FunctionCall",
-                    "src": "613:36:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Visit_$12_memory",
-                      "typeString": "struct Doctorvisit.Visit memory"
-                    }
-                  },
-                  "id": 69,
-                  "nodeType": "ExpressionStatement",
-                  "src": "613:36:0"
-                },
-                {
-                  "eventCall": {
-                    "argumentTypes": null,
-                    "arguments": [
-                      {
+                      "expression": {
                         "argumentTypes": null,
-                        "id": 71,
-                        "name": "visitCount",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 5,
-                        "src": "674:10:0",
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 375,
+                          "name": "empDoctorVisists",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 313,
+                          "src": "883:16:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_Visit_$296_storage_$dyn_storage_$",
+                            "typeString": "mapping(address => struct Doctorvisit.Visit storage ref[] storage ref)"
+                          }
+                        },
+                        "id": 378,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 376,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 903,
+                            "src": "900:3:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 377,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "sender",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": null,
+                          "src": "900:10:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address_payable",
+                            "typeString": "address payable"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "883:28:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
+                          "typeIdentifier": "t_array$_t_struct$_Visit_$296_storage_$dyn_storage",
+                          "typeString": "struct Doctorvisit.Visit storage ref[] storage ref"
                         }
                       },
-                      {
-                        "argumentTypes": null,
-                        "id": 72,
-                        "name": "_empId",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 56,
-                        "src": "686:6:0",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
-                      },
-                      {
-                        "argumentTypes": null,
-                        "id": 73,
-                        "name": "_couponId",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 58,
-                        "src": "694:9:0",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
-                      }
-                    ],
-                    "expression": {
-                      "argumentTypes": [
-                        {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        },
-                        {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        },
-                        {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
-                      ],
-                      "id": 70,
-                      "name": "VisitCreated",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 20,
-                      "src": "661:12:0",
+                      "id": 379,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "883:33:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_event_nonpayable$_t_uint256_$_t_uint256_$_t_uint256_$returns$__$",
-                        "typeString": "function (uint256,uint256,uint256)"
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_struct$_Visit_$296_storage_$returns$_t_uint256_$",
+                        "typeString": "function (struct Doctorvisit.Visit storage ref) returns (uint256)"
                       }
                     },
-                    "id": 74,
+                    "id": 381,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -980,36 +1327,124 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "661:43:0",
+                    "src": "883:41:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 382,
+                  "nodeType": "ExpressionStatement",
+                  "src": "883:41:1"
+                },
+                {
+                  "eventCall": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 384,
+                        "name": "visitCount",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 289,
+                        "src": "949:10:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 385,
+                        "name": "_empId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 350,
+                        "src": "961:6:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 386,
+                        "name": "_couponId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 352,
+                        "src": "969:9:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 383,
+                      "name": "VisitCreated",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 304,
+                      "src": "936:12:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_uint256_$_t_uint256_$_t_uint256_$returns$__$",
+                        "typeString": "function (uint256,uint256,uint256)"
+                      }
+                    },
+                    "id": 387,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "936:43:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 75,
+                  "id": 388,
                   "nodeType": "EmitStatement",
-                  "src": "656:48:0"
+                  "src": "931:48:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 77,
+            "id": 390,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "createVisit",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 59,
+              "id": 353,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 56,
+                  "id": 350,
                   "name": "_empId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 77,
-                  "src": "552:11:0",
+                  "scope": 390,
+                  "src": "713:11:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1017,10 +1452,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 55,
+                    "id": 349,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "552:4:0",
+                    "src": "713:4:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1031,11 +1466,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 58,
+                  "id": 352,
                   "name": "_couponId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 77,
-                  "src": "565:14:0",
+                  "scope": 390,
+                  "src": "726:14:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1043,10 +1478,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 57,
+                    "id": 351,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "565:4:0",
+                    "src": "726:4:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1056,33 +1491,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "551:29:0"
+              "src": "712:29:1"
             },
             "returnParameters": {
-              "id": 60,
+              "id": 354,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "588:0:0"
+              "src": "749:0:1"
             },
-            "scope": 78,
-            "src": "531:178:0",
+            "scope": 391,
+            "src": "692:292:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 79,
-        "src": "25:687:0"
+        "scope": 392,
+        "src": "25:962:1"
       }
     ],
-    "src": "0:712:0"
+    "src": "0:987:1"
   },
   "legacyAST": {
     "attributes": {
       "absolutePath": "/Users/wissamdagher/Documents/dev/blockchain/marketplace/src/contracts/Doctorvisit.sol",
       "exportedSymbols": {
         "Doctorvisit": [
-          78
+          391
         ]
       }
     },
@@ -1096,9 +1531,9 @@
             ".0"
           ]
         },
-        "id": 1,
+        "id": 283,
         "name": "PragmaDirective",
-        "src": "0:23:0"
+        "src": "0:23:1"
       },
       {
         "attributes": {
@@ -1112,17 +1547,17 @@
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            78
+            391
           ],
           "name": "Doctorvisit",
-          "scope": 79
+          "scope": 392
         },
         "children": [
           {
             "attributes": {
               "constant": false,
               "name": "name",
-              "scope": 78,
+              "scope": 391,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "string",
@@ -1135,20 +1570,47 @@
                   "name": "string",
                   "type": "string"
                 },
-                "id": 2,
+                "id": 284,
                 "name": "ElementaryTypeName",
-                "src": "50:6:0"
+                "src": "50:6:1"
               }
             ],
-            "id": 3,
+            "id": 285,
             "name": "VariableDeclaration",
-            "src": "50:11:0"
+            "src": "50:11:1"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "owner",
+              "scope": 391,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "address",
+              "value": null,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "address",
+                  "stateMutability": "nonpayable",
+                  "type": "address"
+                },
+                "id": 286,
+                "name": "ElementaryTypeName",
+                "src": "65:7:1"
+              }
+            ],
+            "id": 287,
+            "name": "VariableDeclaration",
+            "src": "65:13:1"
           },
           {
             "attributes": {
               "constant": false,
               "name": "visitCount",
-              "scope": 78,
+              "scope": 391,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "uint256",
@@ -1161,20 +1623,20 @@
                   "name": "uint",
                   "type": "uint256"
                 },
-                "id": 4,
+                "id": 288,
                 "name": "ElementaryTypeName",
-                "src": "65:4:0"
+                "src": "82:4:1"
               }
             ],
-            "id": 5,
+            "id": 289,
             "name": "VariableDeclaration",
-            "src": "65:22:0"
+            "src": "82:22:1"
           },
           {
             "attributes": {
               "canonicalName": "Doctorvisit.Visit",
               "name": "Visit",
-              "scope": 78,
+              "scope": 391,
               "visibility": "public"
             },
             "children": [
@@ -1182,7 +1644,7 @@
                 "attributes": {
                   "constant": false,
                   "name": "id",
-                  "scope": 12,
+                  "scope": 296,
                   "stateVariable": false,
                   "storageLocation": "default",
                   "type": "uint256",
@@ -1195,20 +1657,20 @@
                       "name": "uint",
                       "type": "uint256"
                     },
-                    "id": 6,
+                    "id": 290,
                     "name": "ElementaryTypeName",
-                    "src": "111:4:0"
+                    "src": "129:4:1"
                   }
                 ],
-                "id": 7,
+                "id": 291,
                 "name": "VariableDeclaration",
-                "src": "111:7:0"
+                "src": "129:7:1"
               },
               {
                 "attributes": {
                   "constant": false,
                   "name": "empId",
-                  "scope": 12,
+                  "scope": 296,
                   "stateVariable": false,
                   "storageLocation": "default",
                   "type": "uint256",
@@ -1221,20 +1683,20 @@
                       "name": "uint",
                       "type": "uint256"
                     },
-                    "id": 8,
+                    "id": 292,
                     "name": "ElementaryTypeName",
-                    "src": "124:4:0"
+                    "src": "142:4:1"
                   }
                 ],
-                "id": 9,
+                "id": 293,
                 "name": "VariableDeclaration",
-                "src": "124:10:0"
+                "src": "142:10:1"
               },
               {
                 "attributes": {
                   "constant": false,
                   "name": "couponId",
-                  "scope": 12,
+                  "scope": 296,
                   "stateVariable": false,
                   "storageLocation": "default",
                   "type": "uint256",
@@ -1247,19 +1709,19 @@
                       "name": "uint",
                       "type": "uint256"
                     },
-                    "id": 10,
+                    "id": 294,
                     "name": "ElementaryTypeName",
-                    "src": "140:4:0"
+                    "src": "158:4:1"
                   }
                 ],
-                "id": 11,
+                "id": 295,
                 "name": "VariableDeclaration",
-                "src": "140:13:0"
+                "src": "158:13:1"
               }
             ],
-            "id": 12,
+            "id": 296,
             "name": "StructDefinition",
-            "src": "92:66:0"
+            "src": "110:66:1"
           },
           {
             "attributes": {
@@ -1275,7 +1737,7 @@
                       "constant": false,
                       "indexed": false,
                       "name": "Id",
-                      "scope": 20,
+                      "scope": 304,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1288,21 +1750,21 @@
                           "name": "uint",
                           "type": "uint256"
                         },
-                        "id": 13,
+                        "id": 297,
                         "name": "ElementaryTypeName",
-                        "src": "187:4:0"
+                        "src": "205:4:1"
                       }
                     ],
-                    "id": 14,
+                    "id": 298,
                     "name": "VariableDeclaration",
-                    "src": "187:7:0"
+                    "src": "205:7:1"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "indexed": false,
                       "name": "empId",
-                      "scope": 20,
+                      "scope": 304,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1315,21 +1777,21 @@
                           "name": "uint",
                           "type": "uint256"
                         },
-                        "id": 15,
+                        "id": 299,
                         "name": "ElementaryTypeName",
-                        "src": "200:4:0"
+                        "src": "218:4:1"
                       }
                     ],
-                    "id": 16,
+                    "id": 300,
                     "name": "VariableDeclaration",
-                    "src": "200:10:0"
+                    "src": "218:10:1"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "indexed": false,
                       "name": "couponId",
-                      "scope": 20,
+                      "scope": 304,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1342,30 +1804,30 @@
                           "name": "uint",
                           "type": "uint256"
                         },
-                        "id": 17,
+                        "id": 301,
                         "name": "ElementaryTypeName",
-                        "src": "216:4:0"
+                        "src": "234:4:1"
                       }
                     ],
-                    "id": 18,
+                    "id": 302,
                     "name": "VariableDeclaration",
-                    "src": "216:13:0"
+                    "src": "234:13:1"
                   }
                 ],
-                "id": 19,
+                "id": 303,
                 "name": "ParameterList",
-                "src": "181:52:0"
+                "src": "199:52:1"
               }
             ],
-            "id": 20,
+            "id": 304,
             "name": "EventDefinition",
-            "src": "162:72:0"
+            "src": "180:72:1"
           },
           {
             "attributes": {
               "constant": false,
               "name": "visits",
-              "scope": 78,
+              "scope": 391,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "mapping(uint256 => struct Doctorvisit.Visit)",
@@ -1383,30 +1845,88 @@
                       "name": "uint",
                       "type": "uint256"
                     },
-                    "id": 21,
+                    "id": 305,
                     "name": "ElementaryTypeName",
-                    "src": "247:4:0"
+                    "src": "296:4:1"
                   },
                   {
                     "attributes": {
                       "contractScope": null,
                       "name": "Visit",
-                      "referencedDeclaration": 12,
+                      "referencedDeclaration": 296,
                       "type": "struct Doctorvisit.Visit"
                     },
-                    "id": 22,
+                    "id": 306,
                     "name": "UserDefinedTypeName",
-                    "src": "255:5:0"
+                    "src": "304:5:1"
                   }
                 ],
-                "id": 23,
+                "id": 307,
                 "name": "Mapping",
-                "src": "239:22:0"
+                "src": "288:22:1"
               }
             ],
-            "id": 24,
+            "id": 308,
             "name": "VariableDeclaration",
-            "src": "239:36:0"
+            "src": "288:36:1"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "empDoctorVisists",
+              "scope": 391,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "mapping(address => struct Doctorvisit.Visit[])",
+              "value": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "type": "mapping(address => struct Doctorvisit.Visit[])"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "type": "address"
+                    },
+                    "id": 309,
+                    "name": "ElementaryTypeName",
+                    "src": "369:7:1"
+                  },
+                  {
+                    "attributes": {
+                      "length": null,
+                      "type": "struct Doctorvisit.Visit[]"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Visit",
+                          "referencedDeclaration": 296,
+                          "type": "struct Doctorvisit.Visit"
+                        },
+                        "id": 310,
+                        "name": "UserDefinedTypeName",
+                        "src": "380:5:1"
+                      }
+                    ],
+                    "id": 311,
+                    "name": "ArrayTypeName",
+                    "src": "380:7:1"
+                  }
+                ],
+                "id": 312,
+                "name": "Mapping",
+                "src": "361:27:1"
+              }
+            ],
+            "id": 313,
+            "name": "VariableDeclaration",
+            "src": "361:51:1"
           },
           {
             "attributes": {
@@ -1418,7 +1938,7 @@
                 null
               ],
               "name": "",
-              "scope": 78,
+              "scope": 391,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -1431,9 +1951,9 @@
                   ]
                 },
                 "children": [],
-                "id": 25,
+                "id": 314,
                 "name": "ParameterList",
-                "src": "291:2:0"
+                "src": "428:2:1"
               },
               {
                 "attributes": {
@@ -1442,9 +1962,9 @@
                   ]
                 },
                 "children": [],
-                "id": 26,
+                "id": 315,
                 "name": "ParameterList",
-                "src": "301:0:0"
+                "src": "438:0:1"
               },
               {
                 "children": [
@@ -1467,13 +1987,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 3,
+                              "referencedDeclaration": 285,
                               "type": "string storage ref",
                               "value": "name"
                             },
-                            "id": 27,
+                            "id": 316,
                             "name": "Identifier",
-                            "src": "307:4:0"
+                            "src": "444:4:1"
                           },
                           {
                             "attributes": {
@@ -1488,19 +2008,19 @@
                               "type": "literal_string \"Doctorvisit contract initialised\"",
                               "value": "Doctorvisit contract initialised"
                             },
-                            "id": 28,
+                            "id": 317,
                             "name": "Literal",
-                            "src": "314:34:0"
+                            "src": "451:34:1"
                           }
                         ],
-                        "id": 29,
+                        "id": 318,
                         "name": "Assignment",
-                        "src": "307:41:0"
+                        "src": "444:41:1"
                       }
                     ],
-                    "id": 30,
+                    "id": 319,
                     "name": "ExpressionStatement",
-                    "src": "307:41:0"
+                    "src": "444:41:1"
                   },
                   {
                     "children": [
@@ -1521,13 +2041,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 5,
+                              "referencedDeclaration": 289,
                               "type": "uint256",
                               "value": "visitCount"
                             },
-                            "id": 31,
+                            "id": 320,
                             "name": "Identifier",
-                            "src": "354:10:0"
+                            "src": "491:10:1"
                           },
                           {
                             "attributes": {
@@ -1542,29 +2062,97 @@
                               "type": "int_const 0",
                               "value": "0"
                             },
-                            "id": 32,
+                            "id": 321,
                             "name": "Literal",
-                            "src": "367:1:0"
+                            "src": "504:1:1"
                           }
                         ],
-                        "id": 33,
+                        "id": 322,
                         "name": "Assignment",
-                        "src": "354:14:0"
+                        "src": "491:14:1"
                       }
                     ],
-                    "id": 34,
+                    "id": 323,
                     "name": "ExpressionStatement",
-                    "src": "354:14:0"
+                    "src": "491:14:1"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "address"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 287,
+                              "type": "address",
+                              "value": "owner"
+                            },
+                            "id": 324,
+                            "name": "Identifier",
+                            "src": "511:5:1"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "sender",
+                              "referencedDeclaration": null,
+                              "type": "address payable"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 903,
+                                  "type": "msg",
+                                  "value": "msg"
+                                },
+                                "id": 325,
+                                "name": "Identifier",
+                                "src": "519:3:1"
+                              }
+                            ],
+                            "id": 326,
+                            "name": "MemberAccess",
+                            "src": "519:10:1"
+                          }
+                        ],
+                        "id": 327,
+                        "name": "Assignment",
+                        "src": "511:18:1"
+                      }
+                    ],
+                    "id": 328,
+                    "name": "ExpressionStatement",
+                    "src": "511:18:1"
                   }
                 ],
-                "id": 35,
+                "id": 329,
                 "name": "Block",
-                "src": "301:72:0"
+                "src": "438:96:1"
               }
             ],
-            "id": 36,
+            "id": 330,
             "name": "FunctionDefinition",
-            "src": "280:93:0"
+            "src": "417:117:1"
           },
           {
             "attributes": {
@@ -1576,7 +2164,7 @@
                 null
               ],
               "name": "setName",
-              "scope": 78,
+              "scope": 391,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -1588,7 +2176,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_name",
-                      "scope": 46,
+                      "scope": 340,
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "type": "string",
@@ -1601,19 +2189,19 @@
                           "name": "string",
                           "type": "string"
                         },
-                        "id": 37,
+                        "id": 331,
                         "name": "ElementaryTypeName",
-                        "src": "394:6:0"
+                        "src": "555:6:1"
                       }
                     ],
-                    "id": 38,
+                    "id": 332,
                     "name": "VariableDeclaration",
-                    "src": "394:19:0"
+                    "src": "555:19:1"
                   }
                 ],
-                "id": 39,
+                "id": 333,
                 "name": "ParameterList",
-                "src": "393:21:0"
+                "src": "554:21:1"
               },
               {
                 "attributes": {
@@ -1622,9 +2210,9 @@
                   ]
                 },
                 "children": [],
-                "id": 40,
+                "id": 334,
                 "name": "ParameterList",
-                "src": "422:0:0"
+                "src": "583:0:1"
               },
               {
                 "children": [
@@ -1647,13 +2235,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 3,
+                              "referencedDeclaration": 285,
                               "type": "string storage ref",
                               "value": "name"
                             },
-                            "id": 41,
+                            "id": 335,
                             "name": "Identifier",
-                            "src": "429:4:0"
+                            "src": "590:4:1"
                           },
                           {
                             "attributes": {
@@ -1661,33 +2249,33 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 38,
+                              "referencedDeclaration": 332,
                               "type": "string memory",
                               "value": "_name"
                             },
-                            "id": 42,
+                            "id": 336,
                             "name": "Identifier",
-                            "src": "436:5:0"
+                            "src": "597:5:1"
                           }
                         ],
-                        "id": 43,
+                        "id": 337,
                         "name": "Assignment",
-                        "src": "429:12:0"
+                        "src": "590:12:1"
                       }
                     ],
-                    "id": 44,
+                    "id": 338,
                     "name": "ExpressionStatement",
-                    "src": "429:12:0"
+                    "src": "590:12:1"
                   }
                 ],
-                "id": 45,
+                "id": 339,
                 "name": "Block",
-                "src": "422:24:0"
+                "src": "583:24:1"
               }
             ],
-            "id": 46,
+            "id": 340,
             "name": "FunctionDefinition",
-            "src": "377:69:0"
+            "src": "538:69:1"
           },
           {
             "attributes": {
@@ -1699,7 +2287,7 @@
                 null
               ],
               "name": "getName",
-              "scope": 78,
+              "scope": 391,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "public"
@@ -1712,9 +2300,9 @@
                   ]
                 },
                 "children": [],
-                "id": 47,
+                "id": 341,
                 "name": "ParameterList",
-                "src": "466:2:0"
+                "src": "627:2:1"
               },
               {
                 "children": [
@@ -1722,7 +2310,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 54,
+                      "scope": 348,
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "type": "string",
@@ -1735,25 +2323,25 @@
                           "name": "string",
                           "type": "string"
                         },
-                        "id": 48,
+                        "id": 342,
                         "name": "ElementaryTypeName",
-                        "src": "490:6:0"
+                        "src": "651:6:1"
                       }
                     ],
-                    "id": 49,
+                    "id": 343,
                     "name": "VariableDeclaration",
-                    "src": "490:13:0"
+                    "src": "651:13:1"
                   }
                 ],
-                "id": 50,
+                "id": 344,
                 "name": "ParameterList",
-                "src": "489:15:0"
+                "src": "650:15:1"
               },
               {
                 "children": [
                   {
                     "attributes": {
-                      "functionReturnParameters": 50
+                      "functionReturnParameters": 344
                     },
                     "children": [
                       {
@@ -1762,28 +2350,28 @@
                           "overloadedDeclarations": [
                             null
                           ],
-                          "referencedDeclaration": 3,
+                          "referencedDeclaration": 285,
                           "type": "string storage ref",
                           "value": "name"
                         },
-                        "id": 51,
+                        "id": 345,
                         "name": "Identifier",
-                        "src": "518:4:0"
+                        "src": "679:4:1"
                       }
                     ],
-                    "id": 52,
+                    "id": 346,
                     "name": "Return",
-                    "src": "511:11:0"
+                    "src": "672:11:1"
                   }
                 ],
-                "id": 53,
+                "id": 347,
                 "name": "Block",
-                "src": "505:22:0"
+                "src": "666:22:1"
               }
             ],
-            "id": 54,
+            "id": 348,
             "name": "FunctionDefinition",
-            "src": "450:77:0"
+            "src": "611:77:1"
           },
           {
             "attributes": {
@@ -1795,7 +2383,7 @@
                 null
               ],
               "name": "createVisit",
-              "scope": 78,
+              "scope": 391,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -1807,7 +2395,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_empId",
-                      "scope": 77,
+                      "scope": 390,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1820,20 +2408,20 @@
                           "name": "uint",
                           "type": "uint256"
                         },
-                        "id": 55,
+                        "id": 349,
                         "name": "ElementaryTypeName",
-                        "src": "552:4:0"
+                        "src": "713:4:1"
                       }
                     ],
-                    "id": 56,
+                    "id": 350,
                     "name": "VariableDeclaration",
-                    "src": "552:11:0"
+                    "src": "713:11:1"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "_couponId",
-                      "scope": 77,
+                      "scope": 390,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1846,19 +2434,19 @@
                           "name": "uint",
                           "type": "uint256"
                         },
-                        "id": 57,
+                        "id": 351,
                         "name": "ElementaryTypeName",
-                        "src": "565:4:0"
+                        "src": "726:4:1"
                       }
                     ],
-                    "id": 58,
+                    "id": 352,
                     "name": "VariableDeclaration",
-                    "src": "565:14:0"
+                    "src": "726:14:1"
                   }
                 ],
-                "id": 59,
+                "id": 353,
                 "name": "ParameterList",
-                "src": "551:29:0"
+                "src": "712:29:1"
               },
               {
                 "attributes": {
@@ -1867,9 +2455,9 @@
                   ]
                 },
                 "children": [],
-                "id": 60,
+                "id": 354,
                 "name": "ParameterList",
-                "src": "588:0:0"
+                "src": "749:0:1"
               },
               {
                 "children": [
@@ -1893,23 +2481,64 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 5,
+                              "referencedDeclaration": 289,
                               "type": "uint256",
                               "value": "visitCount"
                             },
-                            "id": 61,
+                            "id": 355,
                             "name": "Identifier",
-                            "src": "594:10:0"
+                            "src": "755:10:1"
                           }
                         ],
-                        "id": 62,
+                        "id": 356,
                         "name": "UnaryOperation",
-                        "src": "594:13:0"
+                        "src": "755:13:1"
                       }
                     ],
-                    "id": 63,
+                    "id": 357,
                     "name": "ExpressionStatement",
-                    "src": "594:13:0"
+                    "src": "755:13:1"
+                  },
+                  {
+                    "attributes": {
+                      "assignments": [
+                        359
+                      ],
+                      "initialValue": null
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "_visit",
+                          "scope": 389,
+                          "stateVariable": false,
+                          "storageLocation": "memory",
+                          "type": "struct Doctorvisit.Visit",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "contractScope": null,
+                              "name": "Visit",
+                              "referencedDeclaration": 296,
+                              "type": "struct Doctorvisit.Visit"
+                            },
+                            "id": 358,
+                            "name": "UserDefinedTypeName",
+                            "src": "774:5:1"
+                          }
+                        ],
+                        "id": 359,
+                        "name": "VariableDeclaration",
+                        "src": "774:19:1"
+                      }
+                    ],
+                    "id": 360,
+                    "name": "VariableDeclarationStatement",
+                    "src": "774:19:1"
                   },
                   {
                     "children": [
@@ -1919,12 +2548,218 @@
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
-                          "isStructConstructorCall": true,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "struct Doctorvisit.Visit memory"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 359,
+                              "type": "struct Doctorvisit.Visit memory",
+                              "value": "_visit"
+                            },
+                            "id": 361,
+                            "name": "Identifier",
+                            "src": "799:6:1"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": true,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "struct Doctorvisit.Visit memory",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_uint256",
+                                      "typeString": "uint256"
+                                    },
+                                    {
+                                      "typeIdentifier": "t_uint256",
+                                      "typeString": "uint256"
+                                    },
+                                    {
+                                      "typeIdentifier": "t_uint256",
+                                      "typeString": "uint256"
+                                    }
+                                  ],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 296,
+                                  "type": "type(struct Doctorvisit.Visit storage pointer)",
+                                  "value": "Visit"
+                                },
+                                "id": 362,
+                                "name": "Identifier",
+                                "src": "808:5:1"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 289,
+                                  "type": "uint256",
+                                  "value": "visitCount"
+                                },
+                                "id": 363,
+                                "name": "Identifier",
+                                "src": "814:10:1"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 350,
+                                  "type": "uint256",
+                                  "value": "_empId"
+                                },
+                                "id": 364,
+                                "name": "Identifier",
+                                "src": "826:6:1"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 352,
+                                  "type": "uint256",
+                                  "value": "_couponId"
+                                },
+                                "id": 365,
+                                "name": "Identifier",
+                                "src": "834:9:1"
+                              }
+                            ],
+                            "id": 366,
+                            "name": "FunctionCall",
+                            "src": "808:36:1"
+                          }
+                        ],
+                        "id": 367,
+                        "name": "Assignment",
+                        "src": "799:45:1"
+                      }
+                    ],
+                    "id": 368,
+                    "name": "ExpressionStatement",
+                    "src": "799:45:1"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "struct Doctorvisit.Visit storage ref"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "type": "struct Doctorvisit.Visit storage ref"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 308,
+                                  "type": "mapping(uint256 => struct Doctorvisit.Visit storage ref)",
+                                  "value": "visits"
+                                },
+                                "id": 369,
+                                "name": "Identifier",
+                                "src": "850:6:1"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 289,
+                                  "type": "uint256",
+                                  "value": "visitCount"
+                                },
+                                "id": 370,
+                                "name": "Identifier",
+                                "src": "857:10:1"
+                              }
+                            ],
+                            "id": 371,
+                            "name": "IndexAccess",
+                            "src": "850:18:1"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 359,
+                              "type": "struct Doctorvisit.Visit memory",
+                              "value": "_visit"
+                            },
+                            "id": 372,
+                            "name": "Identifier",
+                            "src": "871:6:1"
+                          }
+                        ],
+                        "id": 373,
+                        "name": "Assignment",
+                        "src": "850:27:1"
+                      }
+                    ],
+                    "id": 374,
+                    "name": "ExpressionStatement",
+                    "src": "850:27:1"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
                           "lValueRequested": false,
                           "names": [
                             null
                           ],
-                          "type": "struct Doctorvisit.Visit memory",
+                          "type": "uint256",
                           "type_conversion": false
                         },
                         "children": [
@@ -1932,28 +2767,83 @@
                             "attributes": {
                               "argumentTypes": [
                                 {
-                                  "typeIdentifier": "t_uint256",
-                                  "typeString": "uint256"
-                                },
-                                {
-                                  "typeIdentifier": "t_uint256",
-                                  "typeString": "uint256"
-                                },
-                                {
-                                  "typeIdentifier": "t_uint256",
-                                  "typeString": "uint256"
+                                  "typeIdentifier": "t_struct$_Visit_$296_memory_ptr",
+                                  "typeString": "struct Doctorvisit.Visit memory"
                                 }
                               ],
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 12,
-                              "type": "type(struct Doctorvisit.Visit storage pointer)",
-                              "value": "Visit"
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "push",
+                              "referencedDeclaration": null,
+                              "type": "function (struct Doctorvisit.Visit storage ref) returns (uint256)"
                             },
-                            "id": 64,
-                            "name": "Identifier",
-                            "src": "613:5:0"
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "struct Doctorvisit.Visit storage ref[] storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 313,
+                                      "type": "mapping(address => struct Doctorvisit.Visit storage ref[] storage ref)",
+                                      "value": "empDoctorVisists"
+                                    },
+                                    "id": 375,
+                                    "name": "Identifier",
+                                    "src": "883:16:1"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "sender",
+                                      "referencedDeclaration": null,
+                                      "type": "address payable"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 903,
+                                          "type": "msg",
+                                          "value": "msg"
+                                        },
+                                        "id": 376,
+                                        "name": "Identifier",
+                                        "src": "900:3:1"
+                                      }
+                                    ],
+                                    "id": 377,
+                                    "name": "MemberAccess",
+                                    "src": "900:10:1"
+                                  }
+                                ],
+                                "id": 378,
+                                "name": "IndexAccess",
+                                "src": "883:28:1"
+                              }
+                            ],
+                            "id": 379,
+                            "name": "MemberAccess",
+                            "src": "883:33:1"
                           },
                           {
                             "attributes": {
@@ -1961,51 +2851,23 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 5,
-                              "type": "uint256",
-                              "value": "visitCount"
+                              "referencedDeclaration": 359,
+                              "type": "struct Doctorvisit.Visit memory",
+                              "value": "_visit"
                             },
-                            "id": 65,
+                            "id": 380,
                             "name": "Identifier",
-                            "src": "619:10:0"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 56,
-                              "type": "uint256",
-                              "value": "_empId"
-                            },
-                            "id": 66,
-                            "name": "Identifier",
-                            "src": "631:6:0"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 58,
-                              "type": "uint256",
-                              "value": "_couponId"
-                            },
-                            "id": 67,
-                            "name": "Identifier",
-                            "src": "639:9:0"
+                            "src": "917:6:1"
                           }
                         ],
-                        "id": 68,
+                        "id": 381,
                         "name": "FunctionCall",
-                        "src": "613:36:0"
+                        "src": "883:41:1"
                       }
                     ],
-                    "id": 69,
+                    "id": 382,
                     "name": "ExpressionStatement",
-                    "src": "613:36:0"
+                    "src": "883:41:1"
                   },
                   {
                     "children": [
@@ -2043,13 +2905,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 20,
+                              "referencedDeclaration": 304,
                               "type": "function (uint256,uint256,uint256)",
                               "value": "VisitCreated"
                             },
-                            "id": 70,
+                            "id": 383,
                             "name": "Identifier",
-                            "src": "661:12:0"
+                            "src": "936:12:1"
                           },
                           {
                             "attributes": {
@@ -2057,13 +2919,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 5,
+                              "referencedDeclaration": 289,
                               "type": "uint256",
                               "value": "visitCount"
                             },
-                            "id": 71,
+                            "id": 384,
                             "name": "Identifier",
-                            "src": "674:10:0"
+                            "src": "949:10:1"
                           },
                           {
                             "attributes": {
@@ -2071,13 +2933,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 56,
+                              "referencedDeclaration": 350,
                               "type": "uint256",
                               "value": "_empId"
                             },
-                            "id": 72,
+                            "id": 385,
                             "name": "Identifier",
-                            "src": "686:6:0"
+                            "src": "961:6:1"
                           },
                           {
                             "attributes": {
@@ -2085,43 +2947,43 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 58,
+                              "referencedDeclaration": 352,
                               "type": "uint256",
                               "value": "_couponId"
                             },
-                            "id": 73,
+                            "id": 386,
                             "name": "Identifier",
-                            "src": "694:9:0"
+                            "src": "969:9:1"
                           }
                         ],
-                        "id": 74,
+                        "id": 387,
                         "name": "FunctionCall",
-                        "src": "661:43:0"
+                        "src": "936:43:1"
                       }
                     ],
-                    "id": 75,
+                    "id": 388,
                     "name": "EmitStatement",
-                    "src": "656:48:0"
+                    "src": "931:48:1"
                   }
                 ],
-                "id": 76,
+                "id": 389,
                 "name": "Block",
-                "src": "588:121:0"
+                "src": "749:235:1"
               }
             ],
-            "id": 77,
+            "id": 390,
             "name": "FunctionDefinition",
-            "src": "531:178:0"
+            "src": "692:292:1"
           }
         ],
-        "id": 78,
+        "id": 391,
         "name": "ContractDefinition",
-        "src": "25:687:0"
+        "src": "25:962:1"
       }
     ],
-    "id": 79,
+    "id": 392,
     "name": "SourceUnit",
-    "src": "0:712:0"
+    "src": "0:987:1"
   },
   "compiler": {
     "name": "solc",
@@ -2136,8 +2998,7 @@
     }
   },
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-05-30T05:05:00.132Z",
-  "networkType": "ethereum",
+  "updatedAt": "2021-05-30T19:46:02.332Z",
   "devdoc": {
     "methods": {}
   },

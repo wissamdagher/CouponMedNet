@@ -45,18 +45,36 @@ contract('Employee', ([deployer, seller, buyer]) => {
       assert.equal(employeeCount, 1)
       const event = result.logs[0].args
       assert.equal(event.id.toNumber(), employeeCount.toNumber(), 'id is correct')
-      assert.equal(event.owner, seller, 'owner is correct')
       assert.equal(event.active, false, 'valid is correct')
+      assert.equal(event.msg,"success", "registration is successful")
     })
 
     it('activate Employee', async() => {
-      result = await employee.activateEmployee(employeeCount, { from: seller })
+      result = await employee.activateEmployee(601, { from: seller })
       //SUCCESS
       assert.equal(employeeCount, 1)
       const event = result.logs[0].args
-      assert.equal(event.id.toNumber(), employeeCount.toNumber(), 'id is correct')
+      assert.equal(event.id.toNumber(), 601, 'Employee id is correct')
       assert.equal(event.originalOwner, seller, 'owner is correct')
       assert.equal(event.active, true, 'active is correct')
+    })
+
+    it('register Employee Family', async() => {
+      result = await employee.registerFamily(601,2, { from: seller })
+      //SUCCESS
+      assert.equal(employeeCount, 1)
+      const event = result.logs[0].args
+      assert.equal(event._empId, 601, 'Employee id is correct')
+      assert.equal(event.flag, true, 'flag is correct')
+      assert.equal(event.msg, "success", 'Registration is correct')
+    })
+
+    it('register Employee Family Member', async() => {
+      result = await employee.registerMember(601,buyer, { from: seller })
+      //SUCCESS
+      const event = result.logs[0].args
+      assert.equal(event.memberCounter, 1, 'Employee id is correct')
+      assert.equal(event.msg, "success", 'Registration is correct')
     })
 
   })

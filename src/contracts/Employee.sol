@@ -19,6 +19,7 @@ contract Employee {
       uint id;
       uint empId;
       uint count;
+      bool active;
       uint activeMembers;
       bool flag;
   }
@@ -104,7 +105,7 @@ contract Employee {
       
       if(!familyExists(_empId) && (isRegistered(_empId))) {
       familyCounter ++;
-      Family memory _family = Family(familyCounter, _empId, _count, 0, true);
+      Family memory _family = Family(familyCounter, _empId, _count, true, 0, true);
       EmployeeFamily[_empId].push(_family);
       
       emit empFamilyRegistration(familyCounter, _empId, 1, "success");
@@ -115,13 +116,19 @@ contract Employee {
   }
   
   function registerMember(uint _empId, address _address) public {
-          memberCounter ++;
-          EmployeeToFamilyMembers[_empId][memberCounter] = Member(memberCounter, _empId, _address, true);
-          Family memory _family = EmployeeFamily[_empId][0];
-          _family.activeMembers ++;
-          EmployeeFamily[_empId][0] = _family;
-          
-          emit memberRegistration(memberCounter, "success");
+          if(canRegisterMember(_empId)) {
+              memberCounter ++;
+              EmployeeToFamilyMembers[_empId][memberCounter] = Member(memberCounter, _empId, _address, true);
+              Family memory _family = EmployeeFamily[_empId][0];
+              _family.activeMembers ++;
+              EmployeeFamily[_empId][0] = _family;
+              
+              emit memberRegistration(memberCounter, "success");
+          } else
+          {
+              emit memberRegistration(memberCounter, "failure");
+          }
+
   }
   
   function familyExists(uint _empId) private view returns(bool){
@@ -154,7 +161,7 @@ contract Employee {
 
     emit employeeDisabled(_id, "employee disabled");
   }
-
+  //check if employee can register, not already registered
   function canRegister(uint _id) private view returns (bool) {
       if(employees[_id].flag) {
           return false;
@@ -162,12 +169,26 @@ contract Employee {
       else {
           return true;          
       }
-
   }
-  
+  //check if employee is already registered and activated
   function isRegistered(uint _id) private view returns (bool) {
       if(employees[_id].flag && employees[_id].active) {
           return true;          
+      } else {
+          return false;
+      }
+  }
+  
+  //check if family member can register, activeMembers allows
+  function canRegisterMember(uint _id) private view returns(bool) {
+      //set the family of the employee
+      Family memory _family = EmployeeFamily[_id][0];
+      if(_family.active) {
+        if ((_family.activeMembers < _family.count)) {
+              return true;
+          } else {
+              return false;
+          } 
       } else {
           return false;
       }

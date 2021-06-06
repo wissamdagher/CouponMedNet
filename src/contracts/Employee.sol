@@ -12,7 +12,8 @@ contract Employee {
     uint empId;
     address owner;
     bool active;
-    bool flag;
+    bool flag; // this can be removed as we can use empId > 0 to check mapping exists
+    // uint8 birthYear;
   } 
   
   struct Family {
@@ -27,6 +28,7 @@ contract Employee {
   struct Member {
       uint id;
       uint empId;
+      //add FamilyID to member data
       address owner;
       bool active;
   }
@@ -70,7 +72,7 @@ contract Employee {
   );
 
   mapping(uint => Emp) public employees;
-  mapping(address => uint) employeeIds;
+  mapping(address => uint) employeeIds; //mapping from employee address to get employeeID
   mapping(uint => mapping(uint => Member)) public EmployeeToFamilyMembers;
   mapping(uint => Family[]) public EmployeeFamily;
 
@@ -104,7 +106,7 @@ contract Employee {
   }
   
   function registerFamily(uint _empId, uint _count) public {
-      
+      require(_count > 0, "Family members should be more than 0");
       if(!familyExists(_empId) && (isRegistered(_empId))) {
       familyCounter ++;
       Family memory _family = Family(familyCounter, _empId, _count, true, 0, true);

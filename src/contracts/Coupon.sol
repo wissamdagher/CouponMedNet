@@ -3,6 +3,8 @@ pragma solidity ^0.5.0;
 contract Coupon {
   string name; 
   address owner;
+  uint8 value;
+  uint8 empCouponMax;
   uint public couponCount; 
   
   struct CouponPaper {
@@ -44,6 +46,8 @@ contract Coupon {
     name = "Coupon contract initialised";
     owner = msg.sender;
     couponCount = 0;
+    value = 1;
+    empCouponMax = 5;
   }
 
   function setName(string memory _name) public { 
@@ -53,7 +57,7 @@ contract Coupon {
   function getName() public view returns (string memory) {
     return name;
   }
-
+  //create a parameter for the issueCoupon to create coupons in batch for the intial setup
   function issueCoupon() public {
     couponCount ++;
     coupons[couponCount] = CouponPaper(couponCount,msg.sender, 1, "created", true);

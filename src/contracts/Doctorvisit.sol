@@ -9,12 +9,14 @@ contract Doctorvisit {
     uint id;
     uint empId;
     uint couponId;
+    uint doctorId;
   }
 
   event VisitCreated (
     uint Id,
     uint empId,
-    uint couponId
+    uint couponId,
+    string msg
   );
 
   //visits  mapping incremental
@@ -43,7 +45,7 @@ contract Doctorvisit {
     visits[visitCount] = _visit;
     empDoctorVisists[msg.sender].push(_visit);
 
-    emit VisitCreated(visitCount, _empId, _couponId);
+    emit VisitCreated(visitCount, _empId, _couponId, "success");
   }
 
 }

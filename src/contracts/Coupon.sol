@@ -10,6 +10,8 @@ contract Coupon {
   struct CouponPaper {
     uint id;
     address owner;
+    address beneficiary;
+    //add empID to track coupons for family members
     uint value;
     string status;
     bool valid;
@@ -60,7 +62,7 @@ contract Coupon {
   //create a parameter for the issueCoupon to create coupons in batch for the intial setup
   function issueCoupon() public {
     couponCount ++;
-    coupons[couponCount] = CouponPaper(couponCount,msg.sender, 1, "created", true);
+    coupons[couponCount] = CouponPaper(couponCount,msg.sender, msg.sender, 1, "created", true);
 
     emit CouponPaperCreated(couponCount, msg.sender, true, "success");
   }

@@ -70,6 +70,7 @@ contract Employee {
   );
 
   mapping(uint => Emp) public employees;
+  mapping(address => uint) employeeIds;
   mapping(uint => mapping(uint => Member)) public EmployeeToFamilyMembers;
   mapping(uint => Family[]) public EmployeeFamily;
 
@@ -93,6 +94,7 @@ contract Employee {
      if(canRegister(_empId)) {
         employeeCount ++;
         employees[_empId] = Emp(employeeCount, _empId, msg.sender, false, true);
+        employeeIds[msg.sender] = _empId;
     
         emit employeeRegistration(employeeCount,_empId, false, "success"); 
      }

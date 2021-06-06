@@ -12,6 +12,11 @@ contract VisitDocument {
     bytes32 _docHash;
     uint flag; //flag is one when created by the contract
   }
+
+  event VisitDocumentAddition (
+    uint documentID,
+    string msg
+  );
   mapping (uint => VisitDoc ) public visitdocuments;
   mapping (bytes32 => uint ) public visitdocumenthash;
 

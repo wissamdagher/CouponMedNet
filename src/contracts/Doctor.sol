@@ -9,10 +9,10 @@ contract Doctor {
   mapping(string => uint) docInvitations;
 
   struct Doc{
-    uint id,
-    uint doctorId,
-    address owner,
-    bool active
+    uint id;
+    uint doctorId;
+    address owner;
+    bool active;
   }
 
   constructor() public {
@@ -34,7 +34,7 @@ contract Doctor {
   function registerDoc(uint _doctorId) {
     doctorCount ++;
     doctors[_doctorId] = Doc(doctorCount, _doctorId, msg.sender, true);
-    emit doctorRegistration("success")
+    emit doctorRegistration("success");
   }
 
 

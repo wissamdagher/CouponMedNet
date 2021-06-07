@@ -46,6 +46,10 @@ contract VisitDocument {
     }
   }
 
+  function validateVisitDocument(uint _visitDocument) {
+    
+  }
+
   function DocumentExists(bytes32 _docHash) public returns(bool) {
       if(visitdocumenthash[_docHash] > 0) {
         return true;

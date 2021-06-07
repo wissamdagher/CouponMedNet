@@ -62,7 +62,7 @@ contract Coupon {
   //create a parameter for the issueCoupon to create coupons in batch for the intial setup
   function issueCoupon() public {
     couponCount ++;
-    coupons[couponCount] = CouponPaper(couponCount,msg.sender, msg.sender, 1, "created", true);
+    coupons[couponCount] = CouponPaper(couponCount,msg.sender, msg.sender, value, "created", true);
 
     emit CouponPaperCreated(couponCount, msg.sender, true, "success");
   }

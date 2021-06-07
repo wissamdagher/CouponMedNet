@@ -38,10 +38,10 @@ contract Doctorvisit {
     return name;
   }
 
-  function createVisit(uint _empId, uint _couponId) public {
+  function createVisit(uint _empId, uint _couponId, uint _doctorId) public {
     visitCount ++;
     Visit memory _visit;
-    _visit = Visit(visitCount, _empId, _couponId);
+    _visit = Visit(visitCount, _empId, _couponId, _doctorId);
     visits[visitCount] = _visit;
     empDoctorVisists[msg.sender].push(_visit);
 

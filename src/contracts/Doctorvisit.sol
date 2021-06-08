@@ -48,8 +48,4 @@ contract Doctorvisit {
     emit VisitCreated(visitCount, _empId, _couponId, "success");
   }
 
-  function validateVisit(uint _visitId) {
-    
-  }
-
 }

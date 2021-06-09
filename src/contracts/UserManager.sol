@@ -24,6 +24,11 @@ contract Owner {
         _;
     }
     
+    modifier notOwner() {
+       require(msg.sender != owner, "Caller is owner");
+        _; 
+    }
+    
     /**
      * @dev Set contract deployer as owner
      */
@@ -50,22 +55,21 @@ contract Owner {
     }
 }
 
-contract UserManager is Owner{ 
+contract UserInvite is Owner{ 
 
-    struct User { 
-    
-        uint id;
-        string name;
-        bool active;
-    }
+
     
     struct Invitation { 
         uint id;
         uint invtype;
     }
-    mapping (address => User) public users;
+    
+    event delinvitee (
+        string  msg
+        );
+
     mapping (uint => Invitation) internal invitationById;
-    uint[] invitees;
+    uint[] internal invitees;
     
     modifier isInvited(uint _code, uint _id, uint _usertype) {
         // If the first argument of 'require' evaluates to 'false', execution terminates and all
@@ -76,15 +80,7 @@ contract UserManager is Owner{
         require(invitationById[_code].id == _id && invitationById[_code].invtype == _usertype, "Caller is not invited");
         _;
     }
-    function isEmployee(uint _type) private view returns (bool) {
-        if (_type ==1) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    
+
     function find(uint value) private view returns(uint) {
         uint i = 0;
         while (invitees[i] != value) {
@@ -112,25 +108,55 @@ contract UserManager is Owner{
         invitees.push(_id);
     }
     
-    function getInvitations() public view returns (uint[] memory) {
+    function deleteInvitation(uint _code, uint _id) internal {
+         delete invitationById[_code];
+         removeByValue(_id);
+         emit delinvitee("deleted");
+    }
+    
+    function getInvitations() public isOwner view returns (uint[] memory)  {
         return invitees;
-    }
-    
-    //function can be called by User with an invitation on the system
-    function registerUser(uint _id, string memory _name, uint _code, uint _usertype ) public isInvited(_code,_id, _usertype){
-        require(isEmployee(_usertype), "Not an employee type");
-        users[msg.sender] = User(_id, _name, true);
-        delete invitationById[_code];
-        removeByValue(_id);
-    }
-    
-    function getUser(address _address) public view returns (string memory, uint, bool ){
-        return( users[_address].name, users[_address].id, users[_address].active);
     }
     
 }
 
-contract Coupon {
+contract EmployeeManager is UserInvite { 
+
+    struct Employee { 
+        uint id;
+        string name;
+        bool active;
+    }
+    
+    mapping (address => Employee) internal employees;
+    uint[] public registeredEmployees;
+    
+    function isEmployee(uint _type) private pure returns (bool) {
+        if (_type ==1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    //function can be called by User with an invitation on the system
+    function registerEmployee(uint _id, string memory _name, uint _code, uint _usertype ) public isInvited(_code,_id, _usertype) notOwner{
+        require(isEmployee(_usertype), "Not an employee type");
+        employees[msg.sender] = Employee(_id, _name, true);
+        registeredEmployees.push(_id);
+        deleteInvitation(_code,_id);
+    }
+    
+    
+    function getEmployee(address _address) public view returns (string memory, uint, bool ){
+        return( employees[_address].name, employees[_address].id, employees[_address].active);
+    }
+    
+}
+
+
+contract Coupon is Owner {
     
   string name; 
   address owner;
@@ -148,14 +174,44 @@ contract Coupon {
     bool valid;
   } 
   
-  mapping(uint => CouponPaper) public coupons;
+  event CouponPaperCreated(
+    uint id,
+    address owner,
+    bool valid,
+    string msg
+  );
   
-  constructor() public {
+  
+  mapping(uint => CouponPaper) internal coupons;
+  
+  constructor() {
     name = "Coupon contract initialised";
     owner = msg.sender;
     couponCount = 0;
     value = 1;
     empCouponMax = 5;
   }
-}
   
+    function getName() public isOwner view returns(string memory) {
+        return name;
+    }
+    function issueCoupon() public isOwner{
+    couponCount ++;
+    coupons[couponCount] = CouponPaper(couponCount,msg.sender, address(0), value, "created", true);
+
+    emit CouponPaperCreated(couponCount, msg.sender, true, "success");
+    }
+    
+    function getCouponById(uint _id) public isOwner view returns(uint, address, address) { 
+    
+        return (coupons[_id].id, coupons[_id].owner, coupons[_id].beneficiary);
+    }
+  
+  
+  
+}
+ 
+contract MyNet is Coupon,EmployeeManager {
+    
+    
+}

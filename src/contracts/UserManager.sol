@@ -124,13 +124,48 @@ contract EmployeeManager is UserInvite {
 
     struct Employee { 
         uint id;
-        string name;
+        uint empid; //empid provided by HR
+        uint maxfamilycount; //maximum number of family members that can register
         bool active;
     }
+
+    struct Family {
+      uint id;
+      uint empId;
+      uint count;
+      bool active;
+      uint activeMembers;
+    }
+
+    event empFamilyRegistration(uint familyCounter, string msg);
+  
+  struct Member {
+      uint id;
+      uint empId;
+      //add FamilyID to member data
+      address owner;
+      bool active;
+   }
+    
+    uint employeesCounter;
+    uint familyCounter;
+    uint memberCounter;
     
     mapping (address => Employee) internal employees;
+    mapping (uint => address) internal employeeIndexToOwner;
+    mapping (uint => uint) internal employeeIDtoIndex;
+
+    //family
+    mapping(uint => Family) public EmployeeFamily;
+
     uint[] public registeredEmployees;
     
+    constructor() {
+        employeesCounter = 0;
+        memberCounter = 0;
+        familyCounter = 0;
+    }
+
     function isEmployee(uint _type) private pure returns (bool) {
         if (_type ==1) {
             return true;
@@ -140,21 +175,106 @@ contract EmployeeManager is UserInvite {
         }
     }
     
+    
+    modifier isRegistered(address _address) {
+        // If the first argument of 'require' evaluates to 'false', execution terminates and all
+        // changes to the state and to Ether balances are reverted.
+        // This used to consume all gas in old EVM versions, but not anymore.
+        // It is often a good idea to use 'require' to check if functions are called correctly.
+        // As a second argument, you can also provide an explanation about what went wrong.
+        require(employees[_address].active == true, "Employee Not Registered");
+        _;
+    }
+    
+    modifier isNotRegistered(address _address) {
+        require(employees[_address].active == false, "Employee  Registered");
+        _;
+    }
+
     //function can be called by User with an invitation on the system
-    function registerEmployee(uint _id, string memory _name, uint _code, uint _usertype ) public isInvited(_code,_id, _usertype) notOwner{
+    function registerEmployee(uint _empid, uint _maxfamilycount, uint _code, uint _usertype ) public notOwner isInvited(_code,_empid, _usertype) isNotRegistered(msg.sender) {
         require(isEmployee(_usertype), "Not an employee type");
-        employees[msg.sender] = Employee(_id, _name, true);
-        registeredEmployees.push(_id);
-        deleteInvitation(_code,_id);
+        employeesCounter ++;
+        employees[msg.sender] = Employee(employeesCounter, _empid, _maxfamilycount, true);
+        registeredEmployees.push(_empid);
+        employeeIndexToOwner[employeesCounter] = msg.sender;
+        employeeIDtoIndex[_empid] = employeesCounter;
+        deleteInvitation(_code,_empid);
+        registerFamily(_empid, _maxfamilycount, msg.sender);
     }
-    
-    
-    function getEmployee(address _address) public view returns (string memory, uint, bool ){
-        return( employees[_address].name, employees[_address].id, employees[_address].active);
+
+    function getEmployee(address _address) public view returns (uint, uint, uint, bool ){
+        return( employees[_address].empid, employees[_address].id, employees[_address].maxfamilycount ,employees[_address].active);
     }
+
+    function registerFamily(uint _empId, uint _count, address _address) private isRegistered(_address) {
+        require(_count > 0, "Family members should be more than 0");
+        require(!familyExists(_empId), "Family exists");
+        familyCounter ++;
+        Family memory _family = Family(familyCounter, _empId, _count, true, 0);
+        EmployeeFamily[_empId] = _family;
+        
+        emit empFamilyRegistration(familyCounter, "success");
+
+    }
+  
+  function familyExists(uint _empId) private view returns(bool){
+      if (EmployeeFamily[_empId].active == true ) {
+          return true;
+      }
+      else {
+          return false;
+      }
+      
+  }
     
 }
 
+contract DoctorManager is UserInvite { 
+    struct Doctor { 
+        uint id;
+        uint doctorid;
+        string specialty;
+        bool active;
+    }
+    
+    uint doctorsCounter;
+    
+    mapping (address => Doctor) internal doctors;
+    mapping (uint => address) internal doctorIndexToOwner;
+    uint[] public registeredDoctors;
+    
+    //events 
+    event doctorregistration (uint id, string msg);
+    
+    constructor() {
+        doctorsCounter = 0;
+    }
+
+    function isDoctor(uint _type) private pure returns (bool) {
+        if (_type ==2) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    //function can be called by User with an invitation on the system
+    function registerDoctor(uint _doctorid, string memory _speciality, uint _code, uint _usertype ) public isInvited(_code,_doctorid, _usertype) notOwner{
+        require(isDoctor(_usertype), "Not a Doctor type");
+        doctorsCounter ++;
+        doctors[msg.sender] = Doctor(doctorsCounter, _doctorid, _speciality, true);
+        registeredDoctors.push(_doctorid);
+        doctorIndexToOwner[_doctorid] = msg.sender;
+        deleteInvitation(_code,_doctorid);
+        emit doctorregistration(doctorsCounter, "success");
+    }
+
+    function getDoctor(address _address) public view returns (uint, uint, string memory, bool ){
+        return( doctors[_address].doctorid, doctors[_address].id, doctors[_address].specialty ,doctors[_address].active);
+    }
+}
 
 contract Coupon is Owner {
     
@@ -162,6 +282,7 @@ contract Coupon is Owner {
   address owner;
   uint8 value;
   uint8 empCouponMax;
+  uint couponPayAmount;
   uint public couponCount; 
   
   struct CouponPaper {
@@ -183,6 +304,10 @@ contract Coupon is Owner {
   
   
   mapping(uint => CouponPaper) internal coupons;
+  mapping(address => uint) public ownershipToCouponCount;
+  mapping(uint => address) public couponIndexToOwner;
+  
+  
   
   constructor() {
     name = "Coupon contract initialised";
@@ -190,7 +315,15 @@ contract Coupon is Owner {
     couponCount = 0;
     value = 1;
     empCouponMax = 5;
+    couponPayAmount = 60000;
   }
+  
+    function setGlobalParameters(uint8 _value, uint8 _maxcoupons, uint _paidamount) public isOwner {
+        value = _value;
+        empCouponMax = _maxcoupons;
+        couponPayAmount = _paidamount;
+        
+    }
   
     function getName() public isOwner view returns(string memory) {
         return name;
@@ -198,6 +331,9 @@ contract Coupon is Owner {
     function issueCoupon() public isOwner{
     couponCount ++;
     coupons[couponCount] = CouponPaper(couponCount,msg.sender, address(0), value, "created", true);
+    ownershipToCouponCount[msg.sender] ++;
+    couponIndexToOwner[couponCount] = msg.sender;
+    
 
     emit CouponPaperCreated(couponCount, msg.sender, true, "success");
     }
@@ -211,7 +347,7 @@ contract Coupon is Owner {
   
 }
  
-contract MyNet is Coupon,EmployeeManager {
+contract MyNet is Coupon,EmployeeManager,DoctorManager {
     
     
 }

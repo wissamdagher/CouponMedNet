@@ -361,6 +361,10 @@ contract Coupon is Owner {
         ownershipToCouponCount[_from] --;
         couponIndexToOwner[couponCount] = _to;
     }
+
+    function _owns(address _address, uint _couponId) internal view returns (bool) {
+        return(coupons[_couponId].owner == _address);
+    }
     
   
     function getCouponById(uint _id) public isOwner view returns(uint, address, address) { 

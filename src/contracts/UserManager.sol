@@ -160,6 +160,9 @@ contract EmployeeManager is UserInvite {
     //family
     mapping(uint => Family) public EmployeeFamily;
 
+    //Family Member
+    mapping (address => Member) public familyMembers;
+
     uint[] public registeredEmployees;
     
     constructor() {

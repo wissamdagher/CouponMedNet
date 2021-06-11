@@ -224,7 +224,6 @@ contract EmployeeManager is UserInvite {
     }
 
     function registerFamilyMember(uint _empId,uint _familyId, address _address) internal isRegisteredEmployee(msg.sender) {
-          
               memberCounter ++;
               EmployeeToFamilyMembers[_empId][memberCounter] = Member(memberCounter, _empId, _familyId, _address, true);
               Family memory _family = EmployeeFamily[_empId];
@@ -349,7 +348,6 @@ contract Coupon is Owner {
     coupons[couponCount] = CouponPaper(couponCount,msg.sender, address(0), value, "created", true);
     ownershipToCouponCount[msg.sender] ++;
     couponIndexToOwner[couponCount] = msg.sender;
-    
 
     emit CouponPaperCreated(couponCount, msg.sender, true, "success");
     }

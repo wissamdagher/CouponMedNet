@@ -144,7 +144,7 @@ contract EmployeeManager is UserInvite {
   struct Member {
       uint id;
       uint empId;
-      //add FamilyID to member data
+      uint familyId;
       address owner;
       bool active;
    }
@@ -209,7 +209,7 @@ contract EmployeeManager is UserInvite {
         return( employees[_address]);
     }
 
-    function registerFamily(uint _empId, uint _count, address _address) private isRegisteredEmployee(_address) {
+    function registerFamily(uint _empId, uint _count, address _address) internal isRegisteredEmployee(_address) {
         require(_count > 0, "Family members should be more than 0");
         require(!familyExists(_empId), "Family exists");
         familyCounter ++;
@@ -219,6 +219,17 @@ contract EmployeeManager is UserInvite {
         emit empFamilyRegistration(familyCounter, "success");
 
     }
+
+    function registerFamilyMember(uint _empId,uint _familyId, address _address) internal isRegisteredEmployee(msg.sender) {
+          
+              memberCounter ++;
+              EmployeeToFamilyMembers[_empId][memberCounter] = Member(memberCounter, _empId, _familyId, _address, true);
+              Family memory _family = EmployeeFamily[_empId];
+              _family.activeMembers ++;
+              EmployeeFamily[_empId] = _family;
+              emit memberRegistration(memberCounter, "success");
+    }
+
   
   function familyExists(uint _empId) private view returns(bool){
       if (EmployeeFamily[_empId].active == true ) {

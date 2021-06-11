@@ -126,6 +126,8 @@ contract EmployeeManager is UserInvite {
         uint id;
         uint empid; //empid provided by HR
         uint maxfamilycount; //maximum number of family members that can register
+        uint initialCouponCount;
+        uint extraCouponCount;
         bool active;
     }
 
@@ -176,7 +178,7 @@ contract EmployeeManager is UserInvite {
     }
     
     
-    modifier isRegistered(address _address) {
+    modifier isRegisteredEmployee(address _address) {
         // If the first argument of 'require' evaluates to 'false', execution terminates and all
         // changes to the state and to Ether balances are reverted.
         // This used to consume all gas in old EVM versions, but not anymore.
@@ -195,7 +197,7 @@ contract EmployeeManager is UserInvite {
     function registerEmployee(uint _empid, uint _maxfamilycount, uint _code, uint _usertype ) public notOwner isInvited(_code,_empid, _usertype) isNotRegistered(msg.sender) {
         require(isEmployee(_usertype), "Not an employee type");
         employeesCounter ++;
-        employees[msg.sender] = Employee(employeesCounter, _empid, _maxfamilycount, true);
+        employees[msg.sender] = Employee(employeesCounter, _empid, _maxfamilycount,0,0,true);
         registeredEmployees.push(_empid);
         employeeIndexToOwner[employeesCounter] = msg.sender;
         employeeIDtoIndex[_empid] = employeesCounter;
@@ -203,11 +205,11 @@ contract EmployeeManager is UserInvite {
         registerFamily(_empid, _maxfamilycount, msg.sender);
     }
 
-    function getEmployee(address _address) public view returns (uint, uint, uint, bool ){
-        return( employees[_address].empid, employees[_address].id, employees[_address].maxfamilycount ,employees[_address].active);
+    function getEmployee(address _address) internal view returns (Employee memory){
+        return( employees[_address]);
     }
 
-    function registerFamily(uint _empId, uint _count, address _address) private isRegistered(_address) {
+    function registerFamily(uint _empId, uint _count, address _address) private isRegisteredEmployee(_address) {
         require(_count > 0, "Family members should be more than 0");
         require(!familyExists(_empId), "Family exists");
         familyCounter ++;
@@ -328,7 +330,7 @@ contract Coupon is Owner {
     function getName() public isOwner view returns(string memory) {
         return name;
     }
-    function issueCoupon() public isOwner{
+    function issueCoupon() internal {
     couponCount ++;
     coupons[couponCount] = CouponPaper(couponCount,msg.sender, address(0), value, "created", true);
     ownershipToCouponCount[msg.sender] ++;
@@ -338,16 +340,47 @@ contract Coupon is Owner {
     emit CouponPaperCreated(couponCount, msg.sender, true, "success");
     }
     
+    function _transfer(address _from, address _to, uint _couponId) internal {
+        CouponPaper memory _coupon = coupons[_couponId];
+        _coupon.owner = _to;
+        ownershipToCouponCount[_to] ++;
+        ownershipToCouponCount[_from] --;
+        couponIndexToOwner[couponCount] = _to;
+    }
+    
+  
     function getCouponById(uint _id) public isOwner view returns(uint, address, address) { 
     
         return (coupons[_id].id, coupons[_id].owner, coupons[_id].beneficiary);
     }
   
   
-  
+}
+
+contract CouponEmployee is Coupon,EmployeeManager {
+    
+    event EmployeeCouponGeneration(uint initialCouponCount, string msg);
+    
+    function employeeIssueCoupons() public isRegisteredEmployee(msg.sender){
+        Employee memory _employee = getEmployee(msg.sender);
+        if (_employee.initialCouponCount == 0) {
+            for (uint i =0; i <= empCouponMax; i++)
+            {
+            issueCoupon();
+            _employee.initialCouponCount ++;
+            }
+            if ((_employee.initialCouponCount-1) == empCouponMax) {
+                emit EmployeeCouponGeneration(empCouponMax, "Success");
+            }
+            else { 
+                emit EmployeeCouponGeneration(_employee.initialCouponCount, "failure");
+            }
+        }
+
+    }
 }
  
-contract MyNet is Coupon,EmployeeManager,DoctorManager {
+contract MyNet is CouponEmployee,DoctorManager {
     
     
 }

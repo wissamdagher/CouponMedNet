@@ -167,8 +167,8 @@ contract EmployeeManager is UserInvite {
     mapping (uint => mapping(uint => Member )) EmployeeToFamilyMembers;
     uint[] public registeredEmployees;
     
-    //Employee Coupon
-    mapping (uint => mapping(uint => uint[] )) EmployeeToCoupons;
+    //Employee Coupons
+    mapping (uint => mapping(uint => uint[] )) internal EmployeeToCoupons;
     
     constructor() {
         employeesCounter = 0;
@@ -304,6 +304,7 @@ contract Coupon is Owner {
   uint8 empCouponMax;
   uint couponPayAmount;
   uint public couponCount; 
+  uint year;
   
   struct CouponPaper {
     uint id;
@@ -344,24 +345,25 @@ contract Coupon is Owner {
     couponPayAmount = 60000;
   }
   
-    function setGlobalParameters(uint8 _value, uint8 _maxcoupons, uint _paidamount) public isOwner {
+    function setGlobalParameters(uint8 _value, uint8 _maxcoupons, uint _paidamount,uint _year) public isOwner {
         value = _value;
         empCouponMax = _maxcoupons;
         couponPayAmount = _paidamount;
+        year = _year;
         
     }
   
     function getName() public isOwner view returns(string memory) {
         return name;
     }
-    function issueCoupon() internal {
+    function issueCoupon() internal returns(uint _couponId) {
     couponCount ++;
     coupons[couponCount] = CouponPaper(couponCount,msg.sender, address(0), value, "created", true, false);
     ownershipToCouponCount[msg.sender] ++;
     couponIndexToOwner[couponCount] = msg.sender;
-    
-
     emit CouponPaperCreated(couponCount, msg.sender, true, "success");
+    return couponCount;
+    
     }
     
     function _transfer(address _from, address _to, uint _couponId) internal {
@@ -390,7 +392,7 @@ contract Coupon is Owner {
         return (coupons[_couponId].id, coupons[_couponId].owner, coupons[_couponId].beneficiary);
     }
     
-    function getCouponsByOwner(address _address) public isRegisteredEmployee(_address) {
+    function getCouponsByOwner(address _address) internal {
         
     }
     
@@ -403,12 +405,12 @@ contract CouponEmployee is Coupon,EmployeeManager {
     
     event EmployeeCouponGeneration(uint initialCouponCount, string msg);
     
-    function employeeIssueCoupons() public isRegisteredEmployee(msg.sender){
+    function employeeIssueCoupons() public isRegisteredEmployee(msg.sender) {
         Employee memory _employee = getEmployee(msg.sender);
         if (_employee.initialCouponCount == 0) {
             for (uint i =0; i <= empCouponMax -1; i++)
             {
-            issueCoupon();
+            EmployeeToCoupons[_employee.empid][year].push(issueCoupon());
             _employee.initialCouponCount ++;
             }
             if ((_employee.initialCouponCount-1) == empCouponMax) {
@@ -421,7 +423,7 @@ contract CouponEmployee is Coupon,EmployeeManager {
 
     }
     
-    function employeeExchnageCoupon(uint _couponId) public {
+    function employeeExchnageCoupon(uint _couponId) public isRegisteredEmployee(msg.sender) {
         require(_owns(msg.sender, _couponId), "Not the owner of the token");
          CouponPaper memory _coupon = coupons[_couponId]; 
          _coupon.status = "Exchanged";
@@ -431,14 +433,25 @@ contract CouponEmployee is Coupon,EmployeeManager {
          delete couponIndexToOwner[_couponId];
     }
     
-    function employeeRedeemCoupon(uint _couponId) public {
+    function employeeRedeemCoupon(uint _couponId) public isRegisteredEmployee(msg.sender) {
         require(_isBeneficiary(msg.sender, _couponId), "Not the owner of the token");
         require(_readyToBeRedeemed(_couponId), "Coupon can not be redeemed");
          CouponPaper memory _coupon = coupons[_couponId]; 
          _coupon.status = "Redeemed";
          _coupon.beneficiary = owner;
-        delete couponIndexToOwnerExchanged[_couponId];
         couponIndexToOwnerRedeeemed[_couponId] = msg.sender;
+        delete couponIndexToOwnerExchanged[_couponId];
+    }
+}
+
+contract HRManager is Coupon,EmployeeManager {
+    mapping(uint => address) couponIndexApproved;
+    
+    function approveCouponRedemption(uint _couponId) public isOwner {
+        require(_readyToBeRedeemed(_couponId), "Coupon can not be redeemed");
+        CouponPaper memory _coupon = coupons[_couponId]; 
+         _coupon.approved = true;
+         couponIndexApproved[_couponId] = msg.sender;
     }
 }
  

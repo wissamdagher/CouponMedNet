@@ -120,7 +120,7 @@ contract UserInvite is Owner{
     
 }
 
-contract EmployeeManager is UserInvite { 
+contract EmployeeBase is UserInvite { 
 
     struct Employee { 
         uint id;
@@ -169,6 +169,9 @@ contract EmployeeManager is UserInvite {
     
     //Employee Coupons
     mapping (uint => mapping(uint => uint[] )) internal EmployeeToCoupons;
+    
+    //Employee Doctor Visit, e.g empDoctorVisists[601][0] = 1 (visitId)
+    mapping(address => uint[]) public empDoctorVisists;
     
     constructor() {
         employeesCounter = 0;
@@ -334,7 +337,8 @@ contract Coupon is Owner {
   //Filled when new coupon is redeemed
   mapping(uint => address) public couponIndexToOwnerRedeeemed;
   
-  
+  //Filled when a coupon is used in DoctorVisit
+  mapping(uint => bool) couponIndexToDoctorVisit;
   
   constructor() {
     name = "Coupon contract initialised";
@@ -378,6 +382,10 @@ contract Coupon is Owner {
         return(coupons[_couponId].owner == _address);
     }
     
+    function _usedInDoctorVisit(uint _couponId) internal view returns (bool) {
+        return (couponIndexToDoctorVisit[_couponId]);
+    }
+    
     function _isBeneficiary(address _address, uint _couponId) internal view returns (bool) {
         return(coupons[_couponId].beneficiary == _address);
     }
@@ -401,9 +409,98 @@ contract Coupon is Owner {
   
 }
 
-contract CouponEmployee is Coupon,EmployeeManager {
+contract DoctorVisitBase {
+  uint public visitCount; 
+
+  struct Visit {
+    uint id;
+    uint empId;
+    uint couponId;
+    uint doctorId;
+  }
+
+  event VisitCreated (
+    uint id,
+    uint empId,
+    uint couponId,
+    string msg
+  );
+
+  //visits  mapping incremental
+  mapping(uint => Visit) public visits;
+  //mapping visitDocumentIndex to Visit ID;
+  mapping (uint => uint) DoctorVisitIndexToDocumentId;
+
+  constructor() {
+    visitCount = 0;
+  }
+
+  function createVisit(uint _empId, uint _couponId, uint _doctorId) internal returns(uint visitId) {
+    visitCount ++;
+    Visit memory _visit;
+    _visit = Visit(visitCount, _empId, _couponId, _doctorId);
+    visits[visitCount] = _visit;
+    emit VisitCreated(visitCount, _empId, _couponId, "success");
+    return visits[visitCount].id;
+  }
+  
+  function getDoctorVisit(uint _visitid) public view returns (uint visitid, uint empid, uint couponid, uint doctorid) {
+      return (visits[_visitid].id,visits[_visitid].empId,visits[_visitid].couponId,visits[_visitid].doctorId);
+  }
+
+}
+
+contract VisitDocumentBase is DoctorVisitBase { 
+  uint public VisitDocumentCount;
+
+  struct VisitDoc { 
+    uint id; 
+    uint _doctorvisitId;
+    uint _empId;
+    bytes32 _docHash;
+    uint flag; //flag is one when created by the contract
+  }
+
+  event VisitDocumentAddition (
+    uint documentID,
+    string msg
+  );
+  mapping (uint => VisitDoc ) public VisitDocuments;
+  mapping (bytes32 => uint ) public VisitDocumentBasehash;
+  
+
+  constructor() {
+    VisitDocumentCount = 0;
+  }
+
+  function addVisitDocument(uint _doctorvisitId, uint _empId,bytes32 _docHash) internal returns(uint documentId) {
+     require(!_documentExists(_docHash), "Document already exists"); //check if document hash already exists
+        VisitDocumentCount ++;
+        VisitDocuments[VisitDocumentCount] = VisitDoc(VisitDocumentCount, _doctorvisitId, _empId, _docHash, 1);
+        VisitDocumentBasehash[_docHash] = VisitDocumentCount; 
+        DoctorVisitIndexToDocumentId[_doctorvisitId] = VisitDocumentCount;
+        emit VisitDocumentAddition(VisitDocumentCount, "success");
+        return VisitDocuments[VisitDocumentCount].id;
+  }
+  
+  function _documentExists(bytes32 _docHash) public view returns (bool) {
+      if(VisitDocumentBasehash[_docHash] > 0) {
+        return true;
+      }
+      else {
+        return false;
+      }
+  }
+  
+}
+
+
+
+contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
     
     event EmployeeCouponGeneration(uint initialCouponCount, string msg);
+    event couponExchanged(uint _couponId, string msg);
+    event doctorVisited(uint visitid, uint documentid, string msg);
     
     function employeeIssueCoupons() public isRegisteredEmployee(msg.sender) {
         Employee memory _employee = getEmployee(msg.sender);
@@ -414,7 +511,7 @@ contract CouponEmployee is Coupon,EmployeeManager {
             _employee.initialCouponCount ++;
             }
             if ((_employee.initialCouponCount-1) == empCouponMax) {
-                emit EmployeeCouponGeneration(empCouponMax, "Success");
+                emit EmployeeCouponGeneration(empCouponMax, "success");
             }
             else { 
                 emit EmployeeCouponGeneration(_employee.initialCouponCount, "failure");
@@ -423,17 +520,20 @@ contract CouponEmployee is Coupon,EmployeeManager {
 
     }
     
-    function employeeExchnageCoupon(uint _couponId) public isRegisteredEmployee(msg.sender) {
+    function exchangeCoupon(uint _couponId) internal isRegisteredEmployee(msg.sender) {
         require(_owns(msg.sender, _couponId), "Not the owner of the token");
+        require(_usedInDoctorVisit(_couponId), "Not used in a visit");
          CouponPaper memory _coupon = coupons[_couponId]; 
          _coupon.status = "Exchanged";
          _coupon.beneficiary = _coupon.owner;
          _coupon.owner = owner;
          couponIndexToOwnerExchanged[_couponId] = msg.sender;
          delete couponIndexToOwner[_couponId];
+         delete couponIndexToDoctorVisit[_couponId];
+         emit couponExchanged(_couponId, "success");
     }
     
-    function employeeRedeemCoupon(uint _couponId) public isRegisteredEmployee(msg.sender) {
+    function redeemCoupon(uint _couponId) public isRegisteredEmployee(msg.sender) {
         require(_isBeneficiary(msg.sender, _couponId), "Not the owner of the token");
         require(_readyToBeRedeemed(_couponId), "Coupon can not be redeemed");
          CouponPaper memory _coupon = coupons[_couponId]; 
@@ -442,9 +542,23 @@ contract CouponEmployee is Coupon,EmployeeManager {
         couponIndexToOwnerRedeeemed[_couponId] = msg.sender;
         delete couponIndexToOwnerExchanged[_couponId];
     }
+    
+    function visitDoctor(uint empid, uint couponid, uint doctorid, bytes32 _docHash) public isRegisteredEmployee(msg.sender){
+            //visit doctor
+            uint _visitId = createVisit(empid, couponid, doctorid);
+            couponIndexToDoctorVisit[couponid] = true;
+            empDoctorVisists[msg.sender].push(_visitId);
+            //submit document
+            uint _documentId = addVisitDocument(doctorid, empid, _docHash);
+            // then exchange Coupon
+            exchangeCoupon(couponid);
+            emit doctorVisited( _visitId, _documentId, "success");
+    }
 }
 
-contract HRManager is Coupon,EmployeeManager {
+
+
+contract HRManager is Coupon,EmployeeBase {
     mapping(uint => address) couponIndexApproved;
     
     function approveCouponRedemption(uint _couponId) public isOwner {
@@ -455,7 +569,7 @@ contract HRManager is Coupon,EmployeeManager {
     }
 }
  
-contract MyNet is CouponEmployee,DoctorManager {
+contract MyNet is EmployeeCore,DoctorManager {
     
     
 }

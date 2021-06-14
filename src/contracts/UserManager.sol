@@ -218,7 +218,7 @@ contract EmployeeBase is UserInvite {
         registerFamily(_empid, _maxfamilycount, msg.sender);
     }
 
-    function getEmployee(address _address) internal view returns (Employee memory){
+    function getEmployee(address _address) internal view returns (Employee storage){
         return( employees[_address]);
     }
 
@@ -525,7 +525,7 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
 
     }
     
-     function exchnageCoupon(uint _couponId) public isRegisteredEmployee(msg.sender) {
+     function exchangeCoupon(uint _couponId) public isRegisteredEmployee(msg.sender) {
         require(_owns(msg.sender, _couponId), "Not the owner of the token");
          CouponPaper memory _coupon = coupons[_couponId]; 
          _coupon.status = "Exchanged";

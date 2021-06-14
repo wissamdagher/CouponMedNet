@@ -244,7 +244,6 @@ contract EmployeeBase is UserInvite {
               EmployeeFamily[_empId] = _family;
               emit memberRegistration(memberCounter, "success");
     }
-
   
   function familyExists(uint _empId) private view returns(bool){
       if (EmployeeFamily[_empId].active == true ) {
@@ -365,6 +364,7 @@ contract Coupon is Owner {
     function getName() public isOwner view returns(string memory) {
         return name;
     }
+
     function issueCoupon() internal returns(uint _couponId) {
     couponCount ++;
     coupons[couponCount] = CouponPaper(couponCount,msg.sender, address(0), value, "created", true, false);
@@ -376,7 +376,7 @@ contract Coupon is Owner {
     }
     
     function _transfer(address _from, address _to, uint _couponId) internal {
-        CouponPaper memory _coupon = coupons[_couponId];
+        CouponPaper storage _coupon = coupons[_couponId];
         _coupon.owner = _to;
         ownershipToCouponCount[_to] ++;
         ownershipToCouponCount[_from] --;
@@ -508,34 +508,32 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
     event doctorVisited(uint visitid, uint documentid, string msg);
     
     function employeeIssueCoupons() public isRegisteredEmployee(msg.sender) {
-        Employee memory _employee = getEmployee(msg.sender);
-        if (_employee.initialCouponCount == 0) {
+        require((employees[msg.sender].initialCouponCount == 0), "Initial Coupons already issued");
+        Employee storage _employee = getEmployee(msg.sender);
             for (uint i =0; i <= empCouponMax -1; i++)
             {
             EmployeeToCoupons[_employee.empid][year].push(issueCoupon());
             _employee.initialCouponCount ++;
             }
             if ((_employee.initialCouponCount-1) == empCouponMax) {
-                emit EmployeeCouponGeneration(empCouponMax, "success");
+                emit EmployeeCouponGeneration(empCouponMax, "Success");
             }
             else { 
                 emit EmployeeCouponGeneration(_employee.initialCouponCount, "failure");
             }
-        }
+        
 
     }
     
-    function exchangeCoupon(uint _couponId) internal isRegisteredEmployee(msg.sender) {
+     function exchnageCoupon(uint _couponId) public isRegisteredEmployee(msg.sender) {
         require(_owns(msg.sender, _couponId), "Not the owner of the token");
-        require(_usedInDoctorVisit(_couponId), "Not used in a visit");
          CouponPaper memory _coupon = coupons[_couponId]; 
          _coupon.status = "Exchanged";
          _coupon.beneficiary = _coupon.owner;
          _coupon.owner = owner;
+         coupons[_couponId] = _coupon;
          couponIndexToOwnerExchanged[_couponId] = msg.sender;
          delete couponIndexToOwner[_couponId];
-         delete couponIndexToDoctorVisit[_couponId];
-         emit couponExchanged(_couponId, "success");
     }
     
     function redeemCoupon(uint _couponId) public isRegisteredEmployee(msg.sender) {
@@ -544,6 +542,7 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
          CouponPaper memory _coupon = coupons[_couponId]; 
          _coupon.status = "Redeemed";
          _coupon.beneficiary = owner;
+         coupons[_couponId] = _coupon;
         couponIndexToOwnerRedeeemed[_couponId] = msg.sender;
         delete couponIndexToOwnerExchanged[_couponId];
     }
@@ -560,8 +559,6 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
             emit doctorVisited( _visitId, _documentId, "success");
     }
 }
-
-
 
 contract HRManager is Coupon,EmployeeBase {
     mapping(uint => address) couponIndexApproved;

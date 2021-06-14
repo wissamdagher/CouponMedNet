@@ -165,6 +165,8 @@ contract EmployeeManager is UserInvite {
     //Family Member
     mapping (address => Member) public familyMembers;
     mapping (uint => mapping(uint => Member )) EmployeeToFamilyMembers;
+    mapping (uint => Member[]) public EmployeeFamilyMembers;
+    mapping (address => uint ) memberAddressToEmployeeId;
     uint[] public registeredEmployees;
     
     //Employee Coupons
@@ -230,7 +232,10 @@ contract EmployeeManager is UserInvite {
 
     function registerFamilyMember(uint _empId,uint _familyId, address _address) public isRegisteredEmployee(msg.sender) {
               memberCounter ++;
-              EmployeeToFamilyMembers[_empId][memberCounter] = Member(memberCounter, _empId, _familyId, _address, true);
+              Member memory _member = Member(memberCounter, _empId, _familyId, _address, true);
+              EmployeeToFamilyMembers[_empId][memberCounter] = _member;
+              EmployeeFamilyMembers[_empId].push(_member);
+              memberAddressToEmployeeId[_address] = _empId;
               Family memory _family = EmployeeFamily[_empId];
               _family.activeMembers ++;
               EmployeeFamily[_empId] = _family;

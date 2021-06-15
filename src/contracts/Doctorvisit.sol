@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
 
 contract Doctorvisit {
   string name;
@@ -24,7 +25,7 @@ contract Doctorvisit {
   //employee doctor visits array
   mapping(address => Visit[]) public empDoctorVisists;
 
-  constructor() public {
+  constructor() {
     name = "Doctorvisit contract initialised";
     visitCount = 0;
     owner = msg.sender;

@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
 
 contract Marketplace {
     string public name;
@@ -29,7 +30,7 @@ contract Marketplace {
         bool purchased
     );
 
-    constructor() public {
+    constructor() {
         name = "Dapp University Marketplace";
     }
 
@@ -41,9 +42,9 @@ contract Marketplace {
         // Increment product count
         productCount ++;
         // Create the product
-        products[productCount] = Product(productCount, _name, _price, msg.sender, false);
+        products[productCount] = Product(productCount, _name, _price, payable(msg.sender), false);
         // Trigger an event
-        emit ProductCreated(productCount, _name, _price, msg.sender, false);
+        emit ProductCreated(productCount, _name, _price, payable(msg.sender), false);
     }
 
     function purchaseProduct(uint _id) public payable {
@@ -60,14 +61,14 @@ contract Marketplace {
         // Require that the buyer is not the seller
         require(_seller != msg.sender);
         // Transfer ownership to the buyer
-        _product.owner = msg.sender;
+        _product.owner = payable(msg.sender);
         // Mark as purchased
         _product.purchased = true;
         // Update the product
         products[_id] = _product;
         // Pay the seller by sending them Ether
-        address(_seller).transfer(msg.value);
+        _seller.transfer(msg.value);
         // Trigger an event
-        emit ProductPurchased(productCount, _product.name, _product.price, msg.sender, true);
+        emit ProductPurchased(productCount, _product.name, _product.price, payable(msg.sender), true);
     }
 }

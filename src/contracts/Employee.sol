@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
 
 contract Employee {
   string name; 
@@ -76,7 +77,7 @@ contract Employee {
   mapping(uint => mapping(uint => Member)) public EmployeeToFamilyMembers;
   mapping(uint => Family[]) public EmployeeFamily;
 
-  constructor() public {
+  constructor() {
     name = "Employee contract initialised";
     employeeCount = 0;
     memberCounter = 0;

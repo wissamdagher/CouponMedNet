@@ -565,7 +565,7 @@ contract HRManager is Coupon,EmployeeBase {
     
     function approveCouponRedemption(uint _couponId) public isOwner {
         require(_readyToBeRedeemed(_couponId), "Coupon can not be redeemed");
-        CouponPaper memory _coupon = coupons[_couponId]; 
+        CouponPaper storage _coupon = coupons[_couponId]; 
          _coupon.approved = true;
          couponIndexApproved[_couponId] = msg.sender;
     }

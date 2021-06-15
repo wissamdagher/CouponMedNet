@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
 
 contract Coupon {
   string name; 
@@ -44,7 +45,7 @@ contract Coupon {
  //stores incremental value of employee coupons value to be paid
  mapping(address => uint) public empCouponsValueToPay;
 
-  constructor() public {
+  constructor() {
     name = "Coupon contract initialised";
     owner = msg.sender;
     couponCount = 0;

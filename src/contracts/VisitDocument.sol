@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
 
 contract VisitDocument { 
   string name;
@@ -20,7 +21,7 @@ contract VisitDocument {
   mapping (uint => VisitDoc ) public visitdocuments;
   mapping (bytes32 => uint ) public visitdocumenthash;
 
-  constructor() public {
+  constructor() {
     name = "VisitDocument contract initialised";
     owner = msg.sender;
     visitDocumentCount = 0;
@@ -46,11 +47,11 @@ contract VisitDocument {
     }
   }
 
-  function validateVisitDocument(uint _visitDocument) {
+  function validateVisitDocument(uint _visitDocument) public {
     
   }
 
-  function DocumentExists(bytes32 _docHash) public returns(bool) {
+  function DocumentExists(bytes32 _docHash) public view returns(bool) {
       if(visitdocumenthash[_docHash] > 0) {
         return true;
       }

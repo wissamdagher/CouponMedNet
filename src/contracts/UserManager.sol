@@ -67,6 +67,8 @@ contract UserInvite is Owner{
     event delinvitee (
         string  msg
         );
+        
+    event InvitationAdded(string msg);
 
     mapping (uint => Invitation) internal invitationById;
     uint[] internal invitees;
@@ -106,6 +108,7 @@ contract UserInvite is Owner{
         invitationById[_code].invtype = _usertype;
         
         invitees.push(_id);
+        emit InvitationAdded("success");
     }
     
     function deleteInvitation(uint _code, uint _id) internal {

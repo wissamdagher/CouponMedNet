@@ -142,7 +142,7 @@ contract EmployeeBase is UserInvite {
       uint activeMembers;
     }
 
-    event empFamilyRegistration(uint familyCounter, string msg);
+    
   
   struct Member {
       uint id;
@@ -151,7 +151,8 @@ contract EmployeeBase is UserInvite {
       address owner;
       bool active;
    }
-    
+    event empRegistration(uint employeesCounter, string msg);
+    event empFamilyRegistration(uint familyCounter, string msg);
     event memberRegistration (uint memberCounter, string msg);
     
     uint employeesCounter;
@@ -219,6 +220,7 @@ contract EmployeeBase is UserInvite {
         employeeIDtoIndex[_empid] = employeesCounter;
         deleteInvitation(_code,_empid);
         registerFamily(_empid, _maxfamilycount, msg.sender);
+        emit empRegistration(employeesCounter, "success");
     }
 
     function getEmployee(address _address) internal view returns (Employee storage){

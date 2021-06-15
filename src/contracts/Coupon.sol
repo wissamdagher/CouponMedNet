@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 
-contract Coupon {
+contract CouponOriginal {
   string name; 
   address owner;
   uint8 value;

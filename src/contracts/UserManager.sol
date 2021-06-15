@@ -305,7 +305,6 @@ contract DoctorManager is UserInvite {
 
 contract Coupon is Owner {
     
-  string name; 
   address owner;
   uint8 value;
   uint8 empCouponMax;
@@ -345,7 +344,6 @@ contract Coupon is Owner {
   mapping(uint => bool) couponIndexToDoctorVisit;
   
   constructor() {
-    name = "Coupon contract initialised";
     owner = msg.sender;
     couponCount = 0;
     value = 1;
@@ -361,9 +359,6 @@ contract Coupon is Owner {
         
     }
   
-    function getName() public isOwner view returns(string memory) {
-        return name;
-    }
 
     function issueCoupon() internal returns(uint _couponId) {
     couponCount ++;
@@ -572,6 +567,20 @@ contract HRManager is Coupon,EmployeeBase {
 }
  
 contract MyNet is EmployeeCore,DoctorManager {
+    string name;
+
+    constructor() {
+        name = "MyNet Contract is initialised";
+    }
+
+  function setName(string memory _name) public isOwner{ 
+    name = _name;
+  }
+
+  function getName() public view returns (string memory) {
+    return name;
+  }
+
     
     
 }

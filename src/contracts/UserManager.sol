@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
+
 pragma solidity >=0.7.0 <0.9.0;
 
 
@@ -555,6 +556,10 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
     event couponExchanged(uint _couponId, string msg);
     event doctorVisited(uint visitid, uint documentid, string msg);
     
+    //get Employee info
+    function getEmployeeInfo(address _employee) external isRegisteredEmployee(msg.sender) view returns (Employee memory) {
+        return getEmployee(_employee);
+    }
     //issue inital coupons
     function employeeIssueCoupons() public isRegisteredEmployee(msg.sender) {
         require((employees[msg.sender].initialCouponCount == 0), "Initial Coupons already issued");
@@ -616,13 +621,14 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
         delete couponIndexToOwnerExchanged[_couponId];
     }
     
-    function visitDoctor(uint empid, uint couponid, uint doctorid, bytes32 _docHash, address _address) public isRegisteredEmployee(msg.sender){
+    function visitDoctor(uint empid, uint couponid, uint doctorid, string memory _md5, address _address) public isRegisteredEmployee(msg.sender){
             //employee should have a family relation with _address
             //visit doctor
             uint _visitId = createVisit(empid, couponid, doctorid);
             couponIndexToDoctorVisit[couponid] = true;
             empDoctorVisists[msg.sender].push(_visitId);
             //submit document
+            bytes32 _docHash = sha256(bytes(_md5));
             uint _documentId = addVisitDocument(doctorid, empid, _docHash);
             // then exchange Coupon
             exchangeCoupon(couponid, _address);

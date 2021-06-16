@@ -422,9 +422,38 @@ contract Coupon is Owner {
     function getCoupon(uint _couponId) internal isOwner view returns(CouponPaper storage){
         return coupons[_couponId];
     }
-    
-    function getCouponsByOwner(address _address) internal {
+
+    function couponBalanceOf(address _address) internal view returns (uint count) {
+        return ownershipToCouponCount[_address];
+    }
+
+    function totalCoupons() internal view returns (uint count) {
+        return couponCount;
         
+    }
+    
+    function getCouponsByOwner(address _owner) external view returns (uint256[] memory ownerCoupons) {
+        uint256 count = couponBalanceOf(_owner);
+        if (count == 0) {
+            return new uint[](0);
+        }
+        else {
+            uint256[] memory result = new uint256[](count);
+            uint256 total = totalCoupons();
+            uint256 resultIndex = 0;
+            //we count all coupons
+            uint256 couponId;
+
+            for (couponId = 1; couponId <= total; couponId++) {
+                if (couponIndexToOwner[couponId] == _owner) {
+                    result[resultIndex] = couponId;
+                    resultIndex++;
+                }
+            }
+
+            return result;
+        }
+
     }
     
     
@@ -530,14 +559,14 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
     function employeeIssueCoupons() public isRegisteredEmployee(msg.sender) {
         require((employees[msg.sender].initialCouponCount == 0), "Initial Coupons already issued");
         Employee storage _employee = getEmployee(msg.sender);
-            for (uint i =0; i <= empCouponMax -1; i++)
+            for (uint i =1; i <= empCouponMax; i++)
             {
             //Employee is the owner and beneficiary of his initial coupons
             EmployeeToCoupons[_employee.empid][year].push(issueCoupon(msg.sender,msg.sender));
             _employee.initialCouponCount ++;
             }
-            if ((_employee.initialCouponCount-1) == empCouponMax) {
-                emit EmployeeCouponGeneration(empCouponMax, "Success");
+            if ((_employee.initialCouponCount) == empCouponMax) {
+                emit EmployeeCouponGeneration(empCouponMax, "success");
             }
             else { 
                 emit EmployeeCouponGeneration(_employee.initialCouponCount, "failure");
@@ -549,14 +578,14 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
     function employeeIssueMembersCoupons(address _memberaddress) public isRegisteredEmployee(msg.sender) {
         require((familyMembers[_memberaddress].initialCouponCount == 0), "Initial Coupons already issued");
         Member storage _member = getMember(_memberaddress);
-            for (uint i =0; i <= empCouponMax -1; i++)
+            for (uint i =1; i <= empCouponMax; i++)
             {
             //Employee is the owner and beneficiary of his initial coupons
             MemberToCoupons[_member.id][year].push(issueCoupon(msg.sender,_memberaddress));
             _member.initialCouponCount ++;
             }
-            if ((_member.initialCouponCount-1) == empCouponMax) {
-                emit MemberCouponGeneration(empCouponMax, "Success");
+            if ((_member.initialCouponCount) == empCouponMax) {
+                emit MemberCouponGeneration(empCouponMax, "success");
             }
             else { 
                 emit MemberCouponGeneration(_member.initialCouponCount, "failure");

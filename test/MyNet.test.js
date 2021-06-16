@@ -133,9 +133,10 @@ contract('MyNet', ([deployer, employee1, employee2, doctor1, member1, member2]) 
     before(async () => {
       //result = await MyNet.createVisit(601,1000, web3.utils.toWei('1', 'Ether'), { from: seller })
       employeeCoupons = await mynet.getCouponsByOwner(employee1)
+      console.log(employeeCoupons[0])
       //result = await mynet.exchangeCoupon(1, {from: employee1})
     })
-    it('Register Doctor', async() => {
+    it('Employee Exchange Coupon', async() => {
       console.log(employeeCoupons.length)
       //const event = result.logs[1].args
       //assert.equal(event.msg, 'success', 'Doctor registration success')

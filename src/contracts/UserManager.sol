@@ -581,7 +581,7 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
             for (uint i =1; i <= empCouponMax; i++)
             {
             //Employee is the owner and beneficiary of his initial coupons
-            MemberToCoupons[_member.id][year].push(issueCoupon(msg.sender,_memberaddress));
+            MemberToCoupons[_member.id][year].push(issueCoupon(_memberaddress,msg.sender));
             _member.initialCouponCount ++;
             }
             if ((_member.initialCouponCount) == empCouponMax) {
@@ -594,19 +594,19 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
 
     }
     
-     function exchangeCoupon(uint _couponId) public isRegisteredEmployee(msg.sender) {
-        require(_owns(msg.sender, _couponId), "Not the owner of the token");
+     function exchangeCoupon(uint _couponId, address _owner) public isRegisteredEmployee(msg.sender) {
+        require(_owns(_owner, _couponId), "Not the owner of the token");
          CouponPaper memory _coupon = coupons[_couponId]; 
          _coupon.status = "Exchanged";
          //_coupon.beneficiary = _coupon.owner;
          //_coupon.owner = owner;
          coupons[_couponId] = _coupon;
-         couponIndexToOwnerExchanged[_couponId] = msg.sender;
+         couponIndexToOwnerExchanged[_couponId] = _owner;
          delete couponIndexToOwner[_couponId];
     }
     
-    function redeemCoupon(uint _couponId) public isRegisteredEmployee(msg.sender) {
-        require(_isBeneficiary(msg.sender, _couponId), "Not the owner of the token");
+    function redeemCoupon(uint _couponId, address _owner) public isRegisteredEmployee(msg.sender) {
+        require(_owns(_owner, _couponId), "Not the owner of the token");
         require(_readyToBeRedeemed(_couponId), "Coupon can not be redeemed");
          CouponPaper memory _coupon = coupons[_couponId]; 
          _coupon.status = "Redeemed";
@@ -616,7 +616,8 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
         delete couponIndexToOwnerExchanged[_couponId];
     }
     
-    function visitDoctor(uint empid, uint couponid, uint doctorid, bytes32 _docHash) public isRegisteredEmployee(msg.sender){
+    function visitDoctor(uint empid, uint couponid, uint doctorid, bytes32 _docHash, address _address) public isRegisteredEmployee(msg.sender){
+            //employee should have a family relation with _address
             //visit doctor
             uint _visitId = createVisit(empid, couponid, doctorid);
             couponIndexToDoctorVisit[couponid] = true;
@@ -624,7 +625,7 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
             //submit document
             uint _documentId = addVisitDocument(doctorid, empid, _docHash);
             // then exchange Coupon
-            exchangeCoupon(couponid);
+            exchangeCoupon(couponid, _address);
             emit doctorVisited( _visitId, _documentId, "success");
     }
 }

@@ -275,6 +275,7 @@ contract EmployeeBase is UserInvite {
 }
 
 contract DoctorBase is UserInvite { 
+
     struct Doctor { 
         uint id;
         uint doctorid;
@@ -720,15 +721,9 @@ contract HRManager is Coupon,EmployeeBase,DoctorBase {
         emit paidCoupon(_couponId, "success");
         
     }
-
-    function updateDoctorPricing(address _address, uint8 _newCouponCoefficient) external isOwner {
-        Doctor storage _doctor = doctors[_address];
-        _doctor.couponcoefficient = _newCouponCoefficient;
-        emit DoctorPricing("success");
-    }
 }
  
-contract MyNet is EmployeeCore,DoctorBase,HRManager {
+contract MyNet is EmployeeCore,HRManager {
     string name;
 
     constructor() {

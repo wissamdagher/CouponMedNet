@@ -118,7 +118,7 @@ contract('MyNet', ([deployer, employee1, employee2, doctor1, member1, member2]) 
 
       before(async () => {
         //result = await MyNet.createVisit(601,1000, web3.utils.toWei('1', 'Ether'), { from: seller })
-        result = await mynet.registerDoctor(1001,"Cardiology",1234,2, {from: doctor1})
+        result = await mynet.registerDoctor(1001,"Cardiology",1234,2,1, {from: doctor1})
       })
       it('Register Doctor', async() => {
         const event = result.logs[1].args

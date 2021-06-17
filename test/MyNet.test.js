@@ -118,7 +118,7 @@ contract('MyNet', ([deployer, employee1, employee2, doctor1, member1, member2]) 
 
       before(async () => {
         //result = await MyNet.createVisit(601,1000, web3.utils.toWei('1', 'Ether'), { from: seller })
-        result = await mynet.registerDoctor(1001,"Cardiology",1234,2, {from: doctor1})
+        result = await mynet.registerDoctor(1001,"Cardiology",1234,2,1, {from: doctor1})
       })
       it('Register Doctor', async() => {
         const event = result.logs[1].args
@@ -145,26 +145,43 @@ contract('MyNet', ([deployer, employee1, employee2, doctor1, member1, member2]) 
       assert.equal(event.documentid,1,"First Document hash registered")
     })
     //end doctor visit test
-})
+  })
 
-  describe('Coupon validation', async() =>{
-    let result, exchangedCoupons, couponid
+  describe('Coupon validation by HR Admin', async() =>{
+    let result, exchangedCoupons, couponid,isCouponApproved,couponStatus
     before(async()=> {
       //status 2 is for exchanged coupons
       exchangedCoupons = await mynet.getCouponsByStatus(2)
-      console.log(exchangedCoupons.length)
-      console.log(exchangedCoupons[0])
       couponid = exchangedCoupons[0]
+      couponStatus = await mynet.getCouponById(couponid);
       result = await mynet.approveCouponRedemption(1, {from: deployer})
-      console.log(result)
+      isCouponApproved = await mynet.couponIndexApproved(couponid)
     })
     it('Validate Coupon Exchanged', async() => {
       //1-created, 2-exchanged, 3-redeemed, 4-paid
-      console.log(result.logs)
       const event = result.logs[0].args
       assert.equal(event.msg, 'success', 'Coupon Validated success')
-
+      assert.equal(isCouponApproved,true, 'Coupon Redeem Approved')
     })
+  //end coupon validation
+  })
+
+  describe('Redeem Coupon by Employee', async() => {
+    let result, emp, couponid, employeeCoupons,couponStatus
+
+    before(async () => {
+      //result = await MyNet.createVisit(601,1000, web3.utils.toWei('1', 'Ether'), { from: seller })
+      employeeCoupons = await mynet.getCouponsByOwner(employee1)
+      couponid = employeeCoupons[0]
+      result = await mynet.redeemCoupon(couponid, employee1, {from: employee1}) 
+      //couponStatus = await mynet.getCouponById(couponid);
+    })
+    it('Employee Redeem Coupon', async() => {
+      const event = result.logs[0].args
+      assert.equal(event.msg, 'success', 'Coupon Redeem success')
+      assert.equal(event.couponId.toNumber(),couponid," Coupon Redeemed")
+    })
+    //end coupon redeem test
   })
 
 

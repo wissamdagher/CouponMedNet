@@ -429,9 +429,9 @@ contract Coupon is Owner {
     }
     
   
-    function getCouponById(uint _couponId) public isOwner view returns(uint, address, address) { 
+    function getCouponById(uint _couponId) public isOwner view returns(uint id, address, address, string memory status) { 
     
-        return (coupons[_couponId].id, coupons[_couponId].owner, coupons[_couponId].beneficiary);
+        return (coupons[_couponId].id, coupons[_couponId].owner, coupons[_couponId].beneficiary, coupons[_couponId].status);
     }
     
     function getCoupon(uint _couponId) internal isOwner view returns(CouponPaper storage){
@@ -604,6 +604,8 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
     event MemberCouponGeneration(uint initialCouponCount, string msg);
     event couponExchanged(uint _couponId, string msg);
     event doctorVisited(uint visitid, uint documentid, string msg);
+    event couponRedeemed(uint couponId, string msg);
+
     
     //get Employee info
     function getEmployeeInfo(address _employee) external isRegisteredEmployee(msg.sender) view returns (Employee memory) {
@@ -658,7 +660,7 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
          couponIndexToStatus[_couponId] = 2;
          couponExchangedCount ++;
          couponIndexToOwnerExchanged[_couponId] = _owner;
-         delete couponIndexToOwner[_couponId];
+         couponIndexToOwner[_couponId];
     }
     
     function redeemCoupon(uint _couponId, address _owner) public isRegisteredEmployee(msg.sender) {
@@ -673,6 +675,7 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
         coupons[_couponId] = _coupon;
         couponIndexToOwnerRedeeemed[_couponId] = msg.sender;
         delete couponIndexToOwnerExchanged[_couponId];
+        emit couponRedeemed(_couponId, "success");
     }
     
     function visitDoctor(uint empid, uint couponid, uint doctorid, string memory _md5, address _address) public isRegisteredEmployee(msg.sender){
@@ -691,17 +694,18 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
 }
 
 contract HRManager is Coupon,EmployeeBase,DoctorBase {
-    mapping(uint => address) couponIndexApproved;
+    mapping(uint => bool) public couponIndexApproved;
 
     event approveCoupon(uint couponid, string msg);
     event paidCoupon(uint _couponId, string msg);
     event DoctorPricing(string msg);
-    
+
     function approveCouponRedemption(uint _couponId) public isOwner {
         require(_readyToBeRedeemed(_couponId), "Coupon can not be redeemed");
+        require(!couponIndexApproved[_couponId], "Coupon already approved");
         CouponPaper storage _coupon = coupons[_couponId]; 
          _coupon.approved = true;
-         couponIndexApproved[_couponId] = msg.sender;
+         couponIndexApproved[_couponId] = true;
          emit approveCoupon(_couponId, "success");
     }
     
@@ -720,12 +724,6 @@ contract HRManager is Coupon,EmployeeBase,DoctorBase {
         emit paidCoupon(_couponId, "success");
         
     }
-
-    function updateDoctorPricing(address _address, uint8 _newCouponCoefficient) external isOwner {
-        Doctor storage _doctor = doctors[_address];
-        _doctor.couponcoefficient = _newCouponCoefficient;
-        emit DoctorPricing("success");
-    }
 }
  
 contract MyNet is EmployeeCore,DoctorBase,HRManager {
@@ -735,14 +733,9 @@ contract MyNet is EmployeeCore,DoctorBase,HRManager {
         name = "MyNet Contract is initialised";
     }
 
-  function setName(string memory _name) public isOwner{ 
-    name = _name;
-  }
-
-  function getName() public view returns (string memory) {
-    return name;
-  }
-
+    function getName() public view returns(string memory _name) {
+        return name;
+    }
     
     
 }

@@ -36,13 +36,12 @@ contract('MyNet', ([deployer, employee1, employee2, doctor1, member1, member2]) 
   })
 
   describe('MyNet HR Role', async () => {
-    let result, inviteDoctor, couponCount, invitations
+    let result, inviteDoctor, invitations
 
     before(async () => {
       //result = await MyNet.createVisit(601,1000, web3.utils.toWei('1', 'Ether'), { from: seller })
       result = await mynet.addInvitation(123,601,1, { from: deployer })
       inviteDoctor = await mynet.addInvitation(1234,1001,2, {from: deployer})
-      couponCount = await mynet.couponCount()
       invitations = await mynet.getInvitations()
     })
 
@@ -135,7 +134,6 @@ contract('MyNet', ([deployer, employee1, employee2, doctor1, member1, member2]) 
       employeeCoupons = await mynet.getCouponsByOwner(employee1)
       emp = await mynet.getEmployeeInfo(employee1, {from: employee1})
       couponid = employeeCoupons[0]
-      console.log(couponid)
       doctorid = 1001
       md5 = '5d41402abc4b2a76b9719d911017c592' //hello
       result = await mynet.visitDoctor(emp.empid, couponid, doctorid, md5, employee1, {from: employee1})
@@ -150,18 +148,23 @@ contract('MyNet', ([deployer, employee1, employee2, doctor1, member1, member2]) 
 })
 
   describe('Coupon validation', async() =>{
-    let result 
+    let result, exchangedCoupons, couponid
     before(async()=> {
+      //status 2 is for exchanged coupons
       exchangedCoupons = await mynet.getCouponsByStatus(2)
+      console.log(exchangedCoupons.length)
+      console.log(exchangedCoupons[0])
       couponid = exchangedCoupons[0]
-      result = await mynet.approveCouponRedemption(couponid)
+      result = await mynet.approveCouponRedemption(1, {from: deployer})
       console.log(result)
     })
-    it('Validate Coupon Exchanged', async({
+    it('Validate Coupon Exchanged', async() => {
       //1-created, 2-exchanged, 3-redeemed, 4-paid
-      
+      console.log(result.logs)
+      const event = result.logs[0].args
+      assert.equal(event.msg, 'success', 'Coupon Validated success')
 
-    }))
+    })
   })
 
 

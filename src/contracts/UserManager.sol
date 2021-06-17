@@ -416,8 +416,9 @@ contract Coupon is Owner {
         return(coupons[_couponId].beneficiary == _address);
     }
     
+    //coupon status is exchanged
     function _readyToBeRedeemed(uint _couponId) internal view returns (bool) {
-       return((couponIndexToOwnerExchanged[_couponId] > address(0)) && (coupons[_couponId].approved == true));
+       return((couponIndexToOwnerExchanged[_couponId] > address(0)) && (couponIndexToStatus[_couponId] == 2));
     }
     
   
@@ -647,7 +648,7 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
          //_coupon.beneficiary = _coupon.owner;
          //_coupon.owner = owner;
          coupons[_couponId] = _coupon;
-         couponIndexToStatus[couponCount] = 2;
+         couponIndexToStatus[_couponId] = 2;
          couponExchangedCount ++;
          couponIndexToOwnerExchanged[_couponId] = _owner;
          delete couponIndexToOwner[_couponId];
@@ -713,7 +714,7 @@ contract HRManager is Coupon,EmployeeBase {
     }
 }
  
-contract MyNet is EmployeeCore,DoctorManager {
+contract MyNet is EmployeeCore,DoctorManager,HRManager {
     string name;
 
     constructor() {

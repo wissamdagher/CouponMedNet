@@ -326,7 +326,10 @@ contract Coupon is Owner {
   uint8 value;
   uint8 empCouponMax;
   uint couponPayAmount;
-  uint public couponCount; 
+  uint couponCount; 
+  uint couponExchangedCount;
+  uint couponRedeemedCount;
+  uint couponPaidCount;
   uint year;
   
   struct CouponPaper {
@@ -349,13 +352,15 @@ contract Coupon is Owner {
   
   
   mapping(uint => CouponPaper) internal coupons;
-  mapping(address => uint) public ownershipToCouponCount;
+  mapping(address => uint) internal ownershipToCouponCount;
   //Filled when new coupon is created
-  mapping(uint => address) public couponIndexToOwner;
+  mapping(uint => address) internal couponIndexToOwner;
   //Filled when new coupon is exchanged
-  mapping(uint => address) public couponIndexToOwnerExchanged;
+  mapping(uint => address) internal couponIndexToOwnerExchanged;
   //Filled when new coupon is redeemed
-  mapping(uint => address) public couponIndexToOwnerRedeeemed;
+  mapping(uint => address) internal couponIndexToOwnerRedeeemed;
+  //Track coupon status
+  mapping(uint => uint8) internal couponIndexToStatus;
   
   //Filled when a coupon is used in DoctorVisit
   mapping(uint => bool) couponIndexToDoctorVisit;
@@ -385,6 +390,7 @@ contract Coupon is Owner {
     coupons[couponCount] = CouponPaper(couponCount,_couponowner, _couponbeneficiary, value, "created", true, false);
     ownershipToCouponCount[_couponowner] ++;
     couponIndexToOwner[couponCount] = _couponowner;
+    couponIndexToStatus[couponCount] = 1;
     emit CouponPaperCreated(couponCount, _couponowner, true, "success");
     return couponCount;
     
@@ -432,6 +438,41 @@ contract Coupon is Owner {
         return couponCount;
         
     }
+
+    function totalCouponsByStatus(uint8 _status) internal view returns (uint countExchanged) {
+        require(_status < 5 && _status >0, "Invalid status provided");
+        //1 - created, 2- exchanged, 3-redeemed, 4-paid
+        if (_status == 1) return couponCount;
+        if (_status == 2) return couponExchangedCount;
+        if (_status == 3) return couponRedeemedCount;
+        if (_status == 4) return couponPaidCount;
+    }
+
+    function getCouponsByStatus(uint8 _status) external view returns (uint256[] memory statusCoupons) {
+        
+        uint256 count = totalCouponsByStatus(_status);
+        if (count == 0) {
+            return new uint256[](0);
+        }
+        else {
+            uint256[] memory result = new uint256[](count);
+            uint256 total = totalCoupons();
+            uint256 resultIndex = 0;
+            //we count all coupons
+            uint256 couponId;
+
+            for (couponId = 1; couponId <= total; couponId++) {
+                if (couponIndexToStatus[couponId] == _status) {
+                    result[resultIndex] = couponId;
+                    resultIndex++;
+                }
+            }
+
+            return result;
+        }
+
+    }
+
     
     function getCouponsByOwner(address _owner) external view returns (uint256[] memory ownerCoupons) {
         uint256 count = couponBalanceOf(_owner);
@@ -606,6 +647,8 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
          //_coupon.beneficiary = _coupon.owner;
          //_coupon.owner = owner;
          coupons[_couponId] = _coupon;
+         couponIndexToStatus[couponCount] = 2;
+         couponExchangedCount ++;
          couponIndexToOwnerExchanged[_couponId] = _owner;
          delete couponIndexToOwner[_couponId];
     }
@@ -615,8 +658,11 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
         require(_readyToBeRedeemed(_couponId), "Coupon can not be redeemed");
          CouponPaper memory _coupon = coupons[_couponId]; 
          _coupon.status = "Redeemed";
+         couponIndexToStatus[couponCount] = 3;
+         couponExchangedCount --;
+         couponRedeemedCount ++;
          //_coupon.beneficiary = owner;
-         coupons[_couponId] = _coupon;
+        coupons[_couponId] = _coupon;
         couponIndexToOwnerRedeeemed[_couponId] = msg.sender;
         delete couponIndexToOwnerExchanged[_couponId];
     }
@@ -638,21 +684,31 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
 
 contract HRManager is Coupon,EmployeeBase {
     mapping(uint => address) couponIndexApproved;
+
+    event approveCoupon(uint couponid, string msg);
+    event paidCoupon(uint _couponId, string msg);
     
     function approveCouponRedemption(uint _couponId) public isOwner {
         require(_readyToBeRedeemed(_couponId), "Coupon can not be redeemed");
         CouponPaper storage _coupon = coupons[_couponId]; 
          _coupon.approved = true;
          couponIndexApproved[_couponId] = msg.sender;
+         emit approveCoupon(_couponId, "success");
     }
     
     function prepareCouponPayment(uint _couponId) public isOwner {
         CouponPaper storage _coupon = coupons[_couponId]; 
         _coupon.valid = false;
+        _coupon.status = "Paid";
         _coupon.beneficiary = _coupon.owner;
         _coupon.owner = owner;
+        couponIndexToStatus[couponCount] = 4;
+        couponRedeemedCount --;
+        couponPaidCount ++;
         uint _balance = balances[_coupon.owner];
         balances[_coupon.owner] = _balance + couponPayAmount;
+
+        emit paidCoupon(_couponId, "success");
         
     }
 }

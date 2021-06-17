@@ -146,7 +146,23 @@ contract('MyNet', ([deployer, employee1, employee2, doctor1, member1, member2]) 
       assert.equal(event.visitid,1,"First visit created")
       assert.equal(event.documentid,1,"First Document hash registered")
     })
+    //end doctor visit test
 })
+
+  describe('Coupon validation', async() =>{
+    let result 
+    before(async()=> {
+      exchangedCoupons = await mynet.getCouponsByStatus(2)
+      couponid = exchangedCoupons[0]
+      result = await mynet.approveCouponRedemption(couponid)
+      console.log(result)
+    })
+    it('Validate Coupon Exchanged', async({
+      //1-created, 2-exchanged, 3-redeemed, 4-paid
+      
+
+    }))
+  })
 
 
 //end of contract test

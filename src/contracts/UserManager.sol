@@ -274,19 +274,21 @@ contract EmployeeBase is UserInvite {
     
 }
 
-contract DoctorManager is UserInvite { 
+contract DoctorBase is UserInvite { 
     struct Doctor { 
         uint id;
         uint doctorid;
         string specialty;
+        uint8 couponcoeficient;
         bool active;
     }
     
-    uint doctorsCounter;
+    uint internal doctorsCounter;
     
     mapping (address => Doctor) internal doctors;
     mapping (uint => address) internal doctorIndexToOwner;
-    uint[] public registeredDoctors;
+    mapping (uint => bytes32) internal doctorIndexToKeyHash;
+    uint[] internal registeredDoctors;
     
     //events 
     event doctorregistration (uint id, string msg);
@@ -305,18 +307,23 @@ contract DoctorManager is UserInvite {
     }
     
     //function can be called by User with an invitation on the system
-    function registerDoctor(uint _doctorid, string memory _speciality, uint _code, uint _usertype ) public isInvited(_code,_doctorid, _usertype) notOwner{
+    function registerDoctor(uint _doctorid, string memory _speciality, uint _code, uint _usertype, uint8 _couponcoeficient) public isInvited(_code,_doctorid, _usertype) notOwner{
         require(isDoctor(_usertype), "Not a Doctor type");
         doctorsCounter ++;
-        doctors[msg.sender] = Doctor(doctorsCounter, _doctorid, _speciality, true);
+        bytes32 _keyhash = sha256(abi.encodePacked(doctorsCounter+_doctorid));
+        doctorIndexToKeyHash[doctorsCounter] = _keyhash;
+        doctors[msg.sender] = Doctor(doctorsCounter, _doctorid, _speciality,_couponcoeficient, true);
         registeredDoctors.push(_doctorid);
         doctorIndexToOwner[_doctorid] = msg.sender;
         deleteInvitation(_code,_doctorid);
         emit doctorregistration(doctorsCounter, "success");
     }
 
-    function getDoctor(address _address) public view returns (uint, uint, string memory, bool ){
-        return( doctors[_address].doctorid, doctors[_address].id, doctors[_address].specialty ,doctors[_address].active);
+    function getDoctor(address _address) internal view returns (uint, uint, string memory, uint8, bool ){
+        return( doctors[_address].doctorid, doctors[_address].id, doctors[_address].specialty ,doctors[_address].couponcoeficient,doctors[_address].active);
+    }
+    function getDoctor(uint _id) internal view returns(bytes32 _keyhash) {
+        return doctorIndexToKeyHash[_id];
     }
 }
 
@@ -683,11 +690,12 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
     }
 }
 
-contract HRManager is Coupon,EmployeeBase {
+contract HRManager is Coupon,EmployeeBase,DoctorBase {
     mapping(uint => address) couponIndexApproved;
 
     event approveCoupon(uint couponid, string msg);
     event paidCoupon(uint _couponId, string msg);
+    event DoctorPricing(string msg);
     
     function approveCouponRedemption(uint _couponId) public isOwner {
         require(_readyToBeRedeemed(_couponId), "Coupon can not be redeemed");
@@ -712,9 +720,15 @@ contract HRManager is Coupon,EmployeeBase {
         emit paidCoupon(_couponId, "success");
         
     }
+
+    function updateDoctorPricing(address _address, uint8 _newCouponCoefficient) external isOwner {
+        Doctor storage _doctor = doctors[_address];
+        _doctor.couponcoefficient = _newCouponCoefficient;
+        emit DoctorPricing("success");
+    }
 }
  
-contract MyNet is EmployeeCore,DoctorManager,HRManager {
+contract MyNet is EmployeeCore,DoctorBase,HRManager {
     string name;
 
     constructor() {

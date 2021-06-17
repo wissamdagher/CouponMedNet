@@ -275,6 +275,7 @@ contract EmployeeBase is UserInvite {
 }
 
 contract DoctorBase is UserInvite { 
+
     struct Doctor { 
         uint id;
         uint doctorid;
@@ -726,7 +727,7 @@ contract HRManager is Coupon,EmployeeBase,DoctorBase {
     }
 }
  
-contract MyNet is EmployeeCore,DoctorBase,HRManager {
+contract MyNet is EmployeeCore,HRManager {
     string name;
 
     constructor() {

@@ -1,14 +1,14 @@
 /* eslint-disable no-undef */
 const MyNet = artifacts.require("MyNet");
-//const Doctorvisit = artifacts.require("Doctorvisit");
-//const Coupon = artifacts.require("Coupon");
-//const Employee = artifacts.require("Employee");
+const DoctorVisitBase = artifacts.require("DoctorVisitBase");
+const Coupon = artifacts.require("Coupon");
+const DoctorBase = artifacts.require("DoctorBase");
 
 
 module.exports = function(deployer) {
   deployer.deploy(MyNet);
-  //deployer.deploy(Doctorvisit);
- // deployer.deploy(Coupon);
- // deployer.deploy(Employee);
+  deployer.deploy(Coupon);
+  deployer.deploy(DoctorBase);
+  deployer.deploy(DoctorVisitBase);
 
 };

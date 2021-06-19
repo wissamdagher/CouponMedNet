@@ -19,5 +19,6 @@ module.exports = {
         runs: 200
       }
     }
-  }
+  },
+  plugins: ['oneclick']
 }

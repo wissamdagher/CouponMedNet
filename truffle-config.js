@@ -1,5 +1,9 @@
 require('babel-register');
 require('babel-polyfill');
+const PrivateKeyProvider = require("@truffle/hdwallet-provider");
+
+
+const privateKey = "c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3";
 
 module.exports = {
   networks: {
@@ -8,6 +12,10 @@ module.exports = {
       port: 8545,
       network_id: "*" // Match any network id
     },
+    quickstartWallet: {
+      provider: () => new PrivateKeyProvider(privateKey, "http://localhost:8545"),
+      network_id: "*"
+    }
   },
   contracts_directory: './src/contracts/',
   contracts_build_directory: './src/abis/',
@@ -19,5 +27,6 @@ module.exports = {
         runs: 200
       }
     }
-  }
+  },
+  plugins: ['oneclick']
 }

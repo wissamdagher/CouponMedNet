@@ -39,7 +39,7 @@ contract('MyNet', ([deployer, employee1, employee2, doctor1, member1, member2]) 
     let result, inviteDoctor, invitations
 
     before(async () => {
-      //result = await MyNet.createVisit(601,1000, web3.utils.toWei('1', 'Ether'), { from: seller })
+      //addInvitation(code,empid,userType)
       result = await mynet.addInvitation(123,601,1, { from: deployer })
       inviteDoctor = await mynet.addInvitation(1234,1001,2, {from: deployer})
       invitations = await mynet.getInvitations()

@@ -9,12 +9,21 @@ module.exports = {
   networks: {
     development: {
       host: "127.0.0.1",
-      port: 8545,
+      port: 7545,
       network_id: "*" // Match any network id
     },
     quickstartWallet: {
       provider: () => new PrivateKeyProvider(privateKey, "http://localhost:8545"),
       network_id: "*"
+    },
+    quorum: {
+      host: "127.0.0.1",
+      port: 22000, // replace with quorum node port you wish to connect to
+      network_id: "10",
+      gas: 4500000,
+      gasPrice: 0,
+      from: '0xf6a841a6bf0813cbb5d44e995b3b584169f36c4e',
+      type: "quorum"
     }
   },
   contracts_directory: './src/contracts/',

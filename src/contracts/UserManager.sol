@@ -699,7 +699,7 @@ contract HRManager is Coupon,EmployeeBase,DoctorBase {
 
     event approveCoupon(uint couponid, string msg);
     event paidCoupon(uint _couponId, string msg);
-    event DoctorPricing(string msg);
+   // event DoctorPricing(string msg);
 
     function approveCouponRedemption(uint _couponId) public isOwner {
         require(_readyToBeRedeemed(_couponId), "Coupon can not be redeemed");

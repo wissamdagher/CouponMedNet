@@ -36,19 +36,23 @@ contract('MyNet', ([deployer, employee1, employee2, doctor1, member1, member2]) 
   })
 
   describe('MyNet HR Role', async () => {
-    let result, inviteDoctor, invitations
+    let setParamResult, result, inviteDoctor, invitations
 
     before(async () => {
-      //addInvitation(code,empid,userType)
+      //setGlobalParameters(uint256 _value, uint256 _maxcoupons, uint256 _paidamount,uint256 _year)
+      setParamResult = await mynet.setGlobalParameters(1,5,80000,2021);
       result = await mynet.addInvitation(123,601,1, { from: deployer })
       inviteDoctor = await mynet.addInvitation(1234,1001,2, {from: deployer})
       invitations = await mynet.getInvitations()
     })
+    
+    it('Set MyNet Coupon Parameters', async () => {
+      const event = setParamResult.logs[0].args
+      assert.equal(event.msg, 'success', 'Parameters are set')
+      assert.equal(event.paidamount,80000, "Paid amount set to 80000")
+    })
 
     it('Invite Employee to MyNet', async () => {
-      // SUCCESS
-      //assert.equal(couponCount, 0)
-     // console.log("Invitations "+invitations[0])
       assert.equal(invitations[0],601)
       const event = result.logs[0].args
       assert.equal(event.msg, 'success', 'invitation is correct')
@@ -56,7 +60,6 @@ contract('MyNet', ([deployer, employee1, employee2, doctor1, member1, member2]) 
 
     it('Invite Doctor to MyNet', async () => {
       // SUCCESS
-      //console.log("Invitations "+invitations[0])
       assert.equal(invitations[1],1001)
       const event = inviteDoctor.logs[0].args
       assert.equal(event.msg, 'success', 'invitation is correct')

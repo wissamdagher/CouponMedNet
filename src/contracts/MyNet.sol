@@ -61,8 +61,8 @@ contract UserInvite is Owner{
 
     
     struct Invitation { 
-        uint256 id;
-        uint256 invtype;
+        uint id;
+        uint invtype;
     }
     
     event delinvitee (
@@ -71,10 +71,10 @@ contract UserInvite is Owner{
         
     event InvitationAdded(string msg);
 
-    mapping (uint256 => Invitation) internal invitationById;
+    mapping (uint => Invitation) internal invitationById;
     uint[] internal invitees;
     
-    modifier isInvited(uint256 _code, uint256 _id, uint256 _usertype) {
+    modifier isInvited(uint _code, uint _id, uint _usertype) {
         // If the first argument of 'require' evaluates to 'false', execution terminates and all
         // changes to the state and to Ether balances are reverted.
         // This used to consume all gas in old EVM versions, but not anymore.
@@ -84,26 +84,26 @@ contract UserInvite is Owner{
         _;
     }
 
-    function find(uint256 value) private view returns(uint) {
-        uint256 i = 0;
+    function find(uint value) private view returns(uint) {
+        uint i = 0;
         while (invitees[i] != value) {
             i++;
         }
         return i;
     }
 
-    function removeByValue(uint256 value) private {
-        uint256 i = find(value);
+    function removeByValue(uint value) private {
+        uint i = find(value);
         removeByIndex(i);
     }
 
-    function removeByIndex(uint256 i) private {
+    function removeByIndex(uint i) private {
             invitees[i] = invitees[invitees.length -1];
             invitees.pop();
         }
     
     
-    function addInvitation(uint256 _code, uint256 _id, uint256 _usertype) public isOwner { 
+    function addInvitation(uint _code, uint _id, uint _usertype) public isOwner { 
         require(invitationById[_code].id == 0, "Already invitation code exists");
         invitationById[_code].id = _id;
         invitationById[_code].invtype = _usertype;
@@ -112,7 +112,7 @@ contract UserInvite is Owner{
         emit InvitationAdded("success");
     }
     
-    function deleteInvitation(uint256 _code, uint256 _id) internal {
+    function deleteInvitation(uint _code, uint _id) internal {
          delete invitationById[_code];
          removeByValue(_id);
          emit delinvitee("deleted");
@@ -127,60 +127,60 @@ contract UserInvite is Owner{
 contract EmployeeBase is UserInvite { 
 
     struct Employee { 
-        uint256 id;
-        uint256 empid; //empid provided by HR
-        uint256 maxfamilycount; //maximum number of family members that can register
-        uint256 initialCouponCount;
-        uint256 extraCouponCount;
+        uint id;
+        uint empid; //empid provided by HR
+        uint maxfamilycount; //maximum number of family members that can register
+        uint initialCouponCount;
+        uint extraCouponCount;
         bool active;
     }
 
     struct Family {
-      uint256 id;
-      uint256 empId;
-      uint256 count;
+      uint id;
+      uint empId;
+      uint count;
       bool active;
-      uint256 activeMembers;
+      uint activeMembers;
     }
 
     
   
   struct Member {
-      uint256 id;
-      uint256 empId;
-      uint256 familyId;
+      uint id;
+      uint empId;
+      uint familyId;
       address owner;
-      uint256 initialCouponCount;
-      uint256 extraCouponCount;
+      uint initialCouponCount;
+      uint extraCouponCount;
       bool active;
    }
-    event empRegistration(uint256 employeesCounter, string msg);
-    event empFamilyRegistration(uint256 familyCounter, string msg);
-    event memberRegistration (uint256 memberCounter, string msg);
+    event empRegistration(uint employeesCounter, string msg);
+    event empFamilyRegistration(uint familyCounter, string msg);
+    event memberRegistration (uint memberCounter, string msg);
     
-    uint256 employeesCounter;
-    uint256 familyCounter;
-    uint256 memberCounter;
+    uint employeesCounter;
+    uint familyCounter;
+    uint memberCounter;
     
     mapping (address => Employee) internal employees;
-    mapping (uint256 => address) internal employeeIndexToOwner;
-    mapping (uint256 => uint) internal employeeIDtoIndex;
+    mapping (uint => address) internal employeeIndexToOwner;
+    mapping (uint => uint) internal employeeIDtoIndex;
 
     //family
-    mapping(uint256 => Family) public EmployeeFamily;
+    mapping(uint => Family) public EmployeeFamily;
 
     //Family Member
     mapping (address => Member) internal familyMembers;
-    mapping (uint256 => mapping(uint256 => Member )) EmployeeToFamilyMembers;
-    mapping (uint256 => Member[]) public EmployeeFamilyMembers;
-    mapping (address => uint256 ) memberAddressToEmployeeId;
+    mapping (uint => mapping(uint => Member )) EmployeeToFamilyMembers;
+    mapping (uint => Member[]) public EmployeeFamilyMembers;
+    mapping (address => uint ) memberAddressToEmployeeId;
     uint[] public registeredEmployees;
     
     //Employee Coupons
-    mapping (uint256 => mapping(uint256 => uint[] )) internal EmployeeToCoupons;
+    mapping (uint => mapping(uint => uint[] )) internal EmployeeToCoupons;
     
     //Member Coupons
-    mapping (uint256 => mapping(uint256 => uint[] )) internal MemberToCoupons;
+    mapping (uint => mapping(uint => uint[] )) internal MemberToCoupons;
     
     //Employee Doctor Visit, e.g empDoctorVisists[601][0] = 1 (visitId)
     mapping(address => uint[]) public empDoctorVisists;
@@ -191,7 +191,7 @@ contract EmployeeBase is UserInvite {
         familyCounter = 0;
     }
 
-    function isEmployee(uint256 _type) private pure returns (bool) {
+    function isEmployee(uint _type) private pure returns (bool) {
         if (_type ==1) {
             return true;
         }
@@ -217,7 +217,7 @@ contract EmployeeBase is UserInvite {
     }
 
     //function can be called by User with an invitation on the system
-    function registerEmployee(uint256 _empid, uint256 _maxfamilycount, uint256 _code, uint256 _usertype ) public notOwner isInvited(_code,_empid, _usertype) isNotRegistered(msg.sender) {
+    function registerEmployee(uint _empid, uint _maxfamilycount, uint _code, uint _usertype ) public notOwner isInvited(_code,_empid, _usertype) isNotRegistered(msg.sender) {
         require(isEmployee(_usertype), "Not an employee type");
         employeesCounter ++;
         employees[msg.sender] = Employee(employeesCounter, _empid, _maxfamilycount,0,0,true);
@@ -238,7 +238,7 @@ contract EmployeeBase is UserInvite {
     }
     
 
-    function registerFamily(uint256 _empId, uint256 _count, address _address) internal isRegisteredEmployee(_address) {
+    function registerFamily(uint _empId, uint _count, address _address) internal isRegisteredEmployee(_address) {
         require(_count > 0, "Family members should be more than 0");
         require(!familyExists(_empId), "Family exists");
         familyCounter ++;
@@ -249,7 +249,7 @@ contract EmployeeBase is UserInvite {
 
     }
 
-    function registerFamilyMember(uint256 _empId,uint256 _familyId, address _address) public isRegisteredEmployee(msg.sender) {
+    function registerFamilyMember(uint _empId,uint _familyId, address _address) public isRegisteredEmployee(msg.sender) {
               memberCounter ++;
               Member memory _member = Member(memberCounter, _empId, _familyId, _address,0,0, true);
               familyMembers[_address] = _member;
@@ -262,7 +262,7 @@ contract EmployeeBase is UserInvite {
               emit memberRegistration(memberCounter, "success");
     }
   
-  function familyExists(uint256 _empId) private view returns(bool){
+  function familyExists(uint _empId) private view returns(bool){
       if (EmployeeFamily[_empId].active == true ) {
           return true;
       }
@@ -277,28 +277,28 @@ contract EmployeeBase is UserInvite {
 contract DoctorBase is UserInvite { 
 
     struct Doctor { 
-        uint256 id;
-        uint256 doctorid;
+        uint id;
+        uint doctorid;
         string specialty;
-        uint256 couponcoeficient;
+        uint couponcoeficient;
         bool active;
     }
     
-    uint256 internal doctorsCounter;
+    uint internal doctorsCounter;
     
     mapping (address => Doctor) internal doctors;
-    mapping (uint256 => address) internal doctorIndexToOwner;
-    mapping (uint256 => bytes32) internal doctorIndexToKeyHash;
+    mapping (uint => address) internal doctorIndexToOwner;
+    mapping (uint => bytes32) internal doctorIndexToKeyHash;
     uint[] internal registeredDoctors;
     
     //events 
-    event doctorregistration (uint256 id, string msg);
+    event doctorregistration (uint id, string msg);
     
     constructor() {
         doctorsCounter = 0;
     }
 
-    function isDoctor(uint256 _type) private pure returns (bool) {
+    function isDoctor(uint _type) private pure returns (bool) {
         if (_type ==2) {
             return true;
         }
@@ -308,7 +308,7 @@ contract DoctorBase is UserInvite {
     }
     
     //function can be called by User with an invitation on the system
-    function registerDoctor(uint256 _doctorid, string memory _speciality, uint256 _code, uint256 _usertype, uint256 _couponcoeficient) public isInvited(_code,_doctorid, _usertype) notOwner{
+    function registerDoctor(uint _doctorid, string memory _speciality, uint _code, uint _usertype, uint _couponcoeficient) public isInvited(_code,_doctorid, _usertype) notOwner{
         require(isDoctor(_usertype), "Not a Doctor type");
         doctorsCounter ++;
         bytes32 _keyhash = sha256(abi.encodePacked(doctorsCounter+_doctorid));
@@ -323,7 +323,7 @@ contract DoctorBase is UserInvite {
     function getDoctor(address _address) internal view returns (uint, uint, string memory, uint256, bool ){
         return( doctors[_address].doctorid, doctors[_address].id, doctors[_address].specialty ,doctors[_address].couponcoeficient,doctors[_address].active);
     }
-    function getDoctor(uint256 _id) internal view returns(bytes32 _keyhash) {
+    function getDoctor(uint _id) internal view returns(bytes32 _keyhash) {
         return doctorIndexToKeyHash[_id];
     }
 }
@@ -331,55 +331,55 @@ contract DoctorBase is UserInvite {
 contract Coupon is Owner {
     
   address owner;
-  uint256 value;
-  uint256 empCouponMax;
-  uint256 couponPayAmount;
-  uint256 couponCount; 
-  uint256 couponExchangedCount;
-  uint256 couponRedeemedCount;
-  uint256 couponPaidCount;
-  uint256 year;
+  uint value;
+  uint empCouponMax;
+  uint couponPayAmount;
+  uint couponCount; 
+  uint couponExchangedCount;
+  uint couponRedeemedCount;
+  uint couponPaidCount;
+  uint year;
   
   struct CouponPaper {
-    uint256 id;
+    uint id;
     address owner;
     address beneficiary;
     //add empID to track coupons for family members
-    uint256 value;
+    uint value;
     string status;
     bool valid;
     bool approved;
   } 
   
   event CouponPaperCreated(
-    uint256 id,
+    uint id,
     address owner,
     bool valid,
     string msg
   );
 
   event GlobalParametersSet(
-      uint256 value, 
-      uint256 maxcoupons, 
-      uint256 paidamount,
-      uint256 year,
+      uint value, 
+      uint maxcoupons, 
+      uint paidamount,
+      uint year,
       string msg
   );
   
   
-  mapping(uint256 => CouponPaper) internal coupons;
+  mapping(uint => CouponPaper) internal coupons;
   mapping(address => uint) internal ownershipToCouponCount;
   //Filled when new coupon is created
-  mapping(uint256 => address) internal couponIndexToOwner;
+  mapping(uint => address) internal couponIndexToOwner;
   //Filled when new coupon is exchanged
-  mapping(uint256 => address) internal couponIndexToOwnerExchanged;
+  mapping(uint => address) internal couponIndexToOwnerExchanged;
   //Filled when new coupon is redeemed
-  mapping(uint256 => address) internal couponIndexToOwnerRedeeemed;
+  mapping(uint => address) internal couponIndexToOwnerRedeeemed;
   //Track coupon status
-  mapping(uint256 => uint256) internal couponIndexToStatus;
+  mapping(uint => uint256) internal couponIndexToStatus;
   
   //Filled when a coupon is used in DoctorVisit
-  mapping(uint256 => bool) couponIndexToDoctorVisit;
+  mapping(uint => bool) couponIndexToDoctorVisit;
   
   //Stores the balances to be paid for the employee;
   mapping(address => uint) balances;
@@ -392,7 +392,7 @@ contract Coupon is Owner {
     couponPayAmount = 60000;
   }
   
-    function setGlobalParameters(uint256 _value, uint256 _maxcoupons, uint256 _paidamount,uint256 _year) public isOwner {
+    function setGlobalParameters(uint _value, uint _maxcoupons, uint _paidamount,uint _year) public isOwner {
         value = _value;
         empCouponMax = _maxcoupons;
         couponPayAmount = _paidamount;
@@ -401,7 +401,7 @@ contract Coupon is Owner {
     }
   
 
-    function issueCoupon(address _couponowner, address _couponbeneficiary ) internal returns(uint256 _couponId) {
+    function issueCoupon(address _couponowner, address _couponbeneficiary ) internal returns(uint _couponId) {
     couponCount ++;
     coupons[couponCount] = CouponPaper(couponCount,_couponowner, _couponbeneficiary, value, "created", true, false);
     ownershipToCouponCount[_couponowner] ++;
@@ -412,7 +412,7 @@ contract Coupon is Owner {
     
     }
     
-    function _transfer(address _from, address _to, uint256 _couponId) internal {
+    function _transfer(address _from, address _to, uint _couponId) internal {
         CouponPaper storage _coupon = coupons[_couponId];
         _coupon.owner = _to;
         ownershipToCouponCount[_to] ++;
@@ -420,43 +420,43 @@ contract Coupon is Owner {
         couponIndexToOwner[couponCount] = _to;
     }
 
-    function _owns(address _address, uint256 _couponId) internal view returns (bool) {
+    function _owns(address _address, uint _couponId) internal view returns (bool) {
         return(coupons[_couponId].owner == _address);
     }
     
-    function _usedInDoctorVisit(uint256 _couponId) internal view returns (bool) {
+    function _usedInDoctorVisit(uint _couponId) internal view returns (bool) {
         return (couponIndexToDoctorVisit[_couponId]);
     }
     
-    function _isBeneficiary(address _address, uint256 _couponId) internal view returns (bool) {
+    function _isBeneficiary(address _address, uint _couponId) internal view returns (bool) {
         return(coupons[_couponId].beneficiary == _address);
     }
     
     //coupon status is exchanged
-    function _readyToBeRedeemed(uint256 _couponId) internal view returns (bool) {
+    function _readyToBeRedeemed(uint _couponId) internal view returns (bool) {
        return((couponIndexToOwnerExchanged[_couponId] > address(0)) && (couponIndexToStatus[_couponId] == 2));
     }
     
   
-    function getCouponById(uint256 _couponId) public isOwner view returns(uint256 id, address, address, string memory status) { 
+    function getCouponById(uint _couponId) public isOwner view returns(uint id, address, address, string memory status) { 
     
         return (coupons[_couponId].id, coupons[_couponId].owner, coupons[_couponId].beneficiary, coupons[_couponId].status);
     }
     
-    function getCoupon(uint256 _couponId) internal isOwner view returns(CouponPaper storage){
+    function getCoupon(uint _couponId) internal isOwner view returns(CouponPaper storage){
         return coupons[_couponId];
     }
 
-    function couponBalanceOf(address _address) internal view returns (uint256 count) {
+    function couponBalanceOf(address _address) internal view returns (uint count) {
         return ownershipToCouponCount[_address];
     }
 
-    function totalCoupons() internal view returns (uint256 count) {
+    function totalCoupons() internal view returns (uint count) {
         return couponCount;
         
     }
 
-    function totalCouponsByStatus(uint256 _status) internal view returns (uint256 countExchanged) {
+    function totalCouponsByStatus(uint _status) internal view returns (uint countExchanged) {
         require(_status < 5 && _status >0, "Invalid status provided");
         //1 - created, 2- exchanged, 3-redeemed, 4-paid
         if (_status == 1) return couponCount;
@@ -465,18 +465,18 @@ contract Coupon is Owner {
         if (_status == 4) return couponPaidCount;
     }
 
-    function getCouponsByStatus(uint256 _status) external view returns (uint256[] memory statusCoupons) {
+    function getCouponsByStatus(uint _status) external view returns (uint256[] memory statusCoupons) {
         
-        uint256 count = totalCouponsByStatus(_status);
+        uint count = totalCouponsByStatus(_status);
         if (count == 0) {
             return new uint256[](0);
         }
         else {
             uint256[] memory result = new uint256[](count);
-            uint256 total = totalCoupons();
-            uint256 resultIndex = 0;
+            uint total = totalCoupons();
+            uint resultIndex = 0;
             //we count all coupons
-            uint256 couponId;
+            uint couponId;
 
             for (couponId = 1; couponId <= total; couponId++) {
                 if (couponIndexToStatus[couponId] == _status) {
@@ -492,16 +492,16 @@ contract Coupon is Owner {
 
     
     function getCouponsByOwner(address _owner) external view returns (uint256[] memory ownerCoupons) {
-        uint256 count = couponBalanceOf(_owner);
+        uint count = couponBalanceOf(_owner);
         if (count == 0) {
             return new uint[](0);
         }
         else {
             uint256[] memory result = new uint256[](count);
-            uint256 total = totalCoupons();
-            uint256 resultIndex = 0;
+            uint total = totalCoupons();
+            uint resultIndex = 0;
             //we count all coupons
-            uint256 couponId;
+            uint couponId;
 
             for (couponId = 1; couponId <= total; couponId++) {
                 if (couponIndexToOwner[couponId] == _owner) {
@@ -521,32 +521,32 @@ contract Coupon is Owner {
 }
 
 contract DoctorVisitBase {
-  uint256 public visitCount; 
+  uint public visitCount; 
 
   struct Visit {
-    uint256 id;
-    uint256 empId;
-    uint256 couponId;
-    uint256 doctorId;
+    uint id;
+    uint empId;
+    uint couponId;
+    uint doctorId;
   }
 
   event VisitCreated (
-    uint256 id,
-    uint256 empId,
-    uint256 couponId,
+    uint id,
+    uint empId,
+    uint couponId,
     string msg
   );
 
   //visits  mapping incremental
-  mapping(uint256 => Visit) public visits;
+  mapping(uint => Visit) public visits;
   //mapping visitDocumentIndex to Visit ID;
-  mapping (uint256 => uint) DoctorVisitIndexToDocumentId;
+  mapping (uint => uint) DoctorVisitIndexToDocumentId;
 
   constructor() {
     visitCount = 0;
   }
 
-  function createVisit(uint256 _empId, uint256 _couponId, uint256 _doctorId) internal returns(uint256 visitId) {
+  function createVisit(uint _empId, uint _couponId, uint _doctorId) internal returns(uint visitId) {
     visitCount ++;
     Visit memory _visit;
     _visit = Visit(visitCount, _empId, _couponId, _doctorId);
@@ -555,36 +555,36 @@ contract DoctorVisitBase {
     return visits[visitCount].id;
   }
   
-  function getDoctorVisit(uint256 _visitid) public view returns (uint256 visitid, uint256 empid, uint256 couponid, uint256 doctorid) {
+  function getDoctorVisit(uint _visitid) public view returns (uint visitid, uint empid, uint couponid, uint doctorid) {
       return (visits[_visitid].id,visits[_visitid].empId,visits[_visitid].couponId,visits[_visitid].doctorId);
   }
 
 }
 
 contract VisitDocumentBase is DoctorVisitBase { 
-  uint256 public VisitDocumentCount;
+  uint public VisitDocumentCount;
 
   struct VisitDoc { 
-    uint256 id; 
-    uint256 _doctorvisitId;
-    uint256 _empId;
+    uint id; 
+    uint _doctorvisitId;
+    uint _empId;
     bytes32 _docHash;
-    uint256 flag; //flag is one when created by the contract
+    uint flag; //flag is one when created by the contract
   }
 
   event VisitDocumentAddition (
-    uint256 documentID,
+    uint documentID,
     string msg
   );
-  mapping (uint256 => VisitDoc ) public VisitDocuments;
-  mapping (bytes32 => uint256 ) public VisitDocumentBasehash;
+  mapping (uint => VisitDoc ) public VisitDocuments;
+  mapping (bytes32 => uint ) public VisitDocumentBasehash;
   
 
   constructor() {
     VisitDocumentCount = 0;
   }
 
-  function addVisitDocument(uint256 _doctorvisitId, uint256 _empId,bytes32 _docHash) internal returns(uint256 documentId) {
+  function addVisitDocument(uint _doctorvisitId, uint _empId,bytes32 _docHash) internal returns(uint documentId) {
      require(!_documentExists(_docHash), "Document already exists"); //check if document hash already exists
         VisitDocumentCount ++;
         VisitDocuments[VisitDocumentCount] = VisitDoc(VisitDocumentCount, _doctorvisitId, _empId, _docHash, 1);
@@ -609,11 +609,11 @@ contract VisitDocumentBase is DoctorVisitBase {
 
 contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
     
-    event EmployeeCouponGeneration(uint256 initialCouponCount, string msg);
-    event MemberCouponGeneration(uint256 initialCouponCount, string msg);
-    event couponExchanged(uint256 _couponId, string msg);
-    event doctorVisited(uint256 visitid, uint256 documentid, string msg);
-    event couponRedeemed(uint256 couponId, string msg);
+    event EmployeeCouponGeneration(uint initialCouponCount, string msg);
+    event MemberCouponGeneration(uint initialCouponCount, string msg);
+    event couponExchanged(uint _couponId, string msg);
+    event doctorVisited(uint visitid, uint documentid, string msg);
+    event couponRedeemed(uint couponId, string msg);
 
     
     //get Employee info
@@ -624,7 +624,7 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
     function employeeIssueCoupons() public isRegisteredEmployee(msg.sender) {
         require((employees[msg.sender].initialCouponCount == 0), "Initial Coupons already issued");
         Employee storage _employee = getEmployee(msg.sender);
-            for (uint256 i =1; i <= empCouponMax; i++)
+            for (uint i =1; i <= empCouponMax; i++)
             {
             //Employee is the owner and beneficiary of his initial coupons
             EmployeeToCoupons[_employee.empid][year].push(issueCoupon(msg.sender,msg.sender));
@@ -643,7 +643,7 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
     function employeeIssueMembersCoupons(address _memberaddress) public isRegisteredEmployee(msg.sender) {
         require((familyMembers[_memberaddress].initialCouponCount == 0), "Initial Coupons already issued");
         Member storage _member = getMember(_memberaddress);
-            for (uint256 i =1; i <= empCouponMax; i++)
+            for (uint i =1; i <= empCouponMax; i++)
             {
             //Employee is the owner and beneficiary of his initial coupons
             MemberToCoupons[_member.id][year].push(issueCoupon(_memberaddress,msg.sender));
@@ -659,7 +659,7 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
 
     }
     
-     function exchangeCoupon(uint256 _couponId, address _owner) public isRegisteredEmployee(msg.sender) {
+     function exchangeCoupon(uint _couponId, address _owner) public isRegisteredEmployee(msg.sender) {
         require(_owns(_owner, _couponId), "Not the owner of the token");
          CouponPaper memory _coupon = coupons[_couponId]; 
          _coupon.status = "Exchanged";
@@ -672,7 +672,7 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
          couponIndexToOwner[_couponId];
     }
     
-    function redeemCoupon(uint256 _couponId, address _owner) public isRegisteredEmployee(msg.sender) {
+    function redeemCoupon(uint _couponId, address _owner) public isRegisteredEmployee(msg.sender) {
         require(_owns(_owner, _couponId), "Not the owner of the token");
         require(_readyToBeRedeemed(_couponId), "Coupon can not be redeemed");
          CouponPaper memory _coupon = coupons[_couponId]; 
@@ -687,15 +687,15 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
         emit couponRedeemed(_couponId, "success");
     }
     
-    function visitDoctor(uint256 empid, uint256 couponid, uint256 doctorid, string memory _md5, address _address) public isRegisteredEmployee(msg.sender){
+    function visitDoctor(uint empid, uint couponid, uint doctorid, string memory _md5, address _address) public isRegisteredEmployee(msg.sender){
             //employee should have a family relation with _address
             //visit doctor
-            uint256 _visitId = createVisit(empid, couponid, doctorid);
+            uint _visitId = createVisit(empid, couponid, doctorid);
             couponIndexToDoctorVisit[couponid] = true;
             empDoctorVisists[msg.sender].push(_visitId);
             //submit document
             bytes32 _docHash = sha256(bytes(_md5));
-            uint256 _documentId = addVisitDocument(doctorid, empid, _docHash);
+            uint _documentId = addVisitDocument(doctorid, empid, _docHash);
             // then exchange Coupon
             exchangeCoupon(couponid, _address);
             emit doctorVisited( _visitId, _documentId, "success");
@@ -703,13 +703,13 @@ contract EmployeeCore is Coupon,EmployeeBase,VisitDocumentBase {
 }
 
 contract HRManager is Coupon,EmployeeBase,DoctorBase {
-    mapping(uint256 => bool) public couponIndexApproved;
+    mapping(uint => bool) public couponIndexApproved;
 
-    event approveCoupon(uint256 couponid, string msg);
-    event paidCoupon(uint256 _couponId, string msg);
+    event approveCoupon(uint couponid, string msg);
+    event paidCoupon(uint _couponId, string msg);
    // event DoctorPricing(string msg);
 
-    function approveCouponRedemption(uint256 _couponId) public isOwner {
+    function approveCouponRedemption(uint _couponId) public isOwner {
         require(_readyToBeRedeemed(_couponId), "Coupon can not be redeemed");
         require(!couponIndexApproved[_couponId], "Coupon already approved");
         CouponPaper storage _coupon = coupons[_couponId]; 
@@ -718,7 +718,7 @@ contract HRManager is Coupon,EmployeeBase,DoctorBase {
          emit approveCoupon(_couponId, "success");
     }
     
-    function prepareCouponPayment(uint256 _couponId) public isOwner {
+    function prepareCouponPayment(uint _couponId) public isOwner {
         CouponPaper storage _coupon = coupons[_couponId]; 
         _coupon.valid = false;
         _coupon.status = "Paid";
@@ -727,7 +727,7 @@ contract HRManager is Coupon,EmployeeBase,DoctorBase {
         couponIndexToStatus[couponCount] = 4;
         couponRedeemedCount --;
         couponPaidCount ++;
-        uint256 _balance = balances[_coupon.owner];
+        uint _balance = balances[_coupon.owner];
         balances[_coupon.owner] = _balance + couponPayAmount;
 
         emit paidCoupon(_couponId, "success");

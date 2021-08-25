@@ -1,0 +1,328 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2481.28 1318.6" height="1319pt" width="3308">
+  <g transform="translate(4 1314.6)" class="graph">
+    <path d="M-4 4v-1318.6h2481.282V4H-4z" stroke="transparent" fill="#fff"></path>
+    <g class="node">
+      <path d="M1082.939-1118.1v-192h383.823v192H1082.94z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-1293.5" x="1274.85" text-anchor="middle">Owner</text>
+      <path d="M1082.939-1285.3h383.823" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-1268.7" x="1274.85" text-anchor="middle"> </text>
+      <path d="M1082.939-1260.5h383.823" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-1243.9" x="1090.939">External:</text>
+      <text font-size="16" font-family="Times,serif" y="-1227.1" x="1090.939">    getOwner(): address</text>
+      <text font-size="16" font-family="Times,serif" y="-1210.3" x="1090.939">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-1193.5" x="1090.939">    &lt;&lt;event&gt;&gt; OwnerSet(oldOwner: address, newOwner: address)</text>
+      <text font-size="16" font-family="Times,serif" y="-1176.7" x="1090.939">    &lt;&lt;modifier&gt;&gt; isOwner()</text>
+      <text font-size="16" font-family="Times,serif" y="-1159.9" x="1090.939">    &lt;&lt;modifier&gt;&gt; notOwner()</text>
+      <text font-size="16" font-family="Times,serif" y="-1143.1" x="1090.939">    constructor()</text>
+      <text font-size="16" font-family="Times,serif" y="-1126.3" x="1090.939">    changeOwner(newOwner: address)</text>
+    </g>
+    <g class="node">
+      <path d="M795.42-914.3v-158.4h378.86v158.4H795.42z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-1056.1" x="984.85" text-anchor="middle">UserInvite</text>
+      <path d="M795.42-1047.9h378.86" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-1031.3" x="984.85" text-anchor="middle"> </text>
+      <path d="M795.42-1023.1h378.86" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-1006.5" x="803.421">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-989.7" x="803.421">    &lt;&lt;event&gt;&gt; delinvitee(msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-972.9" x="803.421">    &lt;&lt;event&gt;&gt; InvitationAdded(msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-956.1" x="803.421">    &lt;&lt;modifier&gt;&gt; isInvited(_code: uint, _id: uint, _usertype: uint)</text>
+      <text font-size="16" font-family="Times,serif" y="-939.3" x="803.421">    addInvitation(_code: uint, _id: uint, _usertype: uint)</text>
+      <text font-size="16" font-family="Times,serif" y="-922.5" x="803.421">    getInvitations(): uint[]</text>
+    </g>
+    <g class="edge">
+      <path d="m1089.137-1072.83 35.06-26.67M1118.24-1108.161l30.235-9.806-17.52 26.52-12.714-16.714z" stroke="#000" fill="none"></path>
+    </g>
+    <g class="node">
+      <path d="M627.267-630.5v-83.2h87.167v83.2h-87.167z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-697.1" x="670.85" text-anchor="middle">&lt;&lt;struct&gt;&gt;</text>
+      <text font-size="16" font-family="Times,serif" y="-680.3" x="670.85" text-anchor="middle">Invitation</text>
+      <path d="M627.267-672.1h87.167" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-655.5" x="635.267">id: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-638.7" x="635.267">invtype: uint</text>
+    </g>
+    <g class="edge">
+      <path d="M672.1-713.712c3.375-43.43 14.742-111.274 51.75-155.688 17.067-20.482 38.294-37.808 61.218-52.406" stroke="#000" fill="none"></path>
+      <path d="m785.118-921.837 7.206.275 3.025-6.547-7.206-.274-3.025 6.547z" stroke="#000"></path>
+    </g>
+    <g class="node">
+      <path d="M732.673-492.1v-360h504.355v360H732.673z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-835.5" x="984.85" text-anchor="middle">EmployeeBase</text>
+      <path d="M732.673-827.3h504.355" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-810.7" x="740.673">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-793.9" x="740.673">   employeesCounter: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-777.1" x="740.673">   familyCounter: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-760.3" x="740.673">   memberCounter: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-743.5" x="740.673">   EmployeeFamily: mapping(uint=&gt;Family)</text>
+      <text font-size="16" font-family="Times,serif" y="-726.7" x="740.673">   EmployeeToFamilyMembers: mapping(uint=&gt;mapping(uint=&gt;Member))</text>
+      <text font-size="16" font-family="Times,serif" y="-709.9" x="740.673">   EmployeeFamilyMembers: mapping(uint=&gt;Member[])</text>
+      <text font-size="16" font-family="Times,serif" y="-693.1" x="740.673">   memberAddressToEmployeeId: mapping(address=&gt;uint)</text>
+      <text font-size="16" font-family="Times,serif" y="-676.3" x="740.673">   registeredEmployees: uint[]</text>
+      <text font-size="16" font-family="Times,serif" y="-659.5" x="740.673">   empDoctorVisists: mapping(address=&gt;uint[])</text>
+      <path d="M732.673-651.3h504.355" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-634.7" x="740.673">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-617.9" x="740.673">    &lt;&lt;event&gt;&gt; empRegistration(employeesCounter: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-601.1" x="740.673">    &lt;&lt;event&gt;&gt; empFamilyRegistration(familyCounter: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-584.3" x="740.673">    &lt;&lt;event&gt;&gt; memberRegistration(memberCounter: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-567.5" x="740.673">    &lt;&lt;modifier&gt;&gt; isRegisteredEmployee(_address: address)</text>
+      <text font-size="16" font-family="Times,serif" y="-550.7" x="740.673">    &lt;&lt;modifier&gt;&gt; isNotRegistered(_address: address)</text>
+      <text font-size="16" font-family="Times,serif" y="-533.9" x="740.673">    constructor()</text>
+      <text font-size="16" font-family="Times,serif" y="-517.1" x="740.673">    registerEmployee(_empid: uint, _maxfamilycount: uint, _code: uint, _usertype: uint)</text>
+      <text font-size="16" font-family="Times,serif" y="-500.3" x="740.673">    registerFamilyMember(_empId: uint, _familyId: uint, _address: address)</text>
+    </g>
+    <g class="edge">
+      <path d="M984.85-852.53v-31.159M974.35-883.927l10.5-30 10.5 30h-21z" stroke="#000" fill="none"></path>
+    </g>
+    <g class="node">
+      <path d="M637.649-225.1v-150.4h156.403v150.4H637.649z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-358.9" x="715.85" text-anchor="middle">&lt;&lt;struct&gt;&gt;</text>
+      <text font-size="16" font-family="Times,serif" y="-342.1" x="715.85" text-anchor="middle">Employee</text>
+      <path d="M637.649-333.9h156.403" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-317.3" x="645.649">id: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-300.5" x="645.649">empid: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-283.7" x="645.649">maxfamilycount: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-266.9" x="645.649">initialCouponCount: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-250.1" x="645.649">extraCouponCount: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-233.3" x="645.649">active: bool</text>
+    </g>
+    <g class="edge">
+      <path d="M761.214-375.602c13.026-20.757 27.532-43.09 41.636-63.198 9.947-14.18 20.431-28.673 31.138-43.15" stroke="#000" fill="none"></path>
+      <path d="m834.274-482.334 6.79-2.43.369-7.201-6.79 2.43-.37 7.201z" stroke="#000"></path>
+    </g>
+    <g class="node">
+      <path d="M1175.117-233.5v-133.6h131.467v133.6h-131.467z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-350.5" x="1240.85" text-anchor="middle">&lt;&lt;struct&gt;&gt;</text>
+      <text font-size="16" font-family="Times,serif" y="-333.7" x="1240.85" text-anchor="middle">Family</text>
+      <path d="M1175.117-325.5h131.467" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-308.9" x="1183.117">id: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-292.1" x="1183.117">empId: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-275.3" x="1183.117">count: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-258.5" x="1183.117">active: bool</text>
+      <text font-size="16" font-family="Times,serif" y="-241.7" x="1183.117">activeMembers: uint</text>
+    </g>
+    <g class="edge">
+      <path d="M1208.094-367.152c-12.13-23.183-26.53-49.022-41.244-71.648-9.272-14.258-19.19-28.731-29.433-43.124" stroke="#000" fill="none"></path>
+      <path d="m1137.275-482.123-.248-7.207-6.748-2.542.248 7.207 6.748 2.542z" stroke="#000"></path>
+    </g>
+    <g class="node">
+      <path d="M463.649-216.7v-167.2h156.403v167.2H463.649z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-367.3" x="541.85" text-anchor="middle">&lt;&lt;struct&gt;&gt;</text>
+      <text font-size="16" font-family="Times,serif" y="-350.5" x="541.85" text-anchor="middle">Member</text>
+      <path d="M463.649-342.3h156.403" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-325.7" x="471.649">id: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-308.9" x="471.649">empId: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-292.1" x="471.649">familyId: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-275.3" x="471.649">owner: address</text>
+      <text font-size="16" font-family="Times,serif" y="-258.5" x="471.649">initialCouponCount: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-241.7" x="471.649">extraCouponCount: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-224.9" x="471.649">active: bool</text>
+    </g>
+    <g class="edge">
+      <path d="M582.361-384.108c12.698-19.954 28.254-39.761 46.49-54.692 34.935-28.604 55.478-14.165 95-36a739.72 739.72 0 0 0 18.901-10.82" stroke="#000" fill="none"></path>
+      <path d="m743.078-485.815 7.203.333 3.078-6.521-7.203-.333-3.078 6.52z" stroke="#000"></path>
+    </g>
+    <g class="node">
+      <path d="M0-609.7v-124.8h609.7v124.8H0z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-717.9" x="304.85" text-anchor="middle">DoctorBase</text>
+      <path d="M0-709.7h609.7" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-693.1" x="304.85" text-anchor="middle"> </text>
+      <path d="M0-684.9h609.7" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-668.3" x="8">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-651.5" x="8">    &lt;&lt;event&gt;&gt; doctorregistration(id: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-634.7" x="8">    constructor()</text>
+      <text font-size="16" font-family="Times,serif" y="-617.9" x="8">    registerDoctor(_doctorid: uint, _speciality: string, _code: uint, _usertype: uint, _couponcoeficient: uint)</text>
+    </g>
+    <g class="edge">
+      <path d="M391.7-734.701c61.103-42.047 145.965-96.532 226.15-134.699 46.942-22.344 98.995-42.509 148.793-59.773M763.457-939.18l31.783.317-25.044 19.572-6.74-19.889z" stroke="#000" fill="none"></path>
+    </g>
+    <g class="node">
+      <path d="M234.062-233.5v-133.6h141.577v133.6H234.062z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-350.5" x="304.85" text-anchor="middle">&lt;&lt;struct&gt;&gt;</text>
+      <text font-size="16" font-family="Times,serif" y="-333.7" x="304.85" text-anchor="middle">Doctor</text>
+      <path d="M234.062-325.5h141.577" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-308.9" x="242.062">id: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-292.1" x="242.062">doctorid: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-275.3" x="242.062">specialty: string</text>
+      <text font-size="16" font-family="Times,serif" y="-258.5" x="242.062">couponcoeficient: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-241.7" x="242.062">active: bool</text>
+    </g>
+    <g class="edge">
+      <path d="M304.85-367.2v-230.055" stroke="#000" fill="none"></path>
+      <path d="m304.85-597.452 4-6-4-6-4 6 4 6z" stroke="#000"></path>
+    </g>
+    <g class="node">
+      <path d="M1255.114-475.3v-393.6h621.472v393.6h-621.472z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-852.3" x="1565.85" text-anchor="middle">Coupon</text>
+      <path d="M1255.114-844.1h621.472" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-827.5" x="1263.114">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-810.7" x="1263.114">   owner: address</text>
+      <text font-size="16" font-family="Times,serif" y="-793.9" x="1263.114">   value: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-777.1" x="1263.114">   empCouponMax: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-760.3" x="1263.114">   couponPayAmount: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-743.5" x="1263.114">   couponCount: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-726.7" x="1263.114">   couponExchangedCount: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-709.9" x="1263.114">   couponRedeemedCount: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-693.1" x="1263.114">   couponPaidCount: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-676.3" x="1263.114">   year: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-659.5" x="1263.114">   couponIndexToDoctorVisit: mapping(uint=&gt;bool)</text>
+      <text font-size="16" font-family="Times,serif" y="-642.7" x="1263.114">   balances: mapping(address=&gt;uint)</text>
+      <path d="M1255.114-634.5h621.472" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-617.9" x="1263.114">External:</text>
+      <text font-size="16" font-family="Times,serif" y="-601.1" x="1263.114">    getCouponsByStatus(_status: uint): (statusCoupons: uint256[])</text>
+      <text font-size="16" font-family="Times,serif" y="-584.3" x="1263.114">    getCouponsByOwner(_owner: address): (ownerCoupons: uint256[])</text>
+      <text font-size="16" font-family="Times,serif" y="-567.5" x="1263.114">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-550.7" x="1263.114">    &lt;&lt;event&gt;&gt; CouponPaperCreated(id: uint, owner: address, valid: bool, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-533.9" x="1263.114">    &lt;&lt;event&gt;&gt; GlobalParametersSet(value: uint, maxcoupons: uint, paidamount: uint, year: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-517.1" x="1263.114">    constructor()</text>
+      <text font-size="16" font-family="Times,serif" y="-500.3" x="1263.114">    setGlobalParameters(_value: uint, _maxcoupons: uint, _paidamount: uint, _year: uint)</text>
+      <text font-size="16" font-family="Times,serif" y="-483.5" x="1263.114">    getCouponById(_couponId: uint): (id: uint, address, address, status: string)</text>
+    </g>
+    <g class="edge">
+      <path d="m1460.175-868.924-119.426-222.437M1331.42-1086.54l-4.94-31.398 23.442 21.465-18.502 9.933z" stroke="#000" fill="none"></path>
+    </g>
+    <g class="node">
+      <path d="M1324.685-216.7v-167.2h128.33v167.2h-128.33z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-367.3" x="1388.85" text-anchor="middle">&lt;&lt;struct&gt;&gt;</text>
+      <text font-size="16" font-family="Times,serif" y="-350.5" x="1388.85" text-anchor="middle">CouponPaper</text>
+      <path d="M1324.685-342.3h128.33" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-325.7" x="1332.685">id: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-308.9" x="1332.685">owner: address</text>
+      <text font-size="16" font-family="Times,serif" y="-292.1" x="1332.685">beneficiary: address</text>
+      <text font-size="16" font-family="Times,serif" y="-275.3" x="1332.685">value: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-258.5" x="1332.685">status: string</text>
+      <text font-size="16" font-family="Times,serif" y="-241.7" x="1332.685">valid: bool</text>
+      <text font-size="16" font-family="Times,serif" y="-224.9" x="1332.685">approved: bool</text>
+    </g>
+    <g class="edge">
+      <path d="m1428.793-384.203 38.093-80.016" stroke="#000" fill="none"></path>
+      <path d="m1466.895-464.238 6.19-3.698-1.032-7.136-6.19 3.698 1.032 7.137z" stroke="#000"></path>
+    </g>
+    <g class="node">
+      <path d="M1956.418-905.9v-175.2h516.864v175.2h-516.864z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-1064.5" x="2214.85" text-anchor="middle">DoctorVisitBase</text>
+      <path d="M1956.418-1056.3h516.864" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-1039.7" x="1964.418">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-1022.9" x="1964.418">   visitCount: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-1006.1" x="1964.418">   visits: mapping(uint=&gt;Visit)</text>
+      <text font-size="16" font-family="Times,serif" y="-989.3" x="1964.418">   DoctorVisitIndexToDocumentId: mapping(uint=&gt;uint)</text>
+      <path d="M1956.418-981.1h516.864" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-964.5" x="1964.418">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-947.7" x="1964.418">    &lt;&lt;event&gt;&gt; VisitCreated(id: uint, empId: uint, couponId: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-930.9" x="1964.418">    constructor()</text>
+      <text font-size="16" font-family="Times,serif" y="-914.1" x="1964.418">    getDoctorVisit(_visitid: uint): (visitid: uint, empid: uint, couponid: uint, doctorid: uint)</text>
+    </g>
+    <g class="node">
+      <path d="M1894.827-613.7v-116.8h98.047v116.8h-98.047z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-713.9" x="1943.85" text-anchor="middle">&lt;&lt;struct&gt;&gt;</text>
+      <text font-size="16" font-family="Times,serif" y="-697.1" x="1943.85" text-anchor="middle">Visit</text>
+      <path d="M1894.827-688.9h98.047" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-672.3" x="1902.827">id: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-655.5" x="1902.827">empId: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-638.7" x="1902.827">couponId: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-621.9" x="1902.827">doctorId: uint</text>
+    </g>
+    <g class="edge">
+      <path d="M1949.51-730.888c6.648-42.264 21.073-98.604 52.34-138.512 7.932-10.124 16.937-19.581 26.653-28.389" stroke="#000" fill="none"></path>
+      <path d="m2028.552-897.83 7.153-.911 1.911-6.954-7.153.91-1.911 6.954z" stroke="#000"></path>
+    </g>
+    <g class="node">
+      <path d="M2010.45-584.5v-175.2h408.8v175.2h-408.8z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-743.1" x="2214.85" text-anchor="middle">VisitDocumentBase</text>
+      <path d="M2010.45-734.9h408.8" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-718.3" x="2018.451">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-701.5" x="2018.451">   VisitDocumentCount: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-684.7" x="2018.451">   VisitDocuments: mapping(uint=&gt;VisitDoc)</text>
+      <text font-size="16" font-family="Times,serif" y="-667.9" x="2018.451">   VisitDocumentBasehash: mapping(bytes32=&gt;uint)</text>
+      <path d="M2010.45-659.7h408.8" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-643.1" x="2018.451">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-626.3" x="2018.451">    &lt;&lt;event&gt;&gt; VisitDocumentAddition(documentID: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-609.5" x="2018.451">    constructor()</text>
+      <text font-size="16" font-family="Times,serif" y="-592.7" x="2018.451">    _documentExists(_docHash: bytes32): bool</text>
+    </g>
+    <g class="edge">
+      <path d="M2214.85-759.924V-875.68M2204.35-875.782l10.5-30 10.5 30h-21z" stroke="#000" fill="none"></path>
+    </g>
+    <g class="node">
+      <path d="M2152.993-233.5v-133.6h123.715v133.6h-123.715z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-350.5" x="2214.85" text-anchor="middle">&lt;&lt;struct&gt;&gt;</text>
+      <text font-size="16" font-family="Times,serif" y="-333.7" x="2214.85" text-anchor="middle">VisitDoc</text>
+      <path d="M2152.993-325.5h123.715" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-308.9" x="2160.993">id: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-292.1" x="2160.993">_doctorvisitId: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-275.3" x="2160.993">_empId: uint</text>
+      <text font-size="16" font-family="Times,serif" y="-258.5" x="2160.993">_docHash: bytes32</text>
+      <text font-size="16" font-family="Times,serif" y="-241.7" x="2160.993">flag: uint</text>
+    </g>
+    <g class="edge">
+      <path d="M2214.85-367.2v-204.86" stroke="#000" fill="none"></path>
+      <path d="m2214.85-572.382 4-6-4-6-4 6 4 6z" stroke="#000"></path>
+    </g>
+    <g class="node">
+      <path d="M1471.3-162.3v-276h521.1v276h-521.1z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-421.7" x="1731.85" text-anchor="middle">EmployeeCore</text>
+      <path d="M1471.3-413.5h521.1" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-396.9" x="1731.85" text-anchor="middle"> </text>
+      <path d="M1471.3-388.7h521.1" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-372.1" x="1479.301">External:</text>
+      <text font-size="16" font-family="Times,serif" y="-355.3" x="1479.301">    getEmployeeInfo(_employee: address): Employee</text>
+      <text font-size="16" font-family="Times,serif" y="-338.5" x="1479.301">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-321.7" x="1479.301">    &lt;&lt;event&gt;&gt; EmployeeCouponGeneration(initialCouponCount: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-304.9" x="1479.301">    &lt;&lt;event&gt;&gt; MemberCouponGeneration(initialCouponCount: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-288.1" x="1479.301">    &lt;&lt;event&gt;&gt; couponExchanged(_couponId: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-271.3" x="1479.301">    &lt;&lt;event&gt;&gt; doctorVisited(visitid: uint, documentid: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-254.5" x="1479.301">    &lt;&lt;event&gt;&gt; couponRedeemed(couponId: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-237.7" x="1479.301">    employeeIssueCoupons()</text>
+      <text font-size="16" font-family="Times,serif" y="-220.9" x="1479.301">    employeeIssueMembersCoupons(_memberaddress: address)</text>
+      <text font-size="16" font-family="Times,serif" y="-204.1" x="1479.301">    exchangeCoupon(_couponId: uint, _owner: address)</text>
+      <text font-size="16" font-family="Times,serif" y="-187.3" x="1479.301">    redeemCoupon(_couponId: uint, _owner: address)</text>
+      <text font-size="16" font-family="Times,serif" y="-170.5" x="1479.301">    visitDoctor(empid: uint, couponid: uint, doctorid: uint, _md5: string, _address: address)</text>
+    </g>
+    <g class="edge">
+      <path d="M1471.25-435.603a608.602 608.602 0 0 0-9.4-3.197c-92.397-30.574-126.595 2.457-216-36a419.559 419.559 0 0 1-8.337-3.695M1232.675-469.174l-22.206-22.74 31.54 3.928-9.334 18.812z" stroke="#000" fill="none"></path>
+    </g>
+    <g class="edge">
+      <path d="m1670.156-438.48-4.034-9.036M1656.47-443.38l-2.644-31.675 21.819 23.113-19.176 8.562z" stroke="#000" fill="none"></path>
+    </g>
+    <g class="edge">
+      <path d="M1952.534-438.36c16.938-11.974 33.56-24.2 49.316-36.44 34.923-27.13 70.926-58.836 103.166-88.797M2098.175-571.577l29.04-12.919-14.646 28.21-14.394-15.291z" stroke="#000" fill="none"></path>
+    </g>
+    <g class="node">
+      <path d="M812.333-221.1v-158.4h345.035v158.4H812.333z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-362.9" x="984.85" text-anchor="middle">HRManager</text>
+      <path d="M812.333-354.7h345.035" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-338.1" x="820.333">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-321.3" x="820.333">   couponIndexApproved: mapping(uint=&gt;bool)</text>
+      <path d="M812.333-313.1h345.035" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-296.5" x="820.333">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-279.7" x="820.333">    &lt;&lt;event&gt;&gt; approveCoupon(couponid: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-262.9" x="820.333">    &lt;&lt;event&gt;&gt; paidCoupon(_couponId: uint, msg: string)</text>
+      <text font-size="16" font-family="Times,serif" y="-246.1" x="820.333">    approveCouponRedemption(_couponId: uint)</text>
+      <text font-size="16" font-family="Times,serif" y="-229.3" x="820.333">    prepareCouponPayment(_couponId: uint)</text>
+    </g>
+    <g class="edge">
+      <path d="M984.85-379.604v-82.367M974.35-462.008l10.5-30 10.5 30h-21z" stroke="#000" fill="none"></path>
+    </g>
+    <g class="edge">
+      <path d="M897.514-379.6c-28.448-22.17-61.33-44.26-94.664-59.2-76.438-34.259-107.127-5.139-185-36-73.866-29.274-149.426-76.321-207.797-117.132M403.66-583.595l-18.33-25.967 30.522 8.869-12.193 17.098z" stroke="#000" fill="none"></path>
+    </g>
+    <g class="edge">
+      <path d="M1080.108-379.703c26.855-20.557 56.691-41.762 85.742-59.097 25.243-15.063 38.317-17.491 61.887-27.688M1223.383-476.046l31.578-3.62-22.428 22.522-9.15-18.902z" stroke="#000" fill="none"></path>
+    </g>
+    <g class="node">
+      <path d="M1266.27-.5v-124.8h183.161V-.5H1266.27z" stroke="#000" fill="#f2f2f2"></path>
+      <text font-size="16" font-family="Times,serif" y="-108.7" x="1357.85" text-anchor="middle">MyNet</text>
+      <path d="M1266.27-100.5h183.161" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-83.9" x="1274.27">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-67.1" x="1274.27">   name: string</text>
+      <path d="M1266.27-58.9h183.161" stroke="#000" fill="none"></path>
+      <text font-size="16" font-family="Times,serif" y="-42.3" x="1274.27">Public:</text>
+      <text font-size="16" font-family="Times,serif" y="-25.5" x="1274.27">    constructor()</text>
+      <text font-size="16" font-family="Times,serif" y="-8.7" x="1274.27">    getName(): (_name: string)</text>
+    </g>
+    <g class="edge">
+      <path d="m1449.82-121.279 39.237-24.906M1483.446-155.06l30.955-7.212-19.7 24.942-11.255-17.73z" stroke="#000" fill="none"></path>
+    </g>
+    <g class="edge">
+      <path d="M1266.145-105.973c-32.387-16.292-68.614-35.77-100.295-55.827-19.745-12.5-40.014-26.606-59.513-40.909M1099.864-194.438l-17.718-26.389 30.307 9.58-12.589 16.809z" stroke="#000" fill="none"></path>
+    </g>
+  </g>
+</svg>

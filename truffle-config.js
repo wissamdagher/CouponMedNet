@@ -34,7 +34,8 @@ module.exports = {
       optimizer: {
         enabled: true,
         runs: 200
-      }
+      },
+      evmVersion: "byzantium"
     }
   },
   plugins: ['oneclick']
